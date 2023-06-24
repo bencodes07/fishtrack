@@ -51,15 +51,12 @@ const Home = () => {
   return (
     <>
       <nav>
-        <p>Welcome Home</p>
+        <p>Welcome Home <strong>{user.displayName}</strong></p>
 
         <div>
           <button onClick={handleLogout}>Logout</button>
         </div>
       </nav>
-
-      <h4>Your Collections</h4>
-      <div></div>
 
       <h2>Upload Image</h2>
       <form onSubmit={(e) => handleUpload(e)}>
@@ -75,7 +72,7 @@ const Home = () => {
         <button type="submit">Upload</button>
       </form>
 
-      <h2>Your gallery</h2>
+      <h2>Your Collections</h2>
       <div>
         <Gallery />
       </div>

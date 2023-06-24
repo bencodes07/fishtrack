@@ -34,6 +34,7 @@ function Gallery() {
   }
   return (
     <>
+      {/* 
       <div>
         {filteredImages.map((image, index) => (
           <div key={index}>
@@ -42,9 +43,12 @@ function Gallery() {
           </div>
         ))}
       </div>
+      */}
       <div className="flex" style={{display: "flex"}}>
         {collections.map((item, index) => (
-          <p key={index}>{item}</p>
+          <div key={index} style={{marginRight: "20px"}}>
+            <a href={"/collection/" + item}>{item}</a>
+          </div>
         ))}
       </div>
     </>
