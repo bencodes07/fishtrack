@@ -3,6 +3,7 @@ import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
 import Gallery from "./Gallery";
 import { UserAuth } from "../contexts/AuthContextProvider";
 import { useRef } from "react";
+import { v4 as uuidv4 } from 'uuid';
 
 const Home = () => {
   const { user } = UserAuth();
@@ -25,7 +26,7 @@ const Home = () => {
       for (let i = 0; i < files.length; i++) {
         const storageRef = ref(
           storage,
-          `images/${files[i].name}_${user.uid}collection=${collectionNameInput.current.value}`
+          `images/${files[i].name}_${user.uid}_${uuidv4()}collection=${collectionNameInput.current.value}`
         );
         const uploadTask = uploadBytesResumable(storageRef, files[i]);
 

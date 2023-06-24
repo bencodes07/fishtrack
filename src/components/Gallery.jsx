@@ -5,6 +5,7 @@ import { onAuthStateChanged } from "firebase/auth";
 
 function Gallery() {
   const [filteredImages, setFilteredImages] = useState([]);
+  const [collections, setCollections] = useState([]);
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -12,19 +13,41 @@ function Gallery() {
       const fetchImages = async () => {
         const images = await getImg(user.uid);
         setFilteredImages(images);
+        images.map((elem) => {
+          collections.push(elem[1]);
+        })
+        removeDupes(collections)
       };
       fetchImages();
     });
   }, []);
+  function removeDupes(arr) {
+    var obj = {};
+    var ret_arr = [];
+    for (let i = 0; i < arr.length; i++) {
+        obj[arr[i]] = true;
+    }
+    for (var key in obj) {
+        ret_arr.push(key);
+    }
+    setCollections(ret_arr)
+  }
   return (
-    <div>
-      {filteredImages.map((image, index) => (
-        <div>
-          <img key={index} width={100} src={image} alt={`Image ${index}`} />
-          <p>{image[1]}</p>
-        </div>
-      ))}
-    </div>
+    <>
+      <div>
+        {filteredImages.map((image, index) => (
+          <div key={index}>
+            <img width={100} loading="lazy" src={image} alt={`Image ${index}`} />
+            <p>{image[1]}</p>
+          </div>
+        ))}
+      </div>
+      <div className="flex" style={{display: "flex"}}>
+        {collections.map((item, index) => (
+          <p key={index}>{item}</p>
+        ))}
+      </div>
+    </>
   );
 }
 
