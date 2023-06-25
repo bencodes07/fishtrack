@@ -8,6 +8,8 @@ import { onAuthStateChanged } from "firebase/auth";
 function Collection() {
   const { name } = useParams();
   const [filteredImages, setFilteredImages] = useState([]);
+  const regex = /(\d{2})-(\d{2})-(\d{4})/;
+  let match;
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (!user) return;
@@ -17,14 +19,17 @@ function Collection() {
       };
       fetchImages();
     });
+
   }, []);
   return (
     <>
-      <div>Collection</div>
-      <div>{name}</div>
+      <div>Collection <strong>{name}</strong></div>
       {filteredImages.map((image, index) => (
         <div key={index}>
           <img width={100} loading="lazy" src={image} alt={`Image ${index}`} />
+          
+          <p>{image.toString().match(regex)[0]}</p>
+          
         </div>
       ))}
     </>

@@ -24,9 +24,15 @@ const Home = () => {
     const files = uploadRef.current.files;
     if (user != null) {
       for (let i = 0; i < files.length; i++) {
+        const date = new Date(); // Create a new Date object with the current date
+
+        const day = String(date.getDate()).padStart(2, '0'); // Get the day of the month and pad with leading zero if needed
+        const month = String(date.getMonth() + 1).padStart(2, '0'); // Get the month (months are zero-based) and pad with leading zero if needed
+        const year = String(date.getFullYear()); // Get the full year
+
         const storageRef = ref(
           storage,
-          `images/${files[i].name}_${user.uid}_${uuidv4()}collection=${collectionNameInput.current.value}`
+          `images/${files[i].name}_${user.uid}_${uuidv4()}_${day}-${month}-${year}_collection=${collectionNameInput.current.value}`
         );
         const uploadTask = uploadBytesResumable(storageRef, files[i]);
 
@@ -48,36 +54,44 @@ const Home = () => {
     }
   };
 
-  return (
-    <>
-      <nav>
-        <p>Welcome Home <strong>{user.displayName}</strong></p>
+  if(user) {
+    return (
+      <>
+        <nav>
+          <p>Welcome Home <strong>{user.displayName}</strong></p>
 
+          <div>
+            <button onClick={handleLogout}>Logout</button>
+          </div>
+        </nav>
+
+        <h2>Upload Image</h2>
+        <form onSubmit={(e) => handleUpload(e)}>
+          <input ref={uploadRef} type="file" />
+          <input
+            ref={collectionNameInput}
+            type="text"
+            name="collectionInput"
+            id="collectionInput"
+            required
+          />
+
+          <button type="submit">Upload</button>
+        </form>
+
+        <h2>Your Collections</h2>
         <div>
-          <button onClick={handleLogout}>Logout</button>
+          <Gallery />
         </div>
-      </nav>
+      </>
+    );
 
-      <h2>Upload Image</h2>
-      <form onSubmit={(e) => handleUpload(e)}>
-        <input ref={uploadRef} type="file" />
-        <input
-          ref={collectionNameInput}
-          type="text"
-          name="collectionInput"
-          id="collectionInput"
-          required
-        />
+  } else {
+    return (
+      <div>Hello World</div>
+    )
+  }
 
-        <button type="submit">Upload</button>
-      </form>
-
-      <h2>Your Collections</h2>
-      <div>
-        <Gallery />
-      </div>
-    </>
-  );
 };
 
 export default Home;

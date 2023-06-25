@@ -43,7 +43,7 @@ export async function getImgWithCollection(specificString, collection) {
 
     // Filter the image files based on the specific string
     const filteredImages = imageList.items.filter((item) => 
-      item.name.includes(specificString) && item.name.includes(collection)
+      item.name.includes(specificString) && item.name.split("collection=")[1] == collection
     );
 
     // Get the download URLs for the filtered images
