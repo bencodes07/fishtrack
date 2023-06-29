@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import url("https://fonts.googleapis.com/css2?family=Chivo+Mono:wght@500&display=swap");
+@font-face {
+  font-family: "Passion One";
+  src: local("Passion One"),
+    url("./assets/PassionOne.ttf") format("cursive");
+}
+@font-face {
+  font-family: "Inter";
+  src: local("Inter"), url("./assets/Inter.ttf");
+}
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Inter", "sans-serif";
+}

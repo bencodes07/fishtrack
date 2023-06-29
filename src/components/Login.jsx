@@ -1,17 +1,20 @@
 import { useState } from "react";
 import { UserAuth } from "../contexts/AuthContextProvider";
 import { GoogleButton } from "react-google-button";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { signIn, googleSignIn } = UserAuth();
+  const navigate = useNavigate();
 
   const onSubmit = async (e) => {
     e.preventDefault();
 
     try {
       await signIn(email, password);
+      navigate("/");
     } catch (error) {
       console.log(error);
     }
@@ -20,6 +23,7 @@ function Login() {
   const handleGoogleSignIn = async () => {
     try {
       await googleSignIn();
+      navigate("/");
     } catch (error) {
       console.log(error);
     }

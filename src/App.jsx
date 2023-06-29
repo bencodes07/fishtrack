@@ -11,14 +11,12 @@ function App() {
     <div className="App">
       <AuthContextProvider>
         <BrowserRouter>
-          <div className="container">
-            <Routes>
-              <Route path="/" element={<Home />}></Route>
-              <Route path="/collection/:name" element={<Collection />}></Route>
-              <Route path="/login" element={<Login />}></Route>
-              <Route path="/signup" element={<Signup />}></Route>
-            </Routes>
-          </div>
+          <Routes>
+            <Route path="/" element={<Home />}></Route>
+            <Route path="/collection/:name" element={<Collection />}></Route>
+            <Route path="/login" element={<Login />}></Route>
+            <Route path="/signup" element={<Signup />}></Route>
+          </Routes>
         </BrowserRouter>
       </AuthContextProvider>
     </div>

@@ -1,15 +1,17 @@
 import { storage, auth } from "../firebase/config";
 import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
 import Gallery from "./Gallery";
+import HomeOut from "./loggedOut/HomeOut.jsx";
 import { UserAuth } from "../contexts/AuthContextProvider";
 import { useRef } from "react";
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from "uuid";
 
 const Home = () => {
   const { user } = UserAuth();
   const { logOut } = UserAuth();
   const uploadRef = useRef();
   const collectionNameInput = useRef();
+  const dateInput = useRef();
 
   const handleLogout = async () => {
     try {
@@ -24,15 +26,20 @@ const Home = () => {
     const files = uploadRef.current.files;
     if (user != null) {
       for (let i = 0; i < files.length; i++) {
-        const date = new Date(); // Create a new Date object with the current date
+        const date = dateInput.current.value;
+        const dateArray = date.split("-");
 
-        const day = String(date.getDate()).padStart(2, '0'); // Get the day of the month and pad with leading zero if needed
-        const month = String(date.getMonth() + 1).padStart(2, '0'); // Get the month (months are zero-based) and pad with leading zero if needed
-        const year = String(date.getFullYear()); // Get the full year
+        const year = dateArray[0];
+        const month = dateArray[1];
+        const day = dateArray[2];
 
         const storageRef = ref(
           storage,
-          `images/${files[i].name}_${user.uid}_${uuidv4()}_${day}-${month}-${year}_collection=${collectionNameInput.current.value}`
+          `images/${files[i].name}_${
+            user.uid
+          }_${uuidv4()}_${day}-${month}-${year}_collection=${
+            collectionNameInput.current.value
+          }`
         );
         const uploadTask = uploadBytesResumable(storageRef, files[i]);
 
@@ -54,11 +61,13 @@ const Home = () => {
     }
   };
 
-  if(user) {
+  if (user) {
     return (
       <>
         <nav>
-          <p>Welcome Home <strong>{user.displayName}</strong></p>
+          <p>
+            Welcome Home <strong>{user.displayName}</strong>
+          </p>
 
           <div>
             <button onClick={handleLogout}>Logout</button>
@@ -67,7 +76,8 @@ const Home = () => {
 
         <h2>Upload Image</h2>
         <form onSubmit={(e) => handleUpload(e)}>
-          <input ref={uploadRef} type="file" />
+          <input ref={uploadRef} type="file" required />
+          <input ref={dateInput} required type="date" />
           <input
             ref={collectionNameInput}
             type="text"
@@ -85,13 +95,9 @@ const Home = () => {
         </div>
       </>
     );
-
   } else {
-    return (
-      <div>Hello World</div>
-    )
+    return <HomeOut />;
   }
-
 };
 
 export default Home;
