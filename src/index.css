@@ -4,8 +4,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Chivo+Mono:wght@500&display=swap");
 @font-face {
   font-family: "Passion One";
-  src: local("Passion One"),
-    url("./assets/PassionOne.ttf") format("cursive");
+  src: local("Passion One"), url("./assets/PassionOne.ttf");
 }
 @font-face {
   font-family: "Inter";
