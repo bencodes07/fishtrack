@@ -1,5 +1,5 @@
-import React from 'react'
-import { useParams } from "react-router-dom"
+import React from "react";
+import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { getImgWithCollection } from "../firebase/utils";
 import { auth } from "../firebase/config";
@@ -19,22 +19,27 @@ function Collection() {
       };
       fetchImages();
     });
-
   }, []);
   return (
     <>
-      <div>Collection <strong>{name}</strong></div>
+      <div>
+        Collection <strong>{name}</strong>
+      </div>
       {filteredImages.map((image, index) => (
         <div key={index}>
           <img width={100} loading="lazy" src={image} alt={`Image ${index}`} />
-          
+
           <p>{image.toString().match(regex)[0]}</p>
-          
+          <p>
+            {image
+              .toString()
+              .match(/%7B(.*?)%7D/)[1]
+              .replace(/%20/g, " ")}
+          </p>
         </div>
       ))}
     </>
-    
-  )
+  );
 }
 
-export default Collection
+export default Collection;
