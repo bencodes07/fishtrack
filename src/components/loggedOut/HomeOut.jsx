@@ -42,11 +42,39 @@ function HomeOut() {
             onClick={() => navigate("/login")}
             className="flex justify-center items-center rounded-full border-[#003585] border-2 text-[#003585] p-2"
           >
-            <FiLogIn size={18} className="mx-1" />
-            <p className="mx-1 text-lg">LOGIN</p>
+            <FiLogIn size={18} fontWeight={"bold"} className="mx-1" />
+            <p className="mx-1 text-lg font-semibold">LOGIN</p>
           </button>
         </div>
       </nav>
+      <main>
+        <div className="flex justify-between">
+          <div className=" relative top-[15vh] left-[7vw]">
+            <h1 className="text-6xl font-semibold">Save Your</h1>
+            <h1 className="text-6xl font-semibold text-[#0044AB]">
+              Underwater
+            </h1>
+            <h1 className="text-6xl font-semibold">Memories</h1>
+            <p className="max-w-[35vw] mt-3 text-[#7F7F7F]">
+              There are many types of underwater creatures that you may have
+              catched, so what are you waiting for let’s save them in
+              <b> “fishtrack”</b>!
+            </p>
+          </div>
+          <div>
+            <img
+              className="absolute w-[60vw] max-w-[800px] z-10 mt-[100px] right-0"
+              src="./stingray.png"
+              alt=""
+            />
+            <img
+              className="relative top-[5vh] h-[648px]"
+              src="./FishBg.png"
+              alt=""
+            />
+          </div>
+        </div>
+      </main>
     </>
   );
 }

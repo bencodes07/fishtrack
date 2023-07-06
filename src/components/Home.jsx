@@ -11,6 +11,7 @@ const Home = () => {
   const { logOut } = UserAuth();
   const uploadRef = useRef();
   const collectionNameInput = useRef();
+  const locationInput = useRef();
   const dateInput = useRef();
 
   const handleLogout = async () => {
@@ -37,9 +38,9 @@ const Home = () => {
           storage,
           `images/${files[i].name}_${
             user.uid
-          }_${uuidv4()}_${day}-${month}-${year}_collection=${
-            collectionNameInput.current.value
-          }`
+          }_${uuidv4()}_${day}-${month}-${year}_{${
+            locationInput.current.value
+          }}_collection=${collectionNameInput.current.value}`
         );
         const uploadTask = uploadBytesResumable(storageRef, files[i]);
 
@@ -83,7 +84,14 @@ const Home = () => {
             type="text"
             name="collectionInput"
             id="collectionInput"
+            placeholder="Collection"
             required
+          />
+          <input
+            type="text"
+            ref={locationInput}
+            required
+            placeholder="Location"
           />
 
           <button type="submit">Upload</button>
