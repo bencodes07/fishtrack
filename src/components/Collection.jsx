@@ -33,18 +33,19 @@ function Collection() {
         </h1>
       </header>
       {loading && <Loader />}
-      <main className="relative left-[50%] translate-x-[-50%] h-[calc(100vh-215px)] w-screen grid grid-cols-4 md:grid-cols-3 sm:grid-cols-2 max-sm:grid-cols-1 gap-4 pt-10 max-w-5xl justify-items-center gap-y-0">
+      <main className="relative left-[50%] translate-x-[-50%] h-[calc(100vh-215px)] w-screen grid grid-cols-4 md:grid-cols-3 sm:grid-cols-2 max-sm:grid-cols-1 gap-4 pt-10 max-w-5xl justify-items-center gap-y-0 px-2">
         {filteredImages.map((image, index) => (
-          <div
+          <a
             key={index}
-            className=" w-full flex justify-center aspect-[4/3] bg-center"
+            href=""
+            className="collectionImage relative w-full flex justify-center aspect-[4/3] bg-center"
           >
             <img
               src={image}
               alt={`Image ${index}`}
               className="object-center rounded-md min-w-full max-w-[80vw] cursor-pointer object-cover"
             />
-          </div>
+          </a>
         ))}
         <div className="w-full flex justify-center">
           <img src="" alt="" />
