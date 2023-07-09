@@ -24,6 +24,7 @@ function Collection() {
       };
       fetchImages();
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const handleClickOpen = (imageLink) => {
     setImageSource(imageLink);
@@ -97,18 +98,6 @@ function Collection() {
         </div>
       </main>
     </>
-    /* <>
-      <div>
-        Collection <strong>{name}</strong>
-      </div>
-      {filteredImages.map((image, index) => (
-        <div key={index}>
-          <img width={100} loading="lazy" src={image} alt={`Image ${index}`} />
-
-          
-        </div>
-      ))}
-            </> */
   );
 }
 
