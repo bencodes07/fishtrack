@@ -3,6 +3,7 @@ import { useState, useEffect, useRef } from "react";
 import { getImgWithCollection } from "../firebase/utils";
 import { auth } from "../firebase/config";
 import { onAuthStateChanged } from "firebase/auth";
+import { GrClose } from "react-icons/gr";
 import Loader from "./Loader";
 
 function Collection() {
@@ -28,9 +29,11 @@ function Collection() {
     setImageSource(imageLink);
     window.scrollTo(0, 0);
     modal.current.style.translate = "0%";
+    document.body.style.overflow = "hidden";
   };
   const handleClickClose = () => {
     modal.current.style.translate = "100%";
+    document.body.style.overflow = "visible";
   };
   return (
     <>
@@ -45,7 +48,7 @@ function Collection() {
       {loading && <Loader />}
       <main
         ref={main}
-        className="relative left-[50%] translate-x-[-50%] h-[calc(100vh-215px)] w-screen grid grid-cols-4 md:grid-cols-3 sm:grid-cols-2 max-sm:grid-cols-1 gap-4 pt-10 justify-items-center gap-y-0 px-2 grid-flow-row"
+        className="relative left-[50%] translate-x-[-50%] min-h-[calc(100vh-215px)] w-screen grid grid-cols-4 md:grid-cols-3 sm:grid-cols-2 max-sm:grid-cols-1 gap-4 pt-10 justify-items-center gap-y-0 px-2 grid-flow-row"
         style={{ maxWidth: "64rem" }}
       >
         {filteredImages.map((image, index) => (
@@ -67,21 +70,30 @@ function Collection() {
         <div
           ref={modal}
           style={{ translate: "100% 0%" }}
-          className="absolute w-screen h-screen bg-white z-20 transition-all"
+          className="absolute flex flex-row justify-center items-center w-screen h-[calc(100vh-215px)] bg-white z-20 transition-all"
         >
-          <img src={imageSource} width={300} height={300} />
+          <button
+            className="absolute top-10 right-10"
+            onClick={handleClickClose}
+          >
+            <GrClose size={40} />
+          </button>
           {imageSource && (
-            <p>{imageSource.toString().match(/(\d{2})-(\d{2})-(\d{4})/)[0]}</p>
+            <>
+              <div>
+                <p>
+                  {imageSource.toString().match(/(\d{2})-(\d{2})-(\d{4})/)[0]}
+                </p>
+                <p>
+                  {imageSource
+                    .toString()
+                    .match(/%7B(.*?)%7D/)[1]
+                    .replace(/%20/g, " ")}
+                </p>
+              </div>
+              <img src={imageSource} width={300} height={300} />
+            </>
           )}
-          {imageSource && (
-            <p>
-              {imageSource
-                .toString()
-                .match(/%7B(.*?)%7D/)[1]
-                .replace(/%20/g, " ")}
-            </p>
-          )}
-          <button onClick={handleClickClose}>Close</button>
         </div>
       </main>
     </>
