@@ -12,7 +12,6 @@ function Collection() {
   const [imageSource, setImageSource] = useState("");
   const modal = useRef();
   const main = useRef();
-  const regex = /(\d{2})-(\d{2})-(\d{4})/;
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (!user) return;
@@ -27,6 +26,7 @@ function Collection() {
   }, []);
   const handleClickOpen = (imageLink) => {
     setImageSource(imageLink);
+    window.scrollTo(0, 0);
     modal.current.style.translate = "0%";
   };
   const handleClickClose = () => {
@@ -70,6 +70,17 @@ function Collection() {
           className="absolute w-screen h-screen bg-white z-20 transition-all"
         >
           <img src={imageSource} width={300} height={300} />
+          {imageSource && (
+            <p>{imageSource.toString().match(/(\d{2})-(\d{2})-(\d{4})/)[0]}</p>
+          )}
+          {imageSource && (
+            <p>
+              {imageSource
+                .toString()
+                .match(/%7B(.*?)%7D/)[1]
+                .replace(/%20/g, " ")}
+            </p>
+          )}
           <button onClick={handleClickClose}>Close</button>
         </div>
       </main>
@@ -82,13 +93,7 @@ function Collection() {
         <div key={index}>
           <img width={100} loading="lazy" src={image} alt={`Image ${index}`} />
 
-          <p>{image.toString().match(regex)[0]}</p>
-          <p>
-            {image
-              .toString()
-              .match(/%7B(.*?)%7D/)[1]
-              .replace(/%20/g, " ")}
-          </p>
+          
         </div>
       ))}
             </> */
