@@ -26,6 +26,7 @@ function Collection() {
       };
       fetchImages();
     });
+    document.body.style.overflowX = "hidden";
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const handleClickOpen = (imageLink) => {
@@ -40,7 +41,7 @@ function Collection() {
   };
   return (
     <>
-      <header className="h-[215px] select-none collectionBg drop-shadow-2xl text-white text-center bg-[#003585] flex justify-center items-center">
+      <header className="h-[215px] select-none collectionBg drop-shadow-2xl text-white text-center bg-[#003585] flex justify-center items-center w-[screen]">
         <h1 className="relative top-5 uppercase text-6xl font-semibold tracking-[8px] leading-3 pt-12 px-[30px] py-[120px]">
           {name} <br></br>
           <span className="tracking-[7px] font-normal text-2xl relative top-10">
@@ -51,7 +52,7 @@ function Collection() {
       {loading && <Loader />}
       <main
         ref={main}
-        className="relative left-[50%] translate-x-[-50%] min-h-[calc(100vh-215px)] w-screen grid grid-cols-4 md:grid-cols-3 sm:grid-cols-2 max-sm:grid-cols-1 gap-6 pt-10 justify-items-center px-2 grid-flow-row gap-y-6"
+        className="relative left-[50%] translate-x-[-50%] min-h-[calc(100vh-215px)] w-[100svw] grid grid-cols-4 md:grid-cols-3 sm:grid-cols-2 max-sm:grid-cols-1 gap-6 pt-10 justify-items-center px-2 grid-flow-row gap-y-6 max-sm:w-[calc(100vw-50px)]"
         style={{ maxWidth: "64rem" }}
       >
         {filteredImages.map((image, index) => (
