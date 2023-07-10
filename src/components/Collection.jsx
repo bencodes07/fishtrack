@@ -64,6 +64,7 @@ function Collection() {
             <img
               src={image}
               alt={`Image ${index}`}
+              loading="lazy"
               className="object-center rounded-md min-w-full max-w-[80vw] cursor-pointer object-cover"
             />
           </a>
@@ -103,6 +104,7 @@ function Collection() {
               <img
                 src={imageSource}
                 width={300}
+                loading="lazy"
                 className="rounded-md w-[40vw] max-sm:mb-5 max-sm:w-[75vw]"
               />
             </>
