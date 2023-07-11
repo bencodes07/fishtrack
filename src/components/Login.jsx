@@ -5,11 +5,13 @@ import { useNavigate } from "react-router-dom";
 function Login() {
   const [emailLogin, setEmailLogin] = useState("");
   const [passwordLogin, setPasswordLogin] = useState("");
+  const submitLogin = useRef();
 
   const [emailSignup, setEmailSignup] = useState("");
   const [passwordSignup, setPasswordSignup] = useState("");
+  const submitSignup = useRef();
 
-  const { signIn, signUp, user } = UserAuth();
+  const { signIn, signUp, user, error } = UserAuth();
   const container = useRef();
   const navigate = useNavigate();
 
@@ -17,37 +19,21 @@ function Login() {
     user != null ? navigate("/") : navigate("/login");
   }, [user, navigate]);
 
-  // TODO: delay to stop bots add error display
   const onSubmitLogin = async (e) => {
     e.preventDefault();
-    /*  submitButton.current.disabled = "true";
-    setTimeout(() => {
-      submitButton.current.disabled = "false";
-    }, 3000); */
 
-    try {
-      await signIn(emailLogin, passwordLogin);
-    } catch (error) {
-      console.log(error);
-    }
+    await signIn(emailLogin, passwordLogin);
   };
 
   const onSubmitSignup = async (e) => {
     e.preventDefault();
-    /*  submitButton.current.disabled = "true";
-    setTimeout(() => {
-      submitButton.current.disabled = "false";
-    }, 3000); */
     if (
       document.getElementById("confirm") != document.getElementById("password")
     )
-      return console.error("Passwords not the same!");
+      return (document.getElementById("error").innerText =
+        "Error: Passwords do not match");
 
-    try {
-      await signUp(emailSignup, passwordSignup);
-    } catch (error) {
-      console.log(error);
-    }
+    await signUp(emailSignup, passwordSignup);
   };
 
   const handleSignUpSwitch = () => {
@@ -59,48 +45,6 @@ function Login() {
   };
 
   return (
-    /* <main>
-      <section>
-        <div>
-          <div>
-            <h1>FishTrack</h1>
-            <form onSubmit={onSubmit}>
-              <div>
-                <label htmlFor="email-address">Email address</label>
-                <input
-                  type="email"
-                  label="Email address"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                  placeholder="Email address"
-                />
-              </div>
-
-              <div>
-                <label htmlFor="password">Password</label>
-                <input
-                  type="password"
-                  label="Create password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                  placeholder="Password"
-                />
-              </div>
-
-              <button ref={submitButton} type="submit">
-                Login
-              </button>
-            </form>
-
-            <p>
-              Dont have an account? <a href="/signup">Sign up</a>
-            </p>
-          </div>
-        </div>
-      </section>
-    </main> */
     <main className="flex justify-center items-center flex-col min-h-screen bg-[#f6f5f7]">
       <div className="container" id="container" ref={container}>
         <div className="form-container sign-up-container">
@@ -127,7 +71,7 @@ function Login() {
               placeholder="Confirm Password"
               required
             />
-            <button type="submit" className="mt-3">
+            <button type="submit" ref={submitSignup} className="mt-3">
               Sign Up
             </button>
           </form>
@@ -149,8 +93,12 @@ function Login() {
               value={passwordLogin}
               onChange={(e) => setPasswordLogin(e.target.value)}
             />
-            <a href="#">Forgot your password?</a>
-            <button type="submit">Sign In</button>
+            <p id="error" className="text-[#ff0000] relative top-[-15px]">
+              {error}
+            </p>
+            <button ref={submitLogin} className="mt-[-2rem]" type="submit">
+              Sign In
+            </button>
           </form>
         </div>
         <div className="overlay-container">

@@ -12,11 +12,20 @@ const AuthContext = createContext();
 
 export const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState({});
+  const [error, setError] = useState("");
 
   const signIn = (email, password) => {
-    signInWithEmailAndPassword(auth, email, password).then((user) => {
-      if (!user.user.emailVerified) signOut(auth);
-    });
+    signInWithEmailAndPassword(auth, email, password)
+      .then((user) => {
+        if (!user.user.emailVerified) {
+          console.error("Email not verified");
+          setError("Email not verified");
+          signOut(auth);
+        }
+      })
+      .catch((err) => {
+        setError(err.message);
+      });
   };
 
   const logOut = () => {
@@ -28,7 +37,9 @@ export const AuthContextProvider = ({ children }) => {
       auth,
       email,
       password
-    );
+    ).catch((err) => {
+      setError(err.message);
+    });
     await sendEmailVerification(userCredential.user);
     signOut(auth);
     return userCredential;
@@ -45,7 +56,7 @@ export const AuthContextProvider = ({ children }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ signIn, logOut, signUp, user }}>
+    <AuthContext.Provider value={{ signIn, logOut, signUp, user, error }}>
       {children}
     </AuthContext.Provider>
   );
