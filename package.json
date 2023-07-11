@@ -17,6 +17,7 @@
     "react-dropzone": "^14.2.3",
     "react-icons": "^4.10.1",
     "react-router-dom": "^6.11.2",
+    "sass": "^1.63.6",
     "uuid": "^9.0.0"
   },
   "devDependencies": {

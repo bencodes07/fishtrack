@@ -34,16 +34,17 @@ export async function getImg(specificString) {
   }
 }
 
-
-export async function getImgWithCollection(specificString, collection) {
+export async function getImgWithCollection(userid, collection) {
   const storageRef = ref(storage, "images");
 
   try {
     const imageList = await listAll(storageRef);
 
     // Filter the image files based on the specific string
-    const filteredImages = imageList.items.filter((item) => 
-      item.name.includes(specificString) && item.name.split("collection=")[1] == collection
+    const filteredImages = imageList.items.filter(
+      (item) =>
+        item.name.includes(userid) &&
+        item.name.split("collection=")[1] == collection
     );
 
     // Get the download URLs for the filtered images
