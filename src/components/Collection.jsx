@@ -34,10 +34,12 @@ function Collection() {
     window.scrollTo(0, 0);
     modal.current.style.translate = "0%";
     document.body.style.overflow = "hidden";
+    document.body.style.maxHeight = "100vh";
   };
   const handleClickClose = () => {
     modal.current.style.translate = "100%";
     document.body.style.overflow = "visible";
+    document.body.style.maxHeight = "unset";
   };
   return (
     <>
@@ -52,7 +54,7 @@ function Collection() {
       {loading && <Loader />}
       <main
         ref={main}
-        className="relative left-[50%] translate-x-[-50%] min-h-[calc(100vh-215px)] w-[100svw] grid grid-cols-4 md:grid-cols-3 sm:grid-cols-2 max-sm:grid-cols-1 gap-6 pt-10 justify-items-center px-2 grid-flow-row gap-y-6 max-sm:w-[calc(100vw-50px)]"
+        className="relative left-[50%] translate-x-[-50%] min-h-[calc(100vh-215px)] w-[100svw] grid grid-cols-4 md:grid-cols-3 sm:grid-cols-2 max-sm:grid-cols-1 gap-6 pt-10 justify-items-center px-4 grid-flow-row gap-y-6 max-sm:w-[calc(100vw-50px)] overflow-visible"
         style={{ maxWidth: "64rem" }}
       >
         {filteredImages.map((image, index) => (
@@ -86,20 +88,20 @@ function Collection() {
           {imageSource && (
             <>
               <div className="flex justify-center flex-col items-left w-[40vw] text-xl max-sm:w-[75vw] max-sm:items-center ">
-                <p className="flex justify-start items-center">
+                <div className="flex justify-start items-center">
                   <GiFishing size={24} className="mr-1" />
                   <p className=" font-bold">Catch Date:&nbsp;&nbsp;&nbsp;</p>
 
                   {imageSource.toString().match(/(\d{2})-(\d{2})-(\d{4})/)[0]}
-                </p>
-                <p className="flex justify-start items-center">
+                </div>
+                <div className="flex justify-start items-center">
                   <IoLocationSharp size={24} className="mr-1" />
                   <p className=" font-bold">Location:&nbsp;&nbsp;&nbsp;</p>
                   {imageSource
                     .toString()
                     .match(/%7B(.*?)%7D/)[1]
                     .replace(/%20/g, " ")}
-                </p>
+                </div>
               </div>
               <img
                 src={imageSource}
