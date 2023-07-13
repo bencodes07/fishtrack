@@ -117,7 +117,7 @@ const Home = () => {
                   <>
                     <MdCloudUpload
                       className="cursor-pointer"
-                      color="#1475cf"
+                      color="#003585"
                       size={60}
                     />
                     <p>Browse Files to upload</p>
