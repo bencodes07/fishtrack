@@ -93,7 +93,7 @@ const Home = () => {
             <div>
               <form
                 onSubmit={handleUpload}
-                className="flex justify-center items-center flex-row"
+                className="flex justify-center items-center max-[850px]:flex-col"
               >
                 <div>
                   <div
@@ -152,14 +152,14 @@ const Home = () => {
                     </span>
                   </div>
                 </div>
-                <div className="flex justify-between items-center flex-col w-[400px] mt-3 ml-4 h-[250px]">
+                <div className="flex justify-between items-center flex-col w-[400px] mt-3 md:ml-0 min-[850px]:ml-4 lg:ml-4 max-sm:ml-0 h-[250px]">
                   <input
                     type="text"
                     name="dateInput"
                     placeholder="Catch Date"
                     onFocus={(e) => (e.target.type = "date")}
                     onBlur={(e) => (e.target.type = "text")}
-                    className="w-full px-[10px] py-[10px] rounded-lg border-2 border[#003585] max-h-[46.5px]"
+                    className="w-full max-sm:w-[200px] px-[10px] py-[10px] rounded-lg border-2 border[#003585] max-h-[46.5px]"
                     ref={dateInput}
                   />
 
@@ -167,7 +167,7 @@ const Home = () => {
                     type="text"
                     name="locationInput"
                     placeholder="Catch Location"
-                    className="w-full p-[10px] rounded-lg mt-2 border-2 border[#003585]"
+                    className="w-full max-sm:w-[200px] p-[10px] rounded-lg mt-2 border-2 border[#003585]"
                     ref={locationInput}
                   />
                   <input
@@ -175,10 +175,10 @@ const Home = () => {
                     name="collectionInput"
                     ref={collectionNameInput}
                     placeholder="Collection"
-                    className="w-full p-[10px] rounded-lg mt-2 border-2 border[#003585]"
+                    className="w-full max-sm:w-[200px] p-[10px] rounded-lg mt-2 border-2 border[#003585]"
                   />
                   <button
-                    className="w-full p-[10px] rounded-lg bg-[#003585] text-white border-0"
+                    className="w-full max-sm:w-[200px] p-[10px] rounded-lg bg-[#003585] text-white border-0"
                     type="submit"
                   >
                     Upload
