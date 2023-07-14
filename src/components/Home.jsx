@@ -12,10 +12,10 @@ import { MdDelete, MdCloudUpload } from "react-icons/md";
 const Home = () => {
   const { user } = UserAuth();
   const { logOut } = UserAuth();
-  const uploadRef = useRef();
   const collectionNameInput = useRef();
   const locationInput = useRef();
   const dateInput = useRef();
+  const fileLoader = useRef();
   const [files, setFiles] = useState();
   const [preview, setPreview] = useState(null);
   const [fileName, setFileName] = useState("No file selected");
@@ -52,6 +52,11 @@ const Home = () => {
           "state_changed",
           (snapshot) => {
             console.log(snapshot);
+            fileLoader.current.style.width =
+              (
+                (snapshot.bytesTransferred / snapshot.totalBytes) *
+                100
+              ).toString() + "%";
           },
           (error) => {
             alert(error);
@@ -88,57 +93,102 @@ const Home = () => {
             <div>
               <form
                 onSubmit={handleUpload}
-                onClick={() => document.querySelector(".input-field").click()}
-                className="flex justify-center items-center flex-col border-[#003585] border-dashed border-[3px] w-[400px] h-[200px] max-sm:w-[200px] mt-3 rounded-lg cursor-pointer"
+                className="flex justify-center items-center flex-row"
               >
-                <input
-                  type="file"
-                  accept="image/*"
-                  className="input-field"
-                  hidden
-                  onChange={(e) => {
-                    setFiles(e.target.files[0]);
-                    setFileName(e.target.files[0].name);
-                    setPreview(URL.createObjectURL(e.target.files[0]));
-                  }}
-                />
-
-                {files && (
-                  <img
-                    src={preview}
-                    width={150}
-                    height={150}
-                    alt={fileName}
-                    className="object-cover w-[calc(100%-20px)] h-[calc(100%-20px)]"
-                  />
-                )}
-
-                {!files && (
-                  <>
-                    <MdCloudUpload
-                      className="cursor-pointer"
-                      color="#003585"
-                      size={60}
+                <div>
+                  <div
+                    onSubmit={handleUpload}
+                    onClick={() =>
+                      document.querySelector(".input-field").click()
+                    }
+                    className="flex justify-center items-center flex-col border-[#003585] border-dashed border-[3px] w-[400px] h-[200px] max-sm:w-[200px] mt-3 rounded-lg cursor-pointer"
+                  >
+                    <input
+                      type="file"
+                      accept="image/*"
+                      className="input-field"
+                      hidden
+                      onChange={(e) => {
+                        setFiles(e.target.files);
+                        setFileName(e.target.files[0].name);
+                        setPreview(URL.createObjectURL(e.target.files[0]));
+                      }}
                     />
-                    <p>Browse Files to upload</p>
-                  </>
-                )}
-              </form>
-              <section className="flex justify-between items-center mt-2 text-white rounded-lg bg-[#003585] py-[10px]">
-                <AiFillFileImage className="ml-3" color="#ffffff" />
-                <span className="upload-content flex justify-center items-center mr-3">
-                  <p className="font-medium">{fileName} - </p>
-                  <MdDelete
-                    className=" cursor-pointer"
-                    size={20}
-                    onClick={() => {
-                      setFileName("No file selected");
-                      setPreview(null);
-                      setFiles(null);
-                    }}
+
+                    {files && (
+                      <img
+                        src={preview}
+                        width={150}
+                        height={150}
+                        alt={fileName}
+                        className="object-cover w-[calc(100%-20px)] h-[calc(100%-20px)]"
+                      />
+                    )}
+
+                    {!files && (
+                      <>
+                        <MdCloudUpload
+                          className="cursor-pointer"
+                          color="#003585"
+                          size={60}
+                        />
+                        <p>Browse Files to upload</p>
+                      </>
+                    )}
+                  </div>
+                  <div className="flex justify-between items-center mt-2 text-white rounded-lg bg-[#003585] py-[10px]">
+                    <AiFillFileImage className="ml-3" color="#ffffff" />
+                    <span className="upload-content flex justify-center items-center mr-3">
+                      <p className="font-medium">{fileName} - </p>
+                      <MdDelete
+                        className=" cursor-pointer"
+                        size={20}
+                        onClick={() => {
+                          setFileName("No file selected");
+                          setPreview(null);
+                          setFiles(null);
+                        }}
+                      />
+                    </span>
+                  </div>
+                </div>
+                <div className="flex justify-between items-center flex-col w-[400px] mt-3 ml-4 h-[250px]">
+                  <input
+                    type="text"
+                    name="dateInput"
+                    placeholder="Catch Date"
+                    onFocus={(e) => (e.target.type = "date")}
+                    onBlur={(e) => (e.target.type = "text")}
+                    className="w-full px-[10px] py-[10px] rounded-lg border-2 border[#003585] max-h-[46.5px]"
+                    ref={dateInput}
                   />
-                </span>
-              </section>
+
+                  <input
+                    type="text"
+                    name="locationInput"
+                    placeholder="Catch Location"
+                    className="w-full p-[10px] rounded-lg mt-2 border-2 border[#003585]"
+                    ref={locationInput}
+                  />
+                  <input
+                    type="text"
+                    name="collectionInput"
+                    ref={collectionNameInput}
+                    placeholder="Collection"
+                    className="w-full p-[10px] rounded-lg mt-2 border-2 border[#003585]"
+                  />
+                  <button
+                    className="w-full p-[10px] rounded-lg bg-[#003585] text-white border-0"
+                    type="submit"
+                  >
+                    Upload
+                  </button>
+                </div>
+              </form>
+              <div
+                ref={fileLoader}
+                className="fileLoadBar w-0 bg-[#003585] h-2 mt-3 rounded-lg transition-all"
+              ></div>
             </div>
 
             {/* <div>
