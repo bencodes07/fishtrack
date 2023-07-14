@@ -2,6 +2,7 @@ import { FaCompass } from "react-icons/fa";
 import { BsRocketTakeoffFill } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../Navbar";
+import Footer from "../Footer";
 
 function HomeOut() {
   document.body.style.maxHeight = "100svh";
@@ -75,6 +76,7 @@ function HomeOut() {
           </div>
         </main>
       </div>
+      <Footer />
     </>
   );
 }

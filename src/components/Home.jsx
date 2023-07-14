@@ -8,10 +8,11 @@ import { v4 as uuidv4 } from "uuid";
 import Navbar from "./Navbar";
 import { AiFillFileImage } from "react-icons/ai";
 import { MdDelete, MdCloudUpload } from "react-icons/md";
+import Footer from "./Footer";
 
 const Home = () => {
   const { user } = UserAuth();
-  const { logOut } = UserAuth();
+
   const collectionNameInput = useRef();
   const locationInput = useRef();
   const dateInput = useRef();
@@ -20,13 +21,6 @@ const Home = () => {
   const [preview, setPreview] = useState(null);
   const [fileName, setFileName] = useState("No file selected");
 
-  const handleLogout = async () => {
-    try {
-      await logOut();
-    } catch (error) {
-      console.log(error);
-    }
-  };
   const handleUpload = (e) => {
     e.preventDefault();
     if (user != null) {
@@ -216,6 +210,7 @@ const Home = () => {
             <button type="submit">Upload</button>
           </form> */}
         </main>
+        <Footer />
       </>
     );
   } else {
