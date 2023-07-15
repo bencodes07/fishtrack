@@ -13,8 +13,8 @@ function HomeOut() {
         <Navbar />
 
         <main className="max-h-[calc(100svh-100px)]">
-          <div className="flex justify-between">
-            <div className="relative top-[15vh] max-h-[580px] left-[7vw]">
+          <div className="flex justify-between h-[calc(100svh-100px)]">
+            <div className="relative top-[15vh] max-lg:top-[5svh] max-h-[580px] max-lg:max-h-[100svh] left-[7vw] max-lg:left-[50%] max-lg:translate-x-[-50%] max-lg:text-center">
               <h1 className="text-6xl font-semibold overflow-hidden">
                 Save Your
               </h1>
@@ -24,12 +24,12 @@ function HomeOut() {
               <h1 className="text-6xl font-semibold overflow-hidden">
                 Memories
               </h1>
-              <p className="max-w-[35vw] mt-3 text-[#7F7F7F]">
+              <p className="max-w-[35vw] max-lg:max-w-sm mt-3 text-[#7F7F7F]">
                 There are many types of underwater creatures that you may have
                 catched, so what are you waiting for let’s save them in
                 <b> “fishtrack”</b>!
               </p>
-              <div className="flex justify-start items-center mt-4">
+              <div className="flex justify-start max-lg:justify-center items-center mt-4">
                 <button
                   onClick={() => navigate("/login")}
                   className="flex justify-center items-center rounded-full font-semibold bg-[#003585] text-white p-4 h-[48px]"
