@@ -20,11 +20,15 @@ export const AuthContextProvider = ({ children }) => {
         if (!user.user.emailVerified) {
           console.error("Email not verified");
           setError("Email not verified");
+          document.getElementById("error").style.color = "#ff0000";
           signOut(auth);
         }
+        document.getElementById("error").style.color = "#008000";
+        setError("Success!");
       })
       .catch((err) => {
         setError(err.message);
+        document.getElementById("error").style.color = "#ff0000";
       });
   };
 

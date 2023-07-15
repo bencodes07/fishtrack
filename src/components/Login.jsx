@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { UserAuth } from "../contexts/AuthContextProvider";
 import { useNavigate } from "react-router-dom";
 
@@ -6,16 +6,12 @@ function Login() {
   const [emailLogin, setEmailLogin] = useState("");
   const [passwordLogin, setPasswordLogin] = useState("");
 
-  const { signIn, user, error } = UserAuth();
-  const navigate = useNavigate();
+  const { signIn, error } = UserAuth();
 
   const onSubmitLogin = async (e) => {
     e.preventDefault();
 
     await signIn(emailLogin, passwordLogin);
-    setTimeout(() => {
-      if (error === "") navigate("/");
-    }, 1000);
   };
 
   return (
@@ -55,7 +51,9 @@ function Login() {
             >
               Forgot Password?
             </a>
-            <p className="text-[#ff0000]">{error}</p>
+            <p id="error" className="text-[#ff0000]">
+              {error}
+            </p>
           </div>
           <div className="text-center md:text-left">
             <button

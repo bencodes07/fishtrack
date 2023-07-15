@@ -58,7 +58,9 @@ function Signup() {
             className="w-full p-[10px] rounded-lg mt-2 border-2 border[#003585]"
           />
           <div className="mt-2 flex justify-between font-semibold text-sm">
-            <p className="text-[#ff0000] error">{error}</p>
+            <p id="error" className="text-[#ff0000] error">
+              {error}
+            </p>
           </div>
           <div className="text-center md:text-left">
             <button
