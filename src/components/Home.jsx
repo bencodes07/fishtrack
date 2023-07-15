@@ -65,8 +65,16 @@ const Home = () => {
     }
   };
   useEffect(() => {
-    console.log(files);
-  }, [files]);
+    if (window.innerWidth <= 640) {
+      const now = new Date();
+      let month = now.getMonth() + 1;
+      let day = now.getDate();
+      if (month < 10) month = "0" + month;
+      if (day < 10) day = "0" + day;
+      const today = now.getFullYear() + "-" + month + "-" + day;
+      dateInput.current.value = today;
+    }
+  }, []);
 
   if (user) {
     return (
@@ -107,6 +115,7 @@ const Home = () => {
                         setFileName(e.target.files[0].name);
                         setPreview(URL.createObjectURL(e.target.files[0]));
                       }}
+                      required
                     />
 
                     {files && (
@@ -147,15 +156,26 @@ const Home = () => {
                   </div>
                 </div>
                 <div className="flex justify-between items-center flex-col w-[400px] mt-3 md:ml-0 min-[850px]:ml-4 lg:ml-4 max-sm:ml-0 h-[250px]">
-                  <input
-                    type="text"
-                    name="dateInput"
-                    placeholder="Catch Date"
-                    onFocus={(e) => (e.target.type = "date")}
-                    onBlur={(e) => (e.target.type = "text")}
-                    className="w-full max-sm:w-[200px] px-[10px] py-[10px] rounded-lg border-2 border[#003585] max-h-[46.5px]"
-                    ref={dateInput}
-                  />
+                  {window.innerWidth <= 640 ? (
+                    <input
+                      type="date"
+                      name="dateInput"
+                      className="w-full max-sm:w-[200px] px-[10px] py-[10px] rounded-lg border-2 border[#003585] max-h-[46.5px]"
+                      ref={dateInput}
+                      required
+                    />
+                  ) : (
+                    <input
+                      type="text"
+                      name="dateInput"
+                      placeholder="Catch Date"
+                      onFocus={(e) => (e.target.type = "date")}
+                      onBlur={(e) => (e.target.type = "text")}
+                      className="w-full max-sm:w-[200px] px-[10px] py-[10px] rounded-lg border-2 border[#003585] max-h-[46.5px]"
+                      ref={dateInput}
+                      required
+                    />
+                  )}
 
                   <input
                     type="text"
@@ -163,12 +183,14 @@ const Home = () => {
                     placeholder="Catch Location"
                     className="w-full max-sm:w-[200px] p-[10px] rounded-lg mt-2 border-2 border[#003585]"
                     ref={locationInput}
+                    required
                   />
                   <input
                     type="text"
                     name="collectionInput"
                     ref={collectionNameInput}
                     placeholder="Folder"
+                    required
                     className="w-full max-sm:w-[200px] p-[10px] rounded-lg mt-2 border-2 border[#003585]"
                   />
                   <button
