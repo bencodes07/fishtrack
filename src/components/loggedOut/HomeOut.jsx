@@ -5,7 +5,7 @@ import Navbar from "../Navbar";
 import Footer from "../Footer";
 
 function HomeOut() {
-  document.body.style.maxHeight = "100svh";
+  document.documentElement.style.maxHeight = "100svh";
   const navigate = useNavigate();
   return (
     <>
@@ -13,8 +13,8 @@ function HomeOut() {
         <Navbar />
 
         <main className="max-h-[calc(100svh-100px)]">
-          <div className="flex justify-between h-[calc(100svh-100px)]">
-            <div className="relative top-[15vh] max-lg:top-[5svh] max-h-[580px] max-lg:max-h-[100svh] left-[7vw] max-lg:left-[50%] max-lg:translate-x-[-50%] max-lg:text-center">
+          <div className="flex justify-between h-[calc(100svh-100px)] overflow-hidden">
+            <div className="relative top-[15vh] max-lg:top-[5svh] max-h-[580px] max-lg:max-h-[100svh] left-[7vw] max-lg:left-[50%] max-lg:translate-x-[-50%] max-lg:text-center overflow-hidden">
               <h1 className="text-6xl font-semibold overflow-hidden">
                 Save Your
               </h1>
@@ -67,9 +67,12 @@ function HomeOut() {
             </div>
             <div className=" max-lg:hidden">
               <img
-                className="absolute w-[60vw] max-w-[800px] z-10 mt-[100px] right-0"
+                className="absolute w-[60vw] max-w-[800px] z-10 right-0"
                 src="./stingray.png"
                 alt=""
+                style={{
+                  marginTop: document.documentElement.scrollTop + 100 + "px",
+                }}
               />
               <img className="relative" src="./FishBg.png" width={500} alt="" />
             </div>
