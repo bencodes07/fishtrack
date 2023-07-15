@@ -168,7 +168,7 @@ const Home = () => {
                     type="text"
                     name="collectionInput"
                     ref={collectionNameInput}
-                    placeholder="Collection"
+                    placeholder="Folder"
                     className="w-full max-sm:w-[200px] p-[10px] rounded-lg mt-2 border-2 border[#003585]"
                   />
                   <button

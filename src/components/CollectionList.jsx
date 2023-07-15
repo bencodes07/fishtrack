@@ -35,7 +35,7 @@ function Gallery() {
   return (
     <>
       <div className="flex justify-start items-center flex-col mt-4 w-[70vw]">
-        <h2 className="text-xl font-semibold">Your Collections</h2>
+        <h2 className="text-xl font-semibold">Your Folders</h2>
         <div className="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 mt-2 gap-2 justify-center">
           {collections.map((item, index) => (
             <div
