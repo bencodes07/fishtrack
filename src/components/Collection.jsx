@@ -2,7 +2,6 @@ import { useParams } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
 import { getImgWithCollection } from "../firebase/utils";
 import { auth } from "../firebase/config";
-import { onAuthStateChanged } from "firebase/auth";
 import { GrClose } from "react-icons/gr";
 import { IoLocationSharp } from "react-icons/io5";
 import { GiFishing } from "react-icons/gi";
@@ -16,7 +15,7 @@ function Collection() {
   const modal = useRef();
   const main = useRef();
   useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
+    auth.onAuthStateChanged((user) => {
       if (!user) return;
       const fetchImages = async () => {
         setLoading(true);
