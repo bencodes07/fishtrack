@@ -1,11 +1,10 @@
-import { ref, listAll, getDownloadURL } from "firebase/storage";
 import { storage } from "./config";
 
 export async function getImg(specificString) {
-  const storageRef = ref(storage, "images");
+  const storageRef = storage.ref(storage, "images");
 
   try {
-    const imageList = await listAll(storageRef);
+    const imageList = await storageRef.listAll();
 
     // Filter the image files based on the specific string
     const filteredImages = imageList.items.filter((item) =>
@@ -14,7 +13,7 @@ export async function getImg(specificString) {
 
     // Get the download URLs for the filtered images
     const downloadURLs = await Promise.all(
-      filteredImages.map((image) => getDownloadURL(image))
+      filteredImages.map((image) => image.getDownloadURL())
     );
 
     let collections = new Array(filteredImages.length);
@@ -35,10 +34,10 @@ export async function getImg(specificString) {
 }
 
 export async function getImgWithCollection(userid, collection) {
-  const storageRef = ref(storage, "images");
+  const storageRef = storage.ref("images");
 
   try {
-    const imageList = await listAll(storageRef);
+    const imageList = await storageRef.listAll();
 
     // Filter the image files based on the specific string
     const filteredImages = imageList.items.filter(
@@ -49,7 +48,7 @@ export async function getImgWithCollection(userid, collection) {
 
     // Get the download URLs for the filtered images
     const downloadURLs = await Promise.all(
-      filteredImages.map((image) => getDownloadURL(image))
+      filteredImages.map((image) => image.getDownloadURL())
     );
 
     let collections = new Array(filteredImages.length);
