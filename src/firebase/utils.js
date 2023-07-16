@@ -1,7 +1,7 @@
 import { storage } from "./config";
 
 export async function getImg(specificString) {
-  const storageRef = storage.ref(storage, "images");
+  const storageRef = storage.ref("images");
 
   try {
     const imageList = await storageRef.listAll();
@@ -19,10 +19,10 @@ export async function getImg(specificString) {
     let collections = new Array(filteredImages.length);
 
     for (var i = 0; i < collections.length; i++) {
-      collections[i] = [
-        downloadURLs[i],
-        filteredImages[i].name.split("collection=")[1],
-      ];
+      const name = filteredImages[i].name;
+      const collectionName =
+        typeof name === "string" ? name.split("collection=")[1] : "";
+      collections[i] = [downloadURLs[i], collectionName];
     }
     // Return the filtered image URLs
     console.log(collections);
@@ -38,6 +38,7 @@ export async function getImgWithCollection(userid, collection) {
 
   try {
     const imageList = await storageRef.listAll();
+    if (imageList == null) return;
 
     // Filter the image files based on the specific string
     const filteredImages = imageList.items.filter(
@@ -53,6 +54,7 @@ export async function getImgWithCollection(userid, collection) {
 
     let collections = new Array(filteredImages.length);
 
+    if (typeof filteredImages[0].name !== "string") return;
     for (var i = 0; i < collections.length; i++) {
       collections[i] = [
         downloadURLs[i],

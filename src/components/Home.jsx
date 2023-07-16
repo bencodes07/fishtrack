@@ -31,32 +31,29 @@ const Home = () => {
         const month = dateArray[1];
         const day = dateArray[2];
 
-        const storageRef = storage.ref(
-          `images/${files[i].name}_${
-            user.uid
-          }_${uuidv4()}_${day}-${month}-${year}_{${
-            locationInput.current.value
-          }}_collection=${collectionNameInput.current.value}`
-        );
-        const uploadTask = storageRef.uploadBytesResumable(files[i]);
-
-        uploadTask.on(
-          "state_changed",
-          (snapshot) => {
-            console.log(snapshot);
-            fileLoader.current.style.width =
-              (
-                (snapshot.bytesTransferred / snapshot.totalBytes) *
-                100
-              ).toString() + "%";
-          },
-          (error) => {
-            alert(error);
-          },
-          () => {
-            uploadTask.snapshot.ref.getDownloadURL();
-          }
-        );
+        storage
+          .ref(
+            `images/${files[i].name}_${
+              user.uid
+            }_${uuidv4()}_${day}-${month}-${year}_{${
+              locationInput.current.value
+            }}_collection=${collectionNameInput.current.value}`
+          )
+          .put(files[i])
+          .on(
+            "state_changed",
+            (snapshot) => {
+              console.log(snapshot);
+              fileLoader.current.style.width =
+                (
+                  (snapshot.bytesTransferred / snapshot.totalBytes) *
+                  100
+                ).toString() + "%";
+            },
+            (error) => {
+              alert(error);
+            }
+          );
       }
     } else {
       alert("Not logged in!");
