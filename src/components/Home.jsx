@@ -1,5 +1,4 @@
-import { storage, auth } from "../firebase/config";
-import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
+import { storage } from "../firebase/config";
 import Gallery from "./CollectionList";
 import HomeOut from "./loggedOut/HomeOut.jsx";
 import { UserAuth } from "../contexts/AuthContextProvider";
@@ -32,15 +31,14 @@ const Home = () => {
         const month = dateArray[1];
         const day = dateArray[2];
 
-        const storageRef = ref(
-          storage,
+        const storageRef = storage.ref(
           `images/${files[i].name}_${
             user.uid
           }_${uuidv4()}_${day}-${month}-${year}_{${
             locationInput.current.value
           }}_collection=${collectionNameInput.current.value}`
         );
-        const uploadTask = uploadBytesResumable(storageRef, files[i]);
+        const uploadTask = storageRef.uploadBytesResumable(files[i]);
 
         uploadTask.on(
           "state_changed",
@@ -56,7 +54,7 @@ const Home = () => {
             alert(error);
           },
           () => {
-            getDownloadURL(uploadTask.snapshot.ref);
+            uploadTask.snapshot.ref.getDownloadURL();
           }
         );
       }
