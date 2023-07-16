@@ -1,14 +1,13 @@
 import { useState, useEffect } from "react";
 import { getImg } from "../firebase/utils";
 import { auth } from "../firebase/config";
-import { onAuthStateChanged } from "firebase/auth";
 
 function Gallery() {
   const [filteredImages, setFilteredImages] = useState([]);
   const [collections, setCollections] = useState([]);
 
   useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
+    auth.onAuthStateChanged((user) => {
       if (!user) return;
       const fetchImages = async () => {
         const images = await getImg(user.uid);
