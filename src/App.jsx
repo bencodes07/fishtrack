@@ -13,11 +13,15 @@ function App() {
     <AuthContextProvider>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Home />}></Route>
-          <Route path="/collection/:name" element={<Collection />}></Route>
-          <Route path="/login" element={<Login />}></Route>
-          <Route path="/signup" element={<Signup />}></Route>
-          <Route path="/logout" element={<Logout />} />
+          <Route path="/" element={<Home />} exact></Route>
+          <Route
+            path="/collection/:name"
+            element={<Collection />}
+            exact
+          ></Route>
+          <Route path="/login" element={<Login />} exact></Route>
+          <Route path="/signup" element={<Signup />} exact></Route>
+          <Route path="/logout" element={<Logout />} exact />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
