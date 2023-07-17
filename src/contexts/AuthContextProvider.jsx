@@ -36,7 +36,7 @@ export const AuthContextProvider = ({ children }) => {
       .catch((err) => {
         setError(err.message);
       });
-    /* await auth.sendEmailVerification(userCredential.user); */
+    await userCredential.user.sendEmailVerification();
     auth.signOut();
     return userCredential;
   };

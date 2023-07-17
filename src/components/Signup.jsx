@@ -9,8 +9,10 @@ function Signup() {
 
   const onSubmitSignup = async (e) => {
     e.preventDefault();
+    document.querySelector(".error").innerText = "";
     if (
-      document.getElementById("confirm") != document.getElementById("password")
+      document.getElementById("confirm").value !=
+      document.getElementById("password").value
     )
       return (document.querySelector(".error").innerText =
         "Error: Passwords do not match");
