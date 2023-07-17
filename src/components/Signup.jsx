@@ -1,11 +1,15 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { UserAuth } from "../contexts/AuthContextProvider";
+import { useNavigate } from "react-router-dom";
 
 function Signup() {
+  const [name, setName] = useState("");
   const [emailLogin, setEmailLogin] = useState("");
   const [passwordLogin, setPasswordLogin] = useState("");
 
   const { signUp, error } = UserAuth();
+
+  const navigate = useNavigate();
 
   const onSubmitSignup = async (e) => {
     e.preventDefault();
@@ -17,8 +21,15 @@ function Signup() {
       return (document.querySelector(".error").innerText =
         "Error: Passwords do not match");
 
-    await signUp(emailLogin, passwordLogin);
+    await signUp(name, emailLogin, passwordLogin);
   };
+  useEffect(() => {
+    if (error == "Check your email!") {
+      setTimeout(() => {
+        navigate("/login");
+      }, 3000);
+    }
+  }, [error, navigate]);
 
   return (
     <section className="h-screen flex flex-col md:flex-row justify-center space-y-10 md:space-y-0 md:space-x-16 items-center my-2 mx-5 md:mx-0 md:my-0">
@@ -33,13 +44,23 @@ function Signup() {
         <div className="my-5 flex items-center before:mt-0.5 before:flex-1 before:border-t before:border-neutral-300 after:mt-0.5 after:flex-1 after:border-t after:border-neutral-300"></div>
         <form onSubmit={(e) => onSubmitSignup(e)}>
           <input
+            type="text"
+            onChange={(e) => setName(e.target.value)}
+            value={name}
+            placeholder="Name"
+            maxLength={35}
+            autoCorrect="off"
+            autoCapitalize="on"
+            className="w-full p-[10px] rounded-lg border-2 border[#003585]"
+          />
+          <input
             type="email"
             onChange={(e) => setEmailLogin(e.target.value)}
             value={emailLogin}
             placeholder="Email"
             autoCorrect="off"
             autoCapitalize="off"
-            className="w-full p-[10px] rounded-lg border-2 border[#003585]"
+            className="w-full p-[10px] rounded-lg mt-2 border-2 border[#003585]"
           />
           <input
             type="password"
@@ -48,6 +69,7 @@ function Signup() {
             autoCorrect="off"
             id="password"
             autoCapitalize="off"
+            autoComplete="new-password"
             placeholder="Password"
             className="w-full p-[10px] rounded-lg mt-2 border-2 border[#003585]"
           />

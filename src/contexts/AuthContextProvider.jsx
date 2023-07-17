@@ -16,9 +16,10 @@ export const AuthContextProvider = ({ children }) => {
           setError("Email not verified");
           document.getElementById("error").style.color = "#ff0000";
           auth.signOut();
+        } else {
+          document.getElementById("error").style.color = "#008000";
+          setError("Success!");
         }
-        document.getElementById("error").style.color = "#008000";
-        setError("Success!");
       })
       .catch((err) => {
         setError(err.message);
@@ -30,13 +31,21 @@ export const AuthContextProvider = ({ children }) => {
     auth.signOut();
   };
 
-  const signUp = async (email, password) => {
+  const signUp = async (name, email, password) => {
     const userCredential = await auth
       .createUserWithEmailAndPassword(email, password)
+      /* .then((res) => {
+        return res.user.updateProfile({
+          displayName: name,
+        });
+      }) */
       .catch((err) => {
-        setError(err.message);
+        return setError(err.message);
       });
+    await userCredential.user.updateProfile({ displayName: name });
     await userCredential.user.sendEmailVerification();
+
+    setError("Check your email!");
     auth.signOut();
     return userCredential;
   };
