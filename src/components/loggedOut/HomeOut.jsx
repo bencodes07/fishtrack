@@ -50,17 +50,23 @@ function HomeOut() {
               </div>
               <div className="flex justify-evenly items-center flex-row mt-10 w-full">
                 <div className="w-24 flex justify-center items-center flex-col">
-                  <h2 className="text-[#0044AB] text-4xl font-medium">10+</h2>
+                  <h2 className="text-[#0044AB] text-4xl font-medium overflow-hidden">
+                    10+
+                  </h2>
                   <p className="text-[#7F7F7F]">Users</p>
                 </div>
                 <div className=" h-28 w-[1px] bg-[#7F7F7F]"></div>
                 <div className="w-24 flex justify-center items-center flex-col">
-                  <h2 className="text-[#0044AB] text-4xl font-medium">20+</h2>
+                  <h2 className="text-[#0044AB] text-4xl font-medium overflow-hidden">
+                    20+
+                  </h2>
                   <p className="text-[#7F7F7F]">Locations</p>
                 </div>
                 <div className=" h-28 w-[1px] bg-[#7F7F7F]"></div>
                 <div className="w-24 flex justify-center items-center flex-col">
-                  <h2 className="text-[#0044AB] text-4xl font-medium">250+</h2>
+                  <h2 className="text-[#0044AB] text-4xl font-medium overflow-hidden">
+                    250+
+                  </h2>
                   <p className="text-[#7F7F7F]">Catches</p>
                 </div>
               </div>
