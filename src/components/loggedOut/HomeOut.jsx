@@ -5,7 +5,6 @@ import Navbar from "../Navbar";
 import Footer from "../Footer";
 
 function HomeOut() {
-  document.documentElement.style.maxHeight = "100svh";
   const navigate = useNavigate();
   return (
     <>
@@ -13,8 +12,8 @@ function HomeOut() {
         <Navbar />
 
         <main className="max-h-[calc(100svh-100px)]">
-          <div className="flex justify-between h-[calc(100svh-100px)] overflow-hidden">
-            <div className="relative top-[15vh] max-lg:top-[5svh] max-h-[580px] max-lg:max-h-[100svh] left-[7vw] max-lg:left-[50%] max-lg:translate-x-[-50%] max-lg:text-center overflow-hidden">
+          <div className="flex justify-between h-[calc(100svh-100px)] overflow-hidden ">
+            <div className="relative top-[15vh] max-lg:top-[5svh] max-lg:max-h-[100svh] left-[7vw] max-lg:left-[50%] max-lg:translate-x-[-50%] max-lg:text-center overflow-hidden">
               <h1 className="text-6xl font-semibold overflow-hidden">
                 Save Your
               </h1>
@@ -27,11 +26,14 @@ function HomeOut() {
               <p className="max-w-[35vw] max-lg:max-w-sm mt-3 text-[#7F7F7F]">
                 There are many types of underwater creatures that you may have
                 catched, so what are you waiting for let’s save them in
-                <b> “fishtrack”</b>!
+                <b> “fishtrack”</b>! With fishtrack you can save all your
+                precious pictures of <b>your</b> catches in special folders.
+                Then you will be able to add locations dates etc. to your
+                catches and keep them sorted for ever!
               </p>
               <div className="flex justify-start max-lg:justify-center items-center mt-4">
                 <button
-                  onClick={() => navigate("/login")}
+                  onClick={() => navigate("/signup")}
                   className="flex justify-center items-center rounded-full font-semibold bg-[#003585] text-white p-4 h-[48px]"
                 >
                   <BsRocketTakeoffFill />
@@ -71,8 +73,8 @@ function HomeOut() {
                 </div>
               </div>
             </div>
-            <div className=" max-lg:hidden">
-              <img
+            <div className="max-lg:hidden h-fit">
+              {/* <img
                 className="absolute w-[60vw] max-w-[800px] z-10 right-0"
                 src="./stingray.png"
                 alt=""
@@ -80,7 +82,13 @@ function HomeOut() {
                   marginTop: document.documentElement.scrollTop + 100 + "px",
                 }}
               />
-              <img className="relative" src="./FishBg.png" width={500} alt="" />
+              <img className="relative" src="./FishBg.png" width={500} alt="" /> */}
+              <img
+                src="./home.png"
+                alt=""
+                className="relative top-[-150px]"
+                width={800}
+              />
             </div>
           </div>
         </main>

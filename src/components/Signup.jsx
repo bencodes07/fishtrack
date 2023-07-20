@@ -33,14 +33,17 @@ function Signup() {
 
   return (
     <section className="h-screen flex flex-col md:flex-row justify-center space-y-10 md:space-y-0 md:space-x-16 items-center my-2 mx-5 md:mx-0 md:my-0">
-      <div className="md:w-1/3 max-w-sm">
-        <img
+      <div className="md:w-1/3 max-w-sm shadow-2xl rounded-3xl">
+        {/* <img
           src="https://tecdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"
           alt="Sample image"
-        />
+        /> */}
+        <img src="./login.jpeg" className="rounded-3xl mt-10" alt="" />
       </div>
       <div className="md:w-1/3 max-w-sm">
-        <div className="text-center md:text-left"></div>
+        <div className="text-center md:text-left text-3xl font-logo text-[#003585]">
+          fishtrack.
+        </div>
         <div className="my-5 flex items-center before:mt-0.5 before:flex-1 before:border-t before:border-neutral-300 after:mt-0.5 after:flex-1 after:border-t after:border-neutral-300"></div>
         <form onSubmit={(e) => onSubmitSignup(e)}>
           <input

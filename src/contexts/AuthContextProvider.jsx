@@ -27,6 +27,12 @@ export const AuthContextProvider = ({ children }) => {
       });
   };
 
+  const forgetPassword = (email) => {
+    auth.sendPasswordResetEmail(email);
+    document.getElementById("error").style.color = "#008000";
+    setError("Check Email!");
+  };
+
   const logOut = () => {
     auth.signOut();
   };
@@ -61,7 +67,9 @@ export const AuthContextProvider = ({ children }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ signIn, logOut, signUp, user, error }}>
+    <AuthContext.Provider
+      value={{ signIn, logOut, signUp, user, error, forgetPassword }}
+    >
       {children}
     </AuthContext.Provider>
   );

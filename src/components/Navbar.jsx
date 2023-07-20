@@ -30,9 +30,15 @@ function Navbar(props) {
           <li className="text-[#7F7F7F]">
             <a
               className="max-sm:hidden hover:no-underline hover:text-black hover:font-medium transition-all cursor-pointer"
-              onClick={() => {
-                navigator.clipboard.writeText(window.location.href);
-                alert("Link copied!");
+              onClick={async () => {
+                try {
+                  await navigator.clipboard.writeText(window.location.href);
+                  alert("Link copied to cliboard!");
+                } catch (err) {
+                  alert(
+                    "Failed to copy link to clipboard, check your browser settings!"
+                  );
+                }
               }}
             >
               INVITE

@@ -19,7 +19,15 @@ function App() {
             element={<Collection />}
             exact
           ></Route>
-          <Route path="/login" element={<Login />} exact></Route>
+          <Route
+            path="/login"
+            element={
+              <AuthContextProvider>
+                <Login />
+              </AuthContextProvider>
+            }
+            exact
+          ></Route>
           <Route path="/signup" element={<Signup />} exact></Route>
           <Route path="/logout" element={<Logout />} exact />
           <Route path="*" element={<NotFound />} />

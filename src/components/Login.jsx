@@ -3,10 +3,12 @@ import { UserAuth } from "../contexts/AuthContextProvider";
 import { useNavigate } from "react-router-dom";
 
 function Login() {
+  const emailRegex =
+    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   const [emailLogin, setEmailLogin] = useState("");
   const [passwordLogin, setPasswordLogin] = useState("");
 
-  const { signIn, error } = UserAuth();
+  const { signIn, error, forgetPassword } = UserAuth();
 
   const navigate = useNavigate();
 
@@ -14,6 +16,15 @@ function Login() {
     e.preventDefault();
 
     await signIn(emailLogin, passwordLogin);
+  };
+
+  const onPassForget = async (e) => {
+    e.preventDefault();
+    if (emailRegex.test(emailLogin)) await forgetPassword(emailLogin);
+    else {
+      document.getElementById("error").style.color = "#ff0000";
+      document.getElementById("error").innerText = "Enter valid Email!";
+    }
   };
 
   useEffect(() => {
@@ -26,14 +37,13 @@ function Login() {
 
   return (
     <section className="h-screen flex flex-col md:flex-row justify-center space-y-10 md:space-y-0 md:space-x-16 items-center my-2 mx-5 md:mx-0 md:my-0">
-      <div className="md:w-1/3 max-w-sm">
-        <img
-          src="https://tecdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"
-          alt="Sample image"
-        />
+      <div className="md:w-1/3 max-w-sm shadow-2xl rounded-3xl">
+        <img src="./login.jpeg" className="rounded-3xl mt-10" alt="" />
       </div>
       <div className="md:w-1/3 max-w-sm">
-        <div className="text-center md:text-left"></div>
+        <div className="text-center md:text-left text-3xl font-logo text-[#003585]">
+          fishtrack.
+        </div>
         <div className="my-5 flex items-center before:mt-0.5 before:flex-1 before:border-t before:border-neutral-300 after:mt-0.5 after:flex-1 after:border-t after:border-neutral-300"></div>
         <form onSubmit={(e) => onSubmitLogin(e)}>
           <input
@@ -56,8 +66,8 @@ function Login() {
           />
           <div className="mt-2 flex justify-between font-semibold text-sm">
             <a
-              className="text-[#003585] hover:text-blue-700 hover:underline hover:underline-offset-4"
-              href="#"
+              className="text-[#003585] cursor-pointer hover:text-blue-700 hover:underline hover:underline-offset-4"
+              onClick={onPassForget}
             >
               Forgot Password?
             </a>
