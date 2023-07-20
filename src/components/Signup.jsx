@@ -29,7 +29,7 @@ function Signup() {
     if (error == "Check your email!") {
       setTimeout(() => {
         navigate("/login");
-      }, 3000);
+      }, 2000);
     }
   }, [error, navigate]);
 

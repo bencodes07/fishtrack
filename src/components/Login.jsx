@@ -33,7 +33,7 @@ function Login() {
     if (error == "Success!") {
       setTimeout(() => {
         navigate("/");
-      }, 3000);
+      }, 2000);
     }
   }, [error, navigate]);
 
