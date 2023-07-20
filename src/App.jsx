@@ -1,4 +1,4 @@
-import React from "react";
+import { useEffect } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Signup from "./components/Signup";
 import Home from "./components/Home";
@@ -7,8 +7,13 @@ import Collection from "./components/Collection.jsx";
 import NotFound from "./components/NotFound";
 import { AuthContextProvider } from "./contexts/AuthContextProvider";
 import Login from "./components/Login";
+import i18n from "./i18n";
 
 function App() {
+  useEffect(() => {
+    i18n.changeLanguage(navigator.language);
+  }, []);
+
   return (
     <AuthContextProvider>
       <BrowserRouter>
