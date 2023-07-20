@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import { UserAuth } from "../contexts/AuthContextProvider";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 function Signup() {
+  const { t, i18n } = useTranslation();
   const [name, setName] = useState("");
   const [emailLogin, setEmailLogin] = useState("");
   const [passwordLogin, setPasswordLogin] = useState("");
@@ -73,14 +75,14 @@ function Signup() {
             id="password"
             autoCapitalize="off"
             autoComplete="new-password"
-            placeholder="Password"
+            placeholder={t("Form Password")}
             className="w-full p-[10px] rounded-lg mt-2 border-2 border[#003585]"
           />
           <input
             type="password"
             autoCorrect="off"
             autoCapitalize="off"
-            placeholder="Confirm Password"
+            placeholder={t("Form Password Confirm")}
             id="confirm"
             className="w-full p-[10px] rounded-lg mt-2 border-2 border[#003585]"
           />
@@ -99,7 +101,7 @@ function Signup() {
           </div>
         </form>
         <div className="mt-4 font-semibold text-sm text-slate-500 text-center md:text-left">
-          Have an account?{" "}
+          {t("Signup to Login")}{" "}
           <a
             className="text-red-600 hover:underline hover:text-[#003585] hover:underline-offset-4"
             href="/login"

@@ -15,6 +15,11 @@ const resources = {
       "Start Users": "Users",
       "Start Locations": "Users",
       "Start Images": "Images",
+      "Form Password": "Password",
+      "Form Password Confirm": "Confirm Password",
+      "Form Forgot Password": "Forgot Password?",
+      "Login to Signup": "Don't have an account?",
+      "Signup to Login": "Already have an account?",
     },
   },
   de: {
@@ -29,6 +34,11 @@ const resources = {
       "Start Users": "Benutzer",
       "Start Locations": "Orte",
       "Start Images": "Bilder",
+      "Form Password": "Passwort",
+      "Form Password Confirm": "Passwort Bestätigen",
+      "Form Forgot Password": "Passwort vergessen?",
+      "Login to Signup": "Hast keinen Account?",
+      "Signup to Login": "Hast schon einen Account?",
     },
   },
 };

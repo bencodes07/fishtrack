@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
 import { UserAuth } from "../contexts/AuthContextProvider";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 function Login() {
+  const { t, i18n } = useTranslation();
   const emailRegex =
     /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   const [emailLogin, setEmailLogin] = useState("");
@@ -61,7 +63,7 @@ function Login() {
             value={passwordLogin}
             autoCorrect="off"
             autoCapitalize="off"
-            placeholder="Password"
+            placeholder={t("Form Password")}
             className="w-full p-[10px] rounded-lg mt-2 border-2 border[#003585]"
           />
           <div className="mt-2 flex justify-between font-semibold text-sm">
@@ -69,7 +71,7 @@ function Login() {
               className="text-[#003585] cursor-pointer hover:text-blue-700 hover:underline hover:underline-offset-4"
               onClick={onPassForget}
             >
-              Forgot Password?
+              {t("Form Forgot Password")}
             </a>
             <p id="error" className="text-[#ff0000]">
               {error}
@@ -85,7 +87,7 @@ function Login() {
           </div>
         </form>
         <div className="mt-4 font-semibold text-sm text-slate-500 text-center md:text-left">
-          Don't have an account?{" "}
+          {t("Login to Signup")}{" "}
           <a
             className="text-red-600 hover:underline hover:text-[#003585] hover:underline-offset-4"
             href="/signup"
