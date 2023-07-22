@@ -35,7 +35,7 @@ function Gallery() {
     <>
       <div className="flex justify-start items-center flex-col mt-4 w-[70vw]">
         <h2 className="text-xl font-semibold">Your Folders</h2>
-        <div className="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 mt-2 gap-2 justify-center">
+        <div className="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 mt-2 gap-2 justify-center text-center">
           {collections.map((item, index) => (
             <div
               className="bg-[#003585] px-3 py-2 rounded-lg flex justify-center items-center max-w-[150px] overflow-hidden whitespace-nowrap text-ellipsis"
@@ -50,6 +50,9 @@ function Gallery() {
             </div>
           ))}
         </div>
+        {collections.length === 0 && (
+          <p className="text-[#7F7F7F]">You don't have any Folders.</p>
+        )}
       </div>
     </>
   );
