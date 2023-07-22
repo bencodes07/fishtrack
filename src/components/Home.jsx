@@ -19,6 +19,7 @@ const Home = () => {
   const dateInput = useRef();
   const typeInput = useRef();
   const weightInput = useRef();
+  const lengthInput = useRef();
 
   const fileLoader = useRef();
   const [files, setFiles] = useState();
@@ -42,9 +43,9 @@ const Home = () => {
               user.uid
             }_${uuidv4()}_${day}-${month}-${year}_{${
               locationInput.current.value
-            }}_[${typeInput.current.value}]_(${
-              weightInput.current.value
-            })_collection=${collectionNameInput.current.value}`
+            }}_[${typeInput.current.value}]_(${weightInput.current.value})_$${
+              lengthInput.current.value
+            }$_collection=${collectionNameInput.current.value}`
           )
           .put(files[i])
           .on(
@@ -105,7 +106,7 @@ const Home = () => {
                     onClick={() =>
                       document.querySelector(".input-field").click()
                     }
-                    className="flex justify-center items-center flex-col border-[#003585] border-dashed border-[3px] w-[400px] h-[300px] max-sm:w-[200px] mt-3 rounded-lg cursor-pointer"
+                    className="flex justify-center items-center flex-col border-[#003585] border-dashed border-[3px] w-[400px] h-[320px] max-sm:w-[200px] mt-3 rounded-lg cursor-pointer"
                   >
                     <input
                       type="file"
@@ -157,7 +158,7 @@ const Home = () => {
                     </span>
                   </div>
                 </div>
-                <div className="flex justify-between items-center flex-col w-[400px] mt-3 md:ml-0 min-[850px]:ml-4 lg:ml-4 max-sm:ml-0 h-[350px]">
+                <div className="flex justify-between items-center flex-col w-[400px] mt-3 md:ml-0 min-[850px]:ml-4 lg:ml-4 max-sm:ml-0 h-[370px]">
                   {window.innerWidth <= 640 ? (
                     <input
                       type="date"
@@ -195,7 +196,7 @@ const Home = () => {
                     ref={typeInput}
                     required
                   />
-                  <div className="flex justify-center items-center w-full">
+                  <div className="flex justify-center items-center w-full h-full">
                     <input
                       type="number"
                       name="weightInput"
@@ -205,7 +206,20 @@ const Home = () => {
                       required
                     />
                     <span className=" max-sm:ml-[150px] bg-transparent ml-[350px] absolute mt-2 text-[#7F7F7F]">
-                      Kg
+                      kg
+                    </span>
+                  </div>
+                  <div className="flex justify-center items-center w-full h-full">
+                    <input
+                      type="number"
+                      name="lengthInput"
+                      placeholder="Fish Length"
+                      className="w-full max-sm:w-[200px] p-[10px] rounded-lg mt-2 border-2 border[#003585]"
+                      ref={lengthInput}
+                      required
+                    />
+                    <span className=" max-sm:ml-[150px] bg-transparent ml-[350px] absolute mt-2 text-[#7F7F7F]">
+                      cm
                     </span>
                   </div>
 

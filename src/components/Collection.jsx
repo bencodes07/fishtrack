@@ -6,6 +6,7 @@ import { GrClose } from "react-icons/gr";
 import { IoLocationSharp } from "react-icons/io5";
 import { GiFishing, GiWeight } from "react-icons/gi";
 import { FaFishFins } from "react-icons/fa6";
+import { TbRulerMeasure } from "react-icons/tb";
 import Loader from "./Loader";
 
 function Collection() {
@@ -114,6 +115,11 @@ function Collection() {
                   <GiWeight size={24} className="mr-1" />
                   <p className=" font-bold">Fish Weight:&nbsp;&nbsp;&nbsp;</p>
                   {imageSource.toString().match(/\(([^)]+)\)/)[1]}kg
+                </div>
+                <div className="flex justify-start items-center">
+                  <TbRulerMeasure size={24} className="mr-1" />
+                  <p className=" font-bold">Fish Length:&nbsp;&nbsp;&nbsp;</p>
+                  {imageSource.toString().match(/%24(.*?)%24/)[1]}cm
                 </div>
               </div>
               <img
