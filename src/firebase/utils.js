@@ -51,6 +51,7 @@ export async function getImgWithCollection(userid, collection) {
     const downloadURLs = await Promise.all(
       filteredImages.map((image) => image.getDownloadURL())
     );
+    console.log(downloadURLs);
 
     let collections = new Array(filteredImages.length);
 
@@ -58,11 +59,10 @@ export async function getImgWithCollection(userid, collection) {
     for (var i = 0; i < collections.length; i++) {
       collections[i] = [
         downloadURLs[i],
-        filteredImages[i].name.split("collection=")[1],
+        /* filteredImages[i].name.split("collection=")[1], */
       ];
     }
     // Return the filtered image URLs
-    console.log(collections);
     return collections;
   } catch (error) {
     console.log(error);

@@ -4,7 +4,8 @@ import { getImgWithCollection } from "../firebase/utils";
 import { auth } from "../firebase/config";
 import { GrClose } from "react-icons/gr";
 import { IoLocationSharp } from "react-icons/io5";
-import { GiFishing } from "react-icons/gi";
+import { GiFishing, GiWeight } from "react-icons/gi";
+import { FaFishFins } from "react-icons/fa6";
 import Loader from "./Loader";
 
 function Collection() {
@@ -100,6 +101,19 @@ function Collection() {
                     .toString()
                     .match(/%7B(.*?)%7D/)[1]
                     .replace(/%20/g, " ")}
+                </div>
+                <div className="flex justify-start items-center">
+                  <FaFishFins size={24} className="mr-1" />
+                  <p className=" font-bold">Fish Type:&nbsp;&nbsp;&nbsp;</p>
+                  {imageSource
+                    .toString()
+                    .match(/%5B(.*?)%5D/)[1]
+                    .replace(/%20/g, " ")}
+                </div>
+                <div className="flex justify-start items-center">
+                  <GiWeight size={24} className="mr-1" />
+                  <p className=" font-bold">Fish Weight:&nbsp;&nbsp;&nbsp;</p>
+                  {imageSource.toString().match(/\(([^)]+)\)/)[1]}kg
                 </div>
               </div>
               <img

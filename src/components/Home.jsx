@@ -9,12 +9,17 @@ import { AiFillFileImage } from "react-icons/ai";
 import { MdDelete, MdCloudUpload } from "react-icons/md";
 import Footer from "./Footer";
 
+// TODO: Dont let brackets or underscores be typed in any inputs
+
 const Home = () => {
   const { user } = UserAuth();
 
   const collectionNameInput = useRef();
   const locationInput = useRef();
   const dateInput = useRef();
+  const typeInput = useRef();
+  const weightInput = useRef();
+
   const fileLoader = useRef();
   const [files, setFiles] = useState();
   const [preview, setPreview] = useState(null);
@@ -37,7 +42,9 @@ const Home = () => {
               user.uid
             }_${uuidv4()}_${day}-${month}-${year}_{${
               locationInput.current.value
-            }}_collection=${collectionNameInput.current.value}`
+            }}_[${typeInput.current.value}]_(${
+              weightInput.current.value
+            })_collection=${collectionNameInput.current.value}`
           )
           .put(files[i])
           .on(
@@ -98,7 +105,7 @@ const Home = () => {
                     onClick={() =>
                       document.querySelector(".input-field").click()
                     }
-                    className="flex justify-center items-center flex-col border-[#003585] border-dashed border-[3px] w-[400px] h-[200px] max-sm:w-[200px] mt-3 rounded-lg cursor-pointer"
+                    className="flex justify-center items-center flex-col border-[#003585] border-dashed border-[3px] w-[400px] h-[300px] max-sm:w-[200px] mt-3 rounded-lg cursor-pointer"
                   >
                     <input
                       type="file"
@@ -150,7 +157,7 @@ const Home = () => {
                     </span>
                   </div>
                 </div>
-                <div className="flex justify-between items-center flex-col w-[400px] mt-3 md:ml-0 min-[850px]:ml-4 lg:ml-4 max-sm:ml-0 h-[250px]">
+                <div className="flex justify-between items-center flex-col w-[400px] mt-3 md:ml-0 min-[850px]:ml-4 lg:ml-4 max-sm:ml-0 h-[350px]">
                   {window.innerWidth <= 640 ? (
                     <input
                       type="date"
@@ -182,6 +189,28 @@ const Home = () => {
                   />
                   <input
                     type="text"
+                    name="typeInput"
+                    placeholder="Fish Type"
+                    className="w-full max-sm:w-[200px] p-[10px] rounded-lg mt-2 border-2 border[#003585]"
+                    ref={typeInput}
+                    required
+                  />
+                  <div className="flex justify-center items-center w-full">
+                    <input
+                      type="number"
+                      name="weightInput"
+                      placeholder="Fish Weight"
+                      className="w-full max-sm:w-[200px] p-[10px] rounded-lg mt-2 border-2 border[#003585]"
+                      ref={weightInput}
+                      required
+                    />
+                    <span className=" max-sm:ml-[150px] bg-transparent ml-[350px] absolute mt-2 text-[#7F7F7F]">
+                      Kg
+                    </span>
+                  </div>
+
+                  <input
+                    type="text"
                     name="collectionInput"
                     ref={collectionNameInput}
                     placeholder="Folder"
@@ -189,7 +218,7 @@ const Home = () => {
                     className="w-full max-sm:w-[200px] p-[10px] rounded-lg mt-2 border-2 border[#003585]"
                   />
                   <button
-                    className="w-full max-sm:w-[200px] p-[10px] rounded-lg bg-[#003585] text-white border-0"
+                    className="w-full max-sm:w-[200px] mt-2 p-[10px] rounded-lg bg-[#003585] text-white border-0"
                     type="submit"
                   >
                     Upload
