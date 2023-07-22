@@ -44,11 +44,11 @@ function Collection() {
   };
   return (
     <>
-      <header className="h-[215px] select-none collectionBg drop-shadow-2xl text-white text-center bg-[#003585] flex justify-center items-center w-[screen]">
-        <h1 className="relative top-5 uppercase text-6xl font-semibold tracking-[8px] leading-3 pt-12 px-[30px] py-[120px]">
+      <header className="h-[215px] select-none collectionBg drop-shadow-2xl text-white text-center bg-[#003585] flex justify-center items-start w-[screen] overflow-hidden">
+        <h1 className="relative flex justify-center items-center flex-col top-5 uppercase text-6xl font-semibold tracking-[8px] px-[30px] whitespace-break-spaces">
           {name} <br></br>
-          <span className="tracking-[7px] font-normal text-2xl relative top-10">
-            [ Your Tracked Fish ]
+          <span className="tracking-[7px] font-normal text-2xl relative mt-10 h-fit">
+            [ Your Tracks ]
           </span>
         </h1>
       </header>
