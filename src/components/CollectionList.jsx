@@ -3,7 +3,6 @@ import { getImg } from "../firebase/utils";
 import { auth } from "../firebase/config";
 
 function Gallery() {
-  const [filteredImages, setFilteredImages] = useState([]);
   const [collections, setCollections] = useState([]);
 
   useEffect(() => {
@@ -11,7 +10,6 @@ function Gallery() {
       if (!user) return;
       const fetchImages = async () => {
         const images = await getImg(user.uid);
-        setFilteredImages(images);
         images.map((elem) => {
           collections.push(elem[1]);
         });
@@ -19,7 +17,7 @@ function Gallery() {
       };
       fetchImages();
     });
-  }, []);
+  }, [collections]);
   function removeDupes(arr) {
     var obj = {};
     var ret_arr = [];
