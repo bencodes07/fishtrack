@@ -8,7 +8,13 @@ export default defineConfig({
   plugins: [
     react(),
     Pages({
-      onRoutesGenerated: (routes) => generateSitemap({ routes }),
+      onRoutesGenerated: async (routes) => {
+        generateSitemap({
+          hostname: "https://fishtrack.net/",
+          routes: [...routes],
+          readable: true,
+        });
+      },
     }),
   ],
   base: "/",
