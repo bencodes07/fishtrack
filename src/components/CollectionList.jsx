@@ -1,9 +1,11 @@
 import { useState, useEffect } from "react";
 import { getImg } from "../firebase/utils";
 import { auth } from "../firebase/config";
+import { useTranslation } from "react-i18next";
 
 function Gallery() {
   const [collections, setCollections] = useState([]);
+  const { t, i18n } = useTranslation();
 
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
@@ -32,7 +34,7 @@ function Gallery() {
   return (
     <>
       <div className="flex justify-start items-center flex-col mt-4 w-[70vw]">
-        <h2 className="text-xl font-semibold">Your Folders</h2>
+        <h2 className="text-xl font-semibold">{t("Your Folders")}</h2>
         <div className="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 mt-2 gap-2 justify-center text-center">
           {collections.map((item, index) => (
             <div

@@ -8,10 +8,12 @@ import Navbar from "./Navbar";
 import { AiFillFileImage } from "react-icons/ai";
 import { MdDelete, MdCloudUpload } from "react-icons/md";
 import Footer from "./Footer";
+import { useTranslation } from "react-i18next";
 
 // TODO: Dont let brackets or underscores be typed in any inputs
 
 const Home = () => {
+  const { t, i18n } = useTranslation();
   const { user } = UserAuth();
 
   const collectionNameInput = useRef();
@@ -24,7 +26,7 @@ const Home = () => {
   const fileLoader = useRef();
   const [files, setFiles] = useState();
   const [preview, setPreview] = useState(null);
-  const [fileName, setFileName] = useState("No file selected");
+  const [fileName, setFileName] = useState(t("No file selected"));
 
   const handleUpload = (e) => {
     e.preventDefault();
@@ -86,7 +88,7 @@ const Home = () => {
         <main className="flex justify-start items-center flex-col min-h-[calc(100vh-100px)]">
           <div className="flex justify-center items-center flex-col">
             <h2 className="text-[#003585] font-medium text-2xl mt-6">
-              Welcome back{" "}
+              {t("Welcome back")}{" "}
               <strong>
                 {user.displayName ? user.displayName : user.email}
               </strong>
@@ -94,7 +96,7 @@ const Home = () => {
             <hr className="w-36 mt-6" />
             <Gallery />
             <hr className="w-36 mt-6" />
-            <h2 className="text-xl font-semibold mt-3">Upload</h2>
+            <h2 className="text-xl font-semibold mt-3">{t("Upload")}</h2>
             <div>
               <form
                 onSubmit={handleUpload}
@@ -138,7 +140,7 @@ const Home = () => {
                           color="#003585"
                           size={60}
                         />
-                        <p>Browse Files to upload</p>
+                        <p>{t("Browse Files")}</p>
                       </>
                     )}
                   </div>
@@ -150,7 +152,7 @@ const Home = () => {
                         className=" cursor-pointer"
                         size={20}
                         onClick={() => {
-                          setFileName("No file selected");
+                          setFileName(t("No file selected"));
                           setPreview(null);
                           setFiles(null);
                         }}
@@ -171,7 +173,7 @@ const Home = () => {
                     <input
                       type="text"
                       name="dateInput"
-                      placeholder="Catch Date"
+                      placeholder={t("Catch Date")}
                       onFocus={(e) => (e.target.type = "date")}
                       onBlur={(e) => (e.target.type = "text")}
                       className="w-full max-sm:w-[200px] px-[10px] py-[10px] rounded-lg border-2 border[#003585] max-h-[46.5px]"
@@ -183,7 +185,7 @@ const Home = () => {
                   <input
                     type="text"
                     name="locationInput"
-                    placeholder="Catch Location"
+                    placeholder={t("Catch Location")}
                     className="w-full max-sm:w-[200px] p-[10px] rounded-lg mt-2 border-2 border[#003585]"
                     ref={locationInput}
                     required
@@ -191,7 +193,7 @@ const Home = () => {
                   <input
                     type="text"
                     name="typeInput"
-                    placeholder="Fish Type"
+                    placeholder={t("Fish Type")}
                     className="w-full max-sm:w-[200px] p-[10px] rounded-lg mt-2 border-2 border[#003585]"
                     ref={typeInput}
                     required
@@ -200,7 +202,7 @@ const Home = () => {
                     <input
                       type="number"
                       name="weightInput"
-                      placeholder="Fish Weight"
+                      placeholder={t("Fish Weight")}
                       className="w-full max-sm:w-[200px] p-[10px] rounded-lg mt-2 border-2 border[#003585]"
                       ref={weightInput}
                       required
@@ -213,7 +215,7 @@ const Home = () => {
                     <input
                       type="number"
                       name="lengthInput"
-                      placeholder="Fish Length"
+                      placeholder={t("Fish Length")}
                       className="w-full max-sm:w-[200px] p-[10px] rounded-lg mt-2 border-2 border[#003585]"
                       ref={lengthInput}
                       required
@@ -227,7 +229,7 @@ const Home = () => {
                     type="text"
                     name="collectionInput"
                     ref={collectionNameInput}
-                    placeholder="Folder"
+                    placeholder={t("Folder")}
                     required
                     className="w-full max-sm:w-[200px] p-[10px] rounded-lg mt-2 border-2 border[#003585]"
                   />
@@ -235,7 +237,7 @@ const Home = () => {
                     className="w-full max-sm:w-[200px] mt-2 p-[10px] rounded-lg bg-[#003585] text-white border-0"
                     type="submit"
                   >
-                    Upload
+                    {t("Upload")}
                   </button>
                 </div>
               </form>
