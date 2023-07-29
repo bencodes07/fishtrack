@@ -6,13 +6,28 @@ import "use-context-menu/styles.css";
 function Navbar(props) {
   const navigate = useNavigate();
   const accountSymbol = props.email ? props.email[0] : "";
-  const { contextMenu, onContextMenu, onKeyDown } = useContextMenu(
+  const handleLogout = () => {
+    window.location.href = "https://fishtrack.net/logout";
+  };
+  const handleHome = () => {
+    window.location.href = "https://fishtrack.net";
+  };
+  const {
+    contextMenu: contextMenu,
+    onContextMenu: onClick,
+    onKeyDown,
+  } = useContextMenu(
     <>
-      <ContextMenuItem>One</ContextMenuItem>
-      <ContextMenuItem>Two</ContextMenuItem>
-      <ContextMenuItem>Three</ContextMenuItem>
+      <ContextMenuItem onSelect={handleHome}>Home</ContextMenuItem>
+      <ContextMenuItem
+        onSelect={handleLogout ? handleLogout : null}
+        className=" text-red-500"
+      >
+        Logout
+      </ContextMenuItem>
     </>
   );
+
   return (
     <nav className="flex justify-between items-center w-screen h-[100px] select-none">
       <div className="flex justify-end w-[10vw] min-w-fit ml-[5vw]">
@@ -67,8 +82,9 @@ function Navbar(props) {
         )}
         {props.loggedIn && (
           <button
-            onContextMenu={onContextMenu}
+            onContextMenu={onClick}
             onKeyDown={onKeyDown}
+            onClick={onClick}
             /* href="/logout" */
             className="bg-[#003585] h-10 w-10  rounded-full flex justify-center items-center"
           >
