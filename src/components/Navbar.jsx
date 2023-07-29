@@ -1,9 +1,18 @@
 import { FiLogIn } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
+import { useContextMenu, ContextMenuItem } from "use-context-menu";
+import "use-context-menu/styles.css";
 
 function Navbar(props) {
   const navigate = useNavigate();
   const accountSymbol = props.email ? props.email[0] : "";
+  const { contextMenu, onContextMenu, onKeyDown } = useContextMenu(
+    <>
+      <ContextMenuItem>One</ContextMenuItem>
+      <ContextMenuItem>Two</ContextMenuItem>
+      <ContextMenuItem>Three</ContextMenuItem>
+    </>
+  );
   return (
     <nav className="flex justify-between items-center w-screen h-[100px] select-none">
       <div className="flex justify-end w-[10vw] min-w-fit ml-[5vw]">
@@ -57,14 +66,17 @@ function Navbar(props) {
           </button>
         )}
         {props.loggedIn && (
-          <a
-            href="/logout"
+          <button
+            onContextMenu={onContextMenu}
+            onKeyDown={onKeyDown}
+            /* href="/logout" */
             className="bg-[#003585] h-10 w-10  rounded-full flex justify-center items-center"
           >
+            {contextMenu}
             <p className="text-white w-min h-min font-bold uppercase">
               {accountSymbol}
             </p>
-          </a>
+          </button>
         )}
       </div>
     </nav>

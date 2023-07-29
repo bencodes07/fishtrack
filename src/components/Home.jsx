@@ -23,7 +23,7 @@ const Home = () => {
 
   const fileLoader = useRef();
   const [files, setFiles] = useState();
-  const [preview, setPreview] = useState(null);
+  const [preview, setPreview] = useState("");
   const [fileName, setFileName] = useState(t("No file selected"));
 
   const handleUpload = (e) => {
@@ -127,7 +127,11 @@ const Home = () => {
                       onChange={(e) => {
                         setFiles(e.target.files);
                         setFileName(e.target.files[0].name);
-                        setPreview(URL.createObjectURL(e.target.files[0]));
+                        setPreview(
+                          e.target.files
+                            ? URL.createObjectURL(e.target.files[0])
+                            : ""
+                        );
                       }}
                       required
                     />
@@ -162,7 +166,7 @@ const Home = () => {
                         size={20}
                         onClick={() => {
                           setFileName(t("No file selected"));
-                          setPreview(null);
+                          setPreview("");
                           setFiles(null);
                         }}
                       />
