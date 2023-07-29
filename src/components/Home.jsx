@@ -10,10 +10,8 @@ import { MdDelete, MdCloudUpload } from "react-icons/md";
 import Footer from "./Footer";
 import { useTranslation } from "react-i18next";
 
-// TODO: Dont let brackets or underscores be typed in any inputs
-
 const Home = () => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const { user } = UserAuth();
 
   const collectionNameInput = useRef();
@@ -39,6 +37,17 @@ const Home = () => {
         const month = dateArray[1];
         const day = dateArray[2];
 
+        const regex = /^[A-Za-z0-9 ]+$/;
+
+        if (
+          !regex.test(collectionNameInput.current.value) ||
+          !regex.test(locationInput.current.value) ||
+          !regex.test(typeInput.current.value) ||
+          !regex.test(weightInput) ||
+          !regex.test(lengthInput)
+        ) {
+          alert("No special characters please!");
+        }
         storage
           .ref(
             `images/${files[i].name}_${
@@ -66,7 +75,7 @@ const Home = () => {
           );
       }
     } else {
-      alert("Not logged in!");
+      alert("Please log in first!");
     }
   };
   useEffect(() => {
