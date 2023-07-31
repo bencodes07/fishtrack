@@ -65,7 +65,7 @@ function Navbar(props) {
               onClick={async () => {
                 try {
                   await navigator.clipboard.writeText(window.location.href);
-                  alert("Link copied to cliboard!");
+                  alert("Link copied to clipboard!");
                 } catch (err) {
                   alert(
                     "Failed to copy link to clipboard, check your browser settings!"
