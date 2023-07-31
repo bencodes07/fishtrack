@@ -2,8 +2,10 @@ import { FiLogIn } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 import { useContextMenu, ContextMenuItem } from "use-context-menu";
 import "use-context-menu/styles.css";
+import { UserAuth } from "../contexts/AuthContextProvider";
 
 function Navbar(props) {
+  const { user, forgetPasswordHome } = UserAuth();
   const navigate = useNavigate();
   const accountSymbol = props.email ? props.email[0] : "";
   const handleLogout = () => {
@@ -12,6 +14,9 @@ function Navbar(props) {
   const handleHome = () => {
     window.location.href = "https://fishtrack.net";
   };
+  const handlePasswordReset = () => {
+    forgetPasswordHome(user.email);
+  };
   const {
     contextMenu: contextMenu,
     onContextMenu: onClick,
@@ -19,6 +24,9 @@ function Navbar(props) {
   } = useContextMenu(
     <>
       <ContextMenuItem onSelect={handleHome}>Home</ContextMenuItem>
+      <ContextMenuItem onSelect={handlePasswordReset}>
+        Password Reset
+      </ContextMenuItem>
       <ContextMenuItem
         onSelect={handleLogout ? handleLogout : null}
         className=" text-red-500"

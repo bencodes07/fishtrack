@@ -33,6 +33,11 @@ export const AuthContextProvider = ({ children }) => {
     setError("Check Email!");
   };
 
+  const forgetPasswordHome = (email) => {
+    auth.sendPasswordResetEmail(email);
+    alert("Successful! Check your email.");
+  };
+
   const logOut = () => {
     auth.signOut();
   };
@@ -67,7 +72,15 @@ export const AuthContextProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ signIn, logOut, signUp, user, error, forgetPassword }}
+      value={{
+        signIn,
+        logOut,
+        signUp,
+        user,
+        error,
+        forgetPassword,
+        forgetPasswordHome,
+      }}
     >
       {children}
     </AuthContext.Provider>
