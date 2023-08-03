@@ -37,7 +37,7 @@ const Home = () => {
         const month = dateArray[1];
         const day = dateArray[2];
 
-        const regex = /^[A-Za-z0-9 ]+$/;
+        const regex = /^[A-Za-z0-9 /]+$/;
 
         if (
           !regex.test(collectionNameInput.current.value) ||
@@ -46,7 +46,7 @@ const Home = () => {
           !regex.test(weightInput) ||
           !regex.test(lengthInput)
         ) {
-          alert("No special characters please!");
+          return alert("No special characters please!");
         }
         storage
           .ref(
