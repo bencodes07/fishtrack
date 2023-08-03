@@ -37,17 +37,17 @@ const Home = () => {
         const month = dateArray[1];
         const day = dateArray[2];
 
-        const regex = /^[A-Za-z0-9 /]+$/;
+        const regex = /^[A-Za-z0-9]+$/;
 
         if (
           !regex.test(collectionNameInput.current.value) ||
           !regex.test(locationInput.current.value) ||
           !regex.test(typeInput.current.value) ||
-          !regex.test(weightInput) ||
-          !regex.test(lengthInput)
-        ) {
+          !regex.test(weightInput.current.value) ||
+          !regex.test(lengthInput.current.value)
+        )
           return alert("No special characters please!");
-        }
+
         storage
           .ref(
             `images/${files[i].name}_${
