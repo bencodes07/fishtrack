@@ -80,11 +80,17 @@ function HomeOut() {
                 }}
               />
               <img className="relative" src="./FishBg.png" width={500} alt="" /> */}
-              <img
+              {/* <img
                 src="./home.png"
                 alt=""
                 className="relative top-[-180px]"
                 width={800}
+              /> */}
+              <img
+                src="./home2.png"
+                alt=""
+                className="relative top-[-140px]"
+                width={750}
               />
             </div>
           </div>

@@ -40,7 +40,7 @@ function Signup() {
           src="https://tecdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp"
           alt="Sample image"
         /> */}
-        <img src="./login.jpeg" className="rounded-3xl mt-10" alt="" />
+        <img src="./login.png" className="rounded-3xl mt-10" alt="" />
       </div>
       <div className="md:w-1/3 max-w-sm">
         <div className="text-center md:text-left text-3xl font-logo text-[#003585]">
