@@ -7,7 +7,7 @@ import Footer from "../Footer";
 
 function HomeOut() {
   const navigate = useNavigate();
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   return (
     <>
       <div className="max-h-[100svh]">

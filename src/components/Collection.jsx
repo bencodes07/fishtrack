@@ -5,17 +5,21 @@ import { auth } from "../firebase/config";
 import { GrClose } from "react-icons/gr";
 import { IoLocationSharp } from "react-icons/io5";
 import { GiFishing, GiWeight } from "react-icons/gi";
-import { FaFishFins } from "react-icons/fa6";
+import { FaFishFins, FaChevronDown, FaChevronUp } from "react-icons/fa6";
 import { TbRulerMeasure } from "react-icons/tb";
 import Loader from "./Loader";
+import RangeSlider from "rsuite/RangeSlider";
+import "rsuite/dist/rsuite.min.css";
 
 function Collection() {
   const { name } = useParams();
   const [filteredImages, setFilteredImages] = useState([]);
   const [loading, setLoading] = useState(true);
   const [imageSource, setImageSource] = useState("");
+  const [filterOpen, setFilterOpen] = useState(false);
   const modal = useRef();
   const main = useRef();
+  const filterSection = useRef();
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
       if (!user) return;
@@ -42,6 +46,17 @@ function Collection() {
     document.body.style.overflow = "visible";
     document.body.style.maxHeight = "unset";
   };
+  const handleFilter = () => {
+    if (filterOpen) {
+      setFilterOpen(false);
+      filterSection.current.style.height = "2.5rem";
+      document.querySelector(".filterContent").style.display = "none";
+    } else {
+      setFilterOpen(true);
+      filterSection.current.style.height = "300px";
+      document.querySelector(".filterContent").style.display = "flex";
+    }
+  };
   return (
     <>
       <header className="h-[215px] select-none collectionBg drop-shadow-2xl text-white text-center bg-[#003585] flex justify-center items-start w-[screen] overflow-hidden">
@@ -52,11 +67,43 @@ function Collection() {
           </span>
         </h1>
       </header>
+      <section className="h-10 transition-all" ref={filterSection}>
+        <div className="filterContent hidden justify-center items-center h-[80%]">
+          <ul>
+            <li>
+              {/* <label htmlFor="lengthCheckbox">Length</label>
+              <input type="checkbox" name="lengthCheckbox" id="" />
+              <input type="range" name="" id="" /> */}
+            </li>
+            <li>
+              {/* <label htmlFor="weightCheckbox">Weight</label>
+              <input type="checkbox" name="weightCheckbox" id="" /> */}
+              <RangeSlider
+                className="w-40"
+                defaultValue={[10, 50]}
+                max={100}
+                min={0}
+              />
+            </li>
+          </ul>
+        </div>
+        <p
+          className="filterLink text-xl text-[#3b3b3b] flex justify-center items-center hover:underline cursor-pointer "
+          onClick={handleFilter}
+        >
+          Filter{" "}
+          {filterOpen ? (
+            <FaChevronUp className="ml-1" size={14} />
+          ) : (
+            <FaChevronDown className="ml-1" size={14} />
+          )}
+        </p>
+      </section>
       {loading && <Loader />}
       <main
-        ref={main}
-        className="relative left-[50%] translate-x-[-50%] min-h-[calc(100vh-215px)] w-[100svw] grid grid-cols-4 md:grid-cols-3 sm:grid-cols-2 max-sm:grid-cols-1 gap-6 pt-10 justify-items-center px-4 grid-flow-row gap-y-6 max-sm:w-[calc(100vw-50px)] overflow-visible"
+        className="relative left-[50%] translate-x-[-50%] min-h-[calc(100vh-215px)] w-[100svw] grid grid-cols-4 md:grid-cols-3 sm:grid-cols-2 max-sm:grid-cols-1 gap-6 pt-2 justify-items-center px-4 grid-flow-row gap-y-6 max-sm:w-[calc(100vw-50px)] overflow-visible"
         style={{ maxWidth: "64rem" }}
+        ref={main}
       >
         {filteredImages.map((image, index) => (
           <a
@@ -78,7 +125,7 @@ function Collection() {
         <div
           ref={modal}
           style={{ translate: "100% 0%" }}
-          className="absolute flex max-sm:flex-col-reverse justify-center items-center w-screen h-[calc(100vh-215px)] bg-white z-20 transition-all"
+          className="absolute flex max-sm:flex-col-reverse justify-center items-center w-screen h-[calc(100vh-215px)] bg-white z-20 transition-all mt-[-2.5rem]"
         >
           <button
             className="absolute top-10 right-10"

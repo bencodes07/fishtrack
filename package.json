@@ -20,6 +20,7 @@
     "react-i18next": "^13.0.2",
     "react-icons": "^4.10.1",
     "react-router-dom": "^6.11.2",
+    "rsuite": "^5.37.3",
     "sass": "^1.63.6",
     "use-context-menu": "^0.4.12",
     "uuid": "^9.0.0"
