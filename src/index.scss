@@ -77,3 +77,10 @@ input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
+
+.slider::-webkit-inner-spin-button,
+.slider::-webkit-outer-spin-button {
+  -webkit-appearance: textfield;
+  -moz-appearance: textfield;
+  margin: 0;
+}

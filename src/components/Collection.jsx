@@ -90,7 +90,7 @@ function Collection() {
                 value={rangeWeight}
                 onChange={handleChangesWeight}
                 valueLabelDisplay="on"
-                className="h-10"
+                className="h-10 slider"
                 name="weightSlider"
                 max={75}
                 color="secondary"
@@ -104,7 +104,7 @@ function Collection() {
                 value={rangeLength}
                 onChange={handleChangesLength}
                 valueLabelDisplay="on"
-                className="h-10"
+                className="h-10 slider"
                 name="weightSlider"
                 max={200}
                 color="secondary"
