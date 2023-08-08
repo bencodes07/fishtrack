@@ -41,6 +41,9 @@ function Collection() {
     modal.current.style.translate = "0%";
     document.body.style.overflow = "hidden";
     document.body.style.maxHeight = "100vh";
+    setFilterOpen(false);
+    filterSection.current.style.height = "2.5rem";
+    document.querySelector(".filterContent").style.display = "none";
   };
   const handleClickClose = () => {
     modal.current.style.translate = "100%";

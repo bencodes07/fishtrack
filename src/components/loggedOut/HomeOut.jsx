@@ -87,10 +87,9 @@ function HomeOut() {
                 width={800}
               /> */}
               <img
-                src="./home2.png"
+                src="./home3.png"
                 alt=""
-                className="relative top-[-140px]"
-                width={750}
+                className="relative top-[-140px] w-[55vw] h-auto max-w-[750px]"
               />
             </div>
           </div>

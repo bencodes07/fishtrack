@@ -39,7 +39,9 @@ function Navbar(props) {
   return (
     <nav className="flex justify-between items-center w-screen h-[100px] select-none">
       <div className="flex justify-end w-[10vw] min-w-fit ml-[5vw]">
-        <h1 className="font-logo text-4xl text-[#003585]">fishtrack.</h1>
+        <h1 className="font-logo text-4xl text-[#003585] select-text">
+          fishtrack.
+        </h1>
       </div>
       <div>
         <ul className="flex text-lg w-[30vw] max-w-[440px] justify-evenly items-center list-none max-lg:w-[35vw] ">
