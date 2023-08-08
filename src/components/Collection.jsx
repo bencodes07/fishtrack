@@ -8,7 +8,7 @@ import { GiFishing, GiWeight } from "react-icons/gi";
 import { FaFishFins, FaChevronDown, FaChevronUp } from "react-icons/fa6";
 import { TbRulerMeasure } from "react-icons/tb";
 import Loader from "./Loader";
-import RangeSlider from "rsuite/RangeSlider";
+import Slider from "@mui/material/Slider";
 import "rsuite/dist/rsuite.min.css";
 
 function Collection() {
@@ -20,6 +20,7 @@ function Collection() {
   const modal = useRef();
   const main = useRef();
   const filterSection = useRef();
+
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
       if (!user) return;
@@ -46,6 +47,16 @@ function Collection() {
     document.body.style.overflow = "visible";
     document.body.style.maxHeight = "unset";
   };
+  const [rangeWeight, setRangeWeight] = useState([5, 50]);
+  const [rangeLength, setRangeLength] = useState([30, 55]);
+  function handleChangesWeight(event, newValue) {
+    setRangeWeight(newValue);
+    console.log(rangeWeight);
+  }
+  function handleChangesLength(event, newValue) {
+    setRangeLength(newValue);
+    console.log(rangeLength);
+  }
   const handleFilter = () => {
     if (filterOpen) {
       setFilterOpen(false);
@@ -68,24 +79,39 @@ function Collection() {
         </h1>
       </header>
       <section className="h-10 transition-all" ref={filterSection}>
-        <div className="filterContent hidden justify-center items-center h-[80%]">
-          <ul>
-            <li>
-              {/* <label htmlFor="lengthCheckbox">Length</label>
-              <input type="checkbox" name="lengthCheckbox" id="" />
-              <input type="range" name="" id="" /> */}
-            </li>
-            <li>
-              {/* <label htmlFor="weightCheckbox">Weight</label>
-              <input type="checkbox" name="weightCheckbox" id="" /> */}
-              <RangeSlider
-                className="w-40"
-                defaultValue={[10, 50]}
-                max={100}
-                min={0}
+        <div className="filterContent hidden justify-center items-center flex-col h-[80%]">
+          <div className="h-[full] flex justify-center items-center flex-row w-full gap-8">
+            <div className="h-full w-[20%] flex justify-center items-center flex-col">
+              {" "}
+              <Slider
+                value={rangeWeight}
+                onChange={handleChangesWeight}
+                valueLabelDisplay="on"
+                className="h-10"
+                name="weightSlider"
+                max={75}
+                color="secondary"
               />
-            </li>
-          </ul>
+              {rangeWeight[0]}kg - {rangeWeight[1]}kg
+            </div>
+
+            <div className="h-full w-[20%] flex justify-center items-center flex-col">
+              {" "}
+              <Slider
+                value={rangeLength}
+                onChange={handleChangesLength}
+                valueLabelDisplay="on"
+                className="h-10"
+                name="weightSlider"
+                max={200}
+                color="secondary"
+              />
+              {rangeLength[0]}cm - {rangeLength[1]}cm
+            </div>
+          </div>
+          <button className="bg-[#003585] text-white p-2 rounded-xl px-3">
+            Search
+          </button>
         </div>
         <p
           className="filterLink text-xl text-[#3b3b3b] flex justify-center items-center hover:underline cursor-pointer "

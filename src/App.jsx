@@ -8,36 +8,46 @@ import NotFound from "./components/NotFound";
 import { AuthContextProvider } from "./contexts/AuthContextProvider";
 import Login from "./components/Login";
 import i18n from "./i18n";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
 
 function App() {
   useEffect(() => {
     i18n.changeLanguage(navigator.language);
   }, []);
+  const theme = createTheme({
+    palette: {
+      secondary: {
+        main: "#003585",
+      },
+    },
+  });
 
   return (
     <AuthContextProvider>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Home />} exact></Route>
-          <Route
-            path="/collection/:name"
-            element={<Collection />}
-            exact
-          ></Route>
-          <Route
-            path="/login"
-            element={
-              <AuthContextProvider>
-                <Login />
-              </AuthContextProvider>
-            }
-            exact
-          ></Route>
-          <Route path="/signup" element={<Signup />} exact></Route>
-          <Route path="/logout" element={<Logout />} exact />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
+      <ThemeProvider theme={theme}>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Home />} exact></Route>
+            <Route
+              path="/collection/:name"
+              element={<Collection />}
+              exact
+            ></Route>
+            <Route
+              path="/login"
+              element={
+                <AuthContextProvider>
+                  <Login />
+                </AuthContextProvider>
+              }
+              exact
+            ></Route>
+            <Route path="/signup" element={<Signup />} exact></Route>
+            <Route path="/logout" element={<Logout />} exact />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </BrowserRouter>
+      </ThemeProvider>
     </AuthContextProvider>
   );
 }
