@@ -14,6 +14,7 @@ import "rsuite/dist/rsuite.min.css";
 function Collection() {
   const { name } = useParams();
   const [filteredImages, setFilteredImages] = useState([]);
+  const [originalImages, setOriginalImages] = useState([]);
   const [loading, setLoading] = useState(true);
   const [imageSource, setImageSource] = useState("");
   const [filterOpen, setFilterOpen] = useState(false);
@@ -28,6 +29,7 @@ function Collection() {
         setLoading(true);
         const images = await getImgWithCollection(user.uid, name);
         setFilteredImages(images);
+        setOriginalImages(images);
         setLoading(false);
       };
       fetchImages();
@@ -54,11 +56,9 @@ function Collection() {
   const [rangeLength, setRangeLength] = useState([30, 55]);
   function handleChangesWeight(event, newValue) {
     setRangeWeight(newValue);
-    console.log(rangeWeight);
   }
   function handleChangesLength(event, newValue) {
     setRangeLength(newValue);
-    console.log(rangeLength);
   }
   const handleFilter = () => {
     if (filterOpen) {
@@ -70,6 +70,18 @@ function Collection() {
       filterSection.current.style.height = "300px";
       document.querySelector(".filterContent").style.display = "flex";
     }
+  };
+
+  const handleSearch = () => {
+    const filteredData = originalImages.filter(() => {
+      return (
+        originalImages.toString().match(/\(([^)]+)\)/)[1] >= rangeWeight[0] &&
+        originalImages.toString().match(/\(([^)]+)\)/)[1] <= rangeWeight[1] &&
+        originalImages.toString().match(/%24(.*?)%24/)[1] >= rangeLength[0] &&
+        originalImages.toString().match(/%24(.*?)%24/)[1] <= rangeLength[1]
+      );
+    });
+    setFilteredImages(filteredData);
   };
   return (
     <>
@@ -91,7 +103,7 @@ function Collection() {
                 onChange={handleChangesWeight}
                 valueLabelDisplay="on"
                 className="h-10 slider"
-                name="weightSlider"
+                id="weightSlider"
                 max={75}
                 color="secondary"
               />
@@ -105,14 +117,17 @@ function Collection() {
                 onChange={handleChangesLength}
                 valueLabelDisplay="on"
                 className="h-10 slider"
-                name="weightSlider"
+                id="lengthSlider"
                 max={200}
                 color="secondary"
               />
               {rangeLength[0]}cm - {rangeLength[1]}cm
             </div>
           </div>
-          <button className="bg-[#003585] text-white p-2 rounded-xl px-3">
+          <button
+            onClick={handleSearch}
+            className="bg-[#003585] text-white p-2 rounded-xl px-3"
+          >
             Search
           </button>
         </div>
