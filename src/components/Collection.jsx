@@ -83,6 +83,9 @@ function Collection() {
     });
     setFilteredImages(filteredData);
   };
+  const resetFilter = () => {
+    setFilteredImages(originalImages);
+  };
   return (
     <>
       <header className="h-[215px] select-none collectionBg drop-shadow-2xl text-white text-center bg-[#003585] flex justify-center items-start w-[screen] overflow-hidden">
@@ -129,6 +132,9 @@ function Collection() {
             className="bg-[#003585] text-white p-2 rounded-xl px-3"
           >
             Search
+          </button>
+          <button onClick={resetFilter} className="text-red-500 mt-1">
+            Reset
           </button>
         </div>
         <p
