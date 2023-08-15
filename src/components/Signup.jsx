@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
 function Signup() {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const [name, setName] = useState("");
   const [emailLogin, setEmailLogin] = useState("");
   const [passwordLogin, setPasswordLogin] = useState("");
@@ -19,19 +19,19 @@ function Signup() {
     if (
       document.getElementById("confirm").value !=
       document.getElementById("password").value
-    )
-      return (document.querySelector(".error").innerText =
-        "Error: Passwords do not match");
-
-    await signUp(name, emailLogin, passwordLogin);
+    ) {
+      document.getElementById("error").style.color = "#ff0000";
+      document.getElementById("error").innerText = t("Passwords do not match!");
+      return;
+    } else await signUp(name, emailLogin, passwordLogin);
   };
   useEffect(() => {
-    if (error == "Check your email!") {
+    if (error == t("Verify Email Sent!")) {
       setTimeout(() => {
         navigate("/login");
       }, 2000);
     }
-  }, [error, navigate]);
+  }, [error, navigate, t]);
 
   return (
     <section className="h-screen flex flex-col md:flex-row justify-center space-y-10 md:space-y-0 md:space-x-16 items-center my-2 mx-5 md:mx-0 md:my-0">
@@ -96,7 +96,7 @@ function Signup() {
               className="w-full max-sm:w-[200px] p-[10px] mt-2 rounded-lg bg-[#003585] text-white border-0"
               type="submit"
             >
-              Signup
+              {t("Signup")}
             </button>
           </div>
         </form>

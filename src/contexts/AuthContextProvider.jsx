@@ -1,24 +1,26 @@
 import { useContext, createContext, useEffect, useState } from "react";
 import { auth } from "../firebase/config";
+import { useTranslation } from "react-i18next";
 
 const AuthContext = createContext();
 
 export const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState({});
   const [error, setError] = useState("");
+  const { t } = useTranslation();
 
   const signIn = (email, password) => {
     auth
       .signInWithEmailAndPassword(email, password)
       .then((user) => {
         if (!user.user.emailVerified) {
-          console.error("Email not verified");
-          setError("Email not verified");
+          console.error(t("Email not verified"));
+          setError(t("Email not verified"));
           document.getElementById("error").style.color = "#ff0000";
           auth.signOut();
         } else {
           document.getElementById("error").style.color = "#008000";
-          setError("Success!");
+          setError(t("Successful!"));
         }
       })
       .catch((err) => {
@@ -30,12 +32,12 @@ export const AuthContextProvider = ({ children }) => {
   const forgetPassword = (email) => {
     auth.sendPasswordResetEmail(email);
     document.getElementById("error").style.color = "#008000";
-    setError("Check Email!");
+    setError(t("Password Reset Email Sent!"));
   };
 
   const forgetPasswordHome = (email) => {
     auth.sendPasswordResetEmail(email);
-    alert("Successful! Check your email.");
+    alert(t("Password Reset Email Sent!"));
   };
 
   const logOut = () => {
@@ -45,18 +47,13 @@ export const AuthContextProvider = ({ children }) => {
   const signUp = async (name, email, password) => {
     const userCredential = await auth
       .createUserWithEmailAndPassword(email, password)
-      /* .then((res) => {
-        return res.user.updateProfile({
-          displayName: name,
-        });
-      }) */
       .catch((err) => {
         return setError(err.message);
       });
     await userCredential.user.updateProfile({ displayName: name });
     await userCredential.user.sendEmailVerification();
 
-    setError("Check your email!");
+    setError(t("Verify Email Sent!"));
     auth.signOut();
     return userCredential;
   };

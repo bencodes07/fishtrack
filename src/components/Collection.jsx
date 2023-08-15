@@ -10,6 +10,7 @@ import { TbRulerMeasure } from "react-icons/tb";
 import Loader from "./Loader";
 import Slider from "@mui/material/Slider";
 import "rsuite/dist/rsuite.min.css";
+import { useTranslation } from "react-i18next";
 
 function Collection() {
   const { name } = useParams();
@@ -21,6 +22,7 @@ function Collection() {
   const modal = useRef();
   const main = useRef();
   const filterSection = useRef();
+  const { t } = useTranslation();
 
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
@@ -92,14 +94,14 @@ function Collection() {
         <h1 className="relative flex justify-center items-center flex-col top-5 uppercase text-6xl font-semibold tracking-[8px] px-[30px] whitespace-break-spaces">
           {name} <br></br>
           <span className="tracking-[7px] font-normal text-2xl relative mt-10 h-fit">
-            [ Your Tracks ]
+            [ {t("Your Tracks")} ]
           </span>
         </h1>
       </header>
       <section className="h-10 transition-all" ref={filterSection}>
         <div className="filterContent hidden justify-center items-center flex-col h-[80%]">
-          <div className="h-[full] flex justify-center items-center flex-row w-full gap-8">
-            <div className="h-full w-[20%] flex justify-center items-center flex-col">
+          <div className="h-[full] flex justify-center items-center md:flex-row sm:flex-col max-sm:flex-col w-full gap-8">
+            <div className="h-full md:w-[20%] sm:w-[60%] max-sm:w-[60%] flex justify-center items-center flex-col">
               {" "}
               <Slider
                 value={rangeWeight}
@@ -113,7 +115,7 @@ function Collection() {
               {rangeWeight[0]}kg - {rangeWeight[1]}kg
             </div>
 
-            <div className="h-full w-[20%] flex justify-center items-center flex-col">
+            <div className="h-full md:w-[20%] sm:w-[60%] max-sm:w-[60%] flex justify-center items-center flex-col">
               {" "}
               <Slider
                 value={rangeLength}
@@ -131,10 +133,10 @@ function Collection() {
             onClick={handleSearch}
             className="bg-[#003585] text-white p-2 rounded-xl px-3"
           >
-            Search
+            {t("Search")}
           </button>
           <button onClick={resetFilter} className="text-red-500 mt-1">
-            Reset
+            {t("Reset")}
           </button>
         </div>
         <p
@@ -188,13 +190,17 @@ function Collection() {
               <div className="flex justify-center flex-col items-left w-[40vw] text-xl max-sm:w-[75vw] max-sm:items-center ">
                 <div className="flex justify-start items-center">
                   <GiFishing size={24} className="mr-1" />
-                  <p className=" font-bold">Catch Date:&nbsp;&nbsp;&nbsp;</p>
+                  <p className=" font-bold">
+                    {t("Catch Date")}:&nbsp;&nbsp;&nbsp;
+                  </p>
 
                   {imageSource.toString().match(/(\d{2})-(\d{2})-(\d{4})/)[0]}
                 </div>
                 <div className="flex justify-start items-center">
                   <IoLocationSharp size={24} className="mr-1" />
-                  <p className=" font-bold">Location:&nbsp;&nbsp;&nbsp;</p>
+                  <p className=" font-bold">
+                    {t("Catch Location")}:&nbsp;&nbsp;&nbsp;
+                  </p>
                   {imageSource
                     .toString()
                     .match(/%7B(.*?)%7D/)[1]
@@ -202,7 +208,9 @@ function Collection() {
                 </div>
                 <div className="flex justify-start items-center">
                   <FaFishFins size={24} className="mr-1" />
-                  <p className=" font-bold">Fish Type:&nbsp;&nbsp;&nbsp;</p>
+                  <p className=" font-bold">
+                    {t("Fish Type")}:&nbsp;&nbsp;&nbsp;
+                  </p>
                   {imageSource
                     .toString()
                     .match(/%5B(.*?)%5D/)[1]
@@ -210,12 +218,16 @@ function Collection() {
                 </div>
                 <div className="flex justify-start items-center">
                   <GiWeight size={24} className="mr-1" />
-                  <p className=" font-bold">Fish Weight:&nbsp;&nbsp;&nbsp;</p>
+                  <p className=" font-bold">
+                    {t("Fish Weight")}:&nbsp;&nbsp;&nbsp;
+                  </p>
                   {imageSource.toString().match(/\(([^)]+)\)/)[1]}kg
                 </div>
                 <div className="flex justify-start items-center">
                   <TbRulerMeasure size={24} className="mr-1" />
-                  <p className=" font-bold">Fish Length:&nbsp;&nbsp;&nbsp;</p>
+                  <p className=" font-bold">
+                    {t("Fish Length")}:&nbsp;&nbsp;&nbsp;
+                  </p>
                   {imageSource.toString().match(/%24(.*?)%24/)[1]}cm
                 </div>
               </div>

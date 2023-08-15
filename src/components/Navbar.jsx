@@ -3,8 +3,10 @@ import { useNavigate } from "react-router-dom";
 import { useContextMenu, ContextMenuItem } from "use-context-menu";
 import "use-context-menu/styles.css";
 import { UserAuth } from "../contexts/AuthContextProvider";
+import { useTranslation } from "react-i18next";
 
 function Navbar(props) {
+  const { t } = useTranslation();
   const { user, forgetPasswordHome } = UserAuth();
   const navigate = useNavigate();
   const accountSymbol = props.email ? props.email[0] : "";
@@ -23,9 +25,9 @@ function Navbar(props) {
     onKeyDown,
   } = useContextMenu(
     <>
-      <ContextMenuItem onSelect={handleHome}>Home</ContextMenuItem>
+      <ContextMenuItem onSelect={handleHome}>{t("Home")}</ContextMenuItem>
       <ContextMenuItem onSelect={handlePasswordReset}>
-        Password Reset
+        {t("Form Forgot Password")}
       </ContextMenuItem>
       <ContextMenuItem
         onSelect={handleLogout ? handleLogout : null}
@@ -47,10 +49,10 @@ function Navbar(props) {
         <ul className="flex text-lg w-[30vw] max-w-[440px] justify-evenly items-center list-none max-lg:w-[35vw] ">
           <li className="">
             <a
-              className="max-sm:hidden text-black hover:no-underline hover:text-black hover:font-medium transition-all"
+              className="max-sm:hidden text-black hover:no-underline hover:text-black hover:font-medium transition-all uppercase"
               href="/"
             >
-              HOME
+              {t("Home")}
             </a>
           </li>
           {/* <li className=" text-[#7F7F7F]">
@@ -63,7 +65,7 @@ function Navbar(props) {
           </li> */}
           <li className="text-[#7F7F7F]">
             <a
-              className="max-sm:hidden hover:no-underline hover:text-black hover:font-medium transition-all cursor-pointer"
+              className="max-sm:hidden hover:no-underline hover:text-black hover:font-medium transition-all cursor-pointer uppercase"
               onClick={async () => {
                 try {
                   await navigator.clipboard.writeText(window.location.href);
@@ -75,7 +77,7 @@ function Navbar(props) {
                 }
               }}
             >
-              INVITE
+              {t("Invite")}
             </a>
           </li>
         </ul>
