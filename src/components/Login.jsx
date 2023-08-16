@@ -35,12 +35,23 @@ function Login() {
         navigate("/");
       }, 2000);
     }
+    document.querySelector("img").addEventListener("load", () => {
+      document.querySelector("img").style.opacity = 1;
+    });
   }, [error, navigate, t]);
 
   return (
     <section className="h-screen flex flex-col md:flex-row justify-center space-y-10 md:space-y-0 md:space-x-16 items-center my-2 mx-5 md:mx-0 md:my-0">
-      <div className="md:w-1/3 max-w-sm shadow-2xl rounded-3xl">
-        <img src="./login.png" className="rounded-3xl" alt="" />
+      <div
+        className="md:w-1/3 max-w-sm shadow-2xl rounded-3xl bg-no-repeat bg-cover bg-center"
+        style={{ backgroundImage: "https://fishtrack.net/login-small.png" }}
+      >
+        <img
+          src="./login.png"
+          className="rounded-3xl object-cover object-center opacity-0"
+          alt=""
+          loading="lazy"
+        />
       </div>
       <div className="md:w-1/3 max-w-sm">
         <div className="text-center md:text-left text-3xl font-logo text-[#003585]">
