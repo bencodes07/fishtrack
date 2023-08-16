@@ -44,7 +44,9 @@ function Login() {
     <section className="h-screen flex flex-col md:flex-row justify-center space-y-10 md:space-y-0 md:space-x-16 items-center my-2 mx-5 md:mx-0 md:my-0">
       <div
         className="md:w-1/3 max-w-sm shadow-2xl rounded-3xl bg-no-repeat bg-cover bg-center"
-        style={{ backgroundImage: "https://fishtrack.net/login-small.png" }}
+        style={{
+          backgroundImage: "url(./login-small.png)",
+        }}
       >
         <img
           src="./login.png"
