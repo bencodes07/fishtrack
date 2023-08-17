@@ -46,6 +46,7 @@ const resources = {
       "Your Tracks": "Your Tracks",
       Search: "Search",
       Reset: "Reset",
+      "You don't have any Folders.": "You don't have any Folders.",
     },
   },
   de: {
@@ -91,6 +92,7 @@ const resources = {
       "Your Tracks": "Deine Tracks",
       Search: "Suchen",
       Reset: "Zurücksetzen",
+      "You don't have any Folders.": "Du hast noch keine Ordner",
     },
   },
 };

@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 
 function Gallery() {
   const [collections, setCollections] = useState([]);
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
 
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
@@ -51,7 +51,7 @@ function Gallery() {
           ))}
         </div>
         {collections.length === 0 && (
-          <p className="text-[#7F7F7F]">You don't have any Folders.</p>
+          <p className="text-[#7F7F7F]">{t("You don't have any Folders.")}</p>
         )}
       </div>
     </>

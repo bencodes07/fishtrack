@@ -16,16 +16,16 @@ function HomeOut() {
         <main className="max-h-[calc(100svh-100px)]">
           <div className="flex justify-between h-[calc(100svh-100px)] overflow-hidden ">
             <div className="relative top-[15vh] max-lg:top-[5svh] max-lg:max-h-[100svh] left-[7vw] max-lg:left-[50%] max-lg:translate-x-[-50%] max-lg:text-center overflow-hidden">
-              <h1 className="text-6xl font-semibold overflow-hidden">
+              <h1 className="md:text-6xl max-sm:text-4xl font-semibold overflow-hidden">
                 {t("Start Heading 1")}
               </h1>
-              <h1 className="text-6xl font-semibold text-[#0044AB] overflow-hidden">
+              <h1 className="md:text-6xl max-sm:text-4xl font-semibold text-[#0044AB] overflow-hidden">
                 {t("Start Heading 2")}
               </h1>
-              <h1 className="text-6xl font-semibold overflow-hidden">
+              <h1 className="md:text-6xl max-sm:text-4xl font-semibold overflow-hidden">
                 {t("Start Heading 3")}
               </h1>
-              <p className="max-w-[35vw] max-lg:max-w-sm mt-3 text-[#7F7F7F]">
+              <p className="max-w-[35vw] max-sm:text-sm max-lg:max-w-sm mt-3 text-[#7F7F7F]">
                 {t("Start Text")}
               </p>
               <div className="flex justify-start max-lg:justify-center items-center mt-4">

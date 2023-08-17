@@ -37,7 +37,7 @@ const Home = () => {
         const month = dateArray[1];
         const day = dateArray[2];
 
-        const regex = /^[A-Za-z0-9 ]+$/;
+        const regex = /^[A-Za-z0-9,./ ]+$/;
 
         if (
           !regex.test(collectionNameInput.current.value) ||
@@ -96,9 +96,9 @@ const Home = () => {
         <Navbar loggedIn={true} email={user.email} />
         <main className="flex justify-start items-center flex-col min-h-[calc(100vh-100px)]">
           <div className="flex justify-center items-center flex-col">
-            <h2 className="text-[#003585] font-medium text-2xl mt-6">
+            <h2 className="text-[#003585] font-medium text-2xl mt-6 w-[80vw] flex justify-center items-center sm:flex-row max-sm:flex-col">
               {t("Welcome back")}{" "}
-              <strong>
+              <strong className="ml-2">
                 {user.displayName ? user.displayName : user.email}
               </strong>
             </h2>
@@ -117,7 +117,7 @@ const Home = () => {
                     onClick={() =>
                       document.querySelector(".input-field").click()
                     }
-                    className="flex justify-center items-center flex-col border-[#003585] border-dashed border-[3px] w-[400px] h-[320px] max-sm:w-[200px] mt-3 rounded-lg cursor-pointer"
+                    className="flex justify-center items-center flex-col border-[#003585] border-dashed border-[3px] w-[400px] h-[320px] max-sm:w-[80vw] mt-3 rounded-lg cursor-pointer"
                   >
                     <input
                       type="file"
@@ -189,7 +189,7 @@ const Home = () => {
                       placeholder={t("Catch Date")}
                       onFocus={(e) => (e.target.type = "date")}
                       onBlur={(e) => (e.target.type = "text")}
-                      className="w-full max-sm:w-[200px] px-[10px] py-[10px] rounded-lg border-2 border[#003585] max-h-[46.5px]"
+                      className="w-full max-sm:w-[200px] px-[10px] py-[10px] rounded-lg border-2 max-h-[46.5px]"
                       ref={dateInput}
                       required
                     />
@@ -199,7 +199,7 @@ const Home = () => {
                     type="text"
                     name="locationInput"
                     placeholder={t("Catch Location")}
-                    className="w-full max-sm:w-[200px] p-[10px] rounded-lg mt-2 border-2 border[#003585]"
+                    className="w-full max-sm:w-[200px] p-[10px] rounded-lg mt-2 border-2"
                     ref={locationInput}
                     required
                   />
@@ -207,7 +207,7 @@ const Home = () => {
                     type="text"
                     name="typeInput"
                     placeholder={t("Fish Type")}
-                    className="w-full max-sm:w-[200px] p-[10px] rounded-lg mt-2 border-2 border[#003585]"
+                    className="w-full max-sm:w-[200px] p-[10px] rounded-lg mt-2 border-2"
                     ref={typeInput}
                     required
                   />
@@ -216,7 +216,7 @@ const Home = () => {
                       type="number"
                       name="weightInput"
                       placeholder={t("Fish Weight")}
-                      className="w-full max-sm:w-[200px] p-[10px] rounded-lg mt-2 border-2 border[#003585]"
+                      className="w-full max-sm:w-[200px] p-[10px] rounded-lg mt-2 border-2"
                       ref={weightInput}
                       required
                     />
@@ -229,7 +229,7 @@ const Home = () => {
                       type="number"
                       name="lengthInput"
                       placeholder={t("Fish Length")}
-                      className="w-full max-sm:w-[200px] p-[10px] rounded-lg mt-2 border-2 border[#003585]"
+                      className="w-full max-sm:w-[200px] p-[10px] rounded-lg mt-2 border-2"
                       ref={lengthInput}
                       required
                     />
@@ -244,7 +244,7 @@ const Home = () => {
                     ref={collectionNameInput}
                     placeholder={t("Folder")}
                     required
-                    className="w-full max-sm:w-[200px] p-[10px] rounded-lg mt-2 border-2 border[#003585]"
+                    className="w-full max-sm:w-[200px] p-[10px] rounded-lg mt-2 border-2"
                   />
                   <button
                     className="w-full max-sm:w-[200px] mt-2 p-[10px] rounded-lg bg-[#003585] text-white border-0"

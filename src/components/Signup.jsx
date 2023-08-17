@@ -46,7 +46,9 @@ function Signup() {
         <div className="text-center md:text-left text-3xl font-logo text-[#003585]">
           fishtrack.
         </div>
-        <div className="my-5 flex items-center before:mt-0.5 before:flex-1 before:border-t before:border-neutral-300 after:mt-0.5 after:flex-1 after:border-t after:border-neutral-300"></div>
+        <div className="my-5 flex items-center before:mt-0.5 before:flex-1 before:border-t before:border-neutral-300 after:mt-0.5 after:flex-1 after:border-t after:border-neutral-300">
+          <h1 className="px-3 font-semibold uppercase">{t("Signup")}</h1>
+        </div>
         <form onSubmit={(e) => onSubmitSignup(e)}>
           <input
             type="text"
