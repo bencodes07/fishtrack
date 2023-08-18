@@ -1,12 +1,13 @@
 import { useParams } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
 import { getImgWithCollection } from "../firebase/utils";
-import { auth } from "../firebase/config";
+import { auth, storage } from "../firebase/config";
 import { GrClose } from "react-icons/gr";
 import { IoLocationSharp } from "react-icons/io5";
 import { GiFishing, GiWeight } from "react-icons/gi";
 import { FaFishFins, FaChevronDown, FaChevronUp } from "react-icons/fa6";
 import { TbRulerMeasure } from "react-icons/tb";
+import { BsFillTrash3Fill } from "react-icons/bs";
 import Loader from "./Loader";
 import Slider from "@mui/material/Slider";
 import "rsuite/dist/rsuite.min.css";
@@ -72,6 +73,19 @@ function Collection() {
       filterSection.current.style.height = "300px";
       document.querySelector(".filterContent").style.display = "flex";
     }
+  };
+
+  const handleDelete = () => {
+    console.log(imageSource);
+    storage
+      .refFromURL(imageSource)
+      .delete()
+      .then(() => {
+        alert(t("Successful!"));
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   };
 
   const handleSearch = () => {
@@ -230,6 +244,13 @@ function Collection() {
                   </p>
                   {imageSource.toString().match(/%24(.*?)%24/)[1]}cm
                 </div>
+                <button
+                  onClick={handleDelete}
+                  className=" text-red-500 w-[50%] mt-2 flex justify-center items-center"
+                >
+                  <BsFillTrash3Fill className="mr-2" />
+                  {t("Delete")}
+                </button>
               </div>
               <img
                 src={imageSource}

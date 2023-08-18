@@ -50,7 +50,9 @@ export const AuthContextProvider = ({ children }) => {
       .catch((err) => {
         return setError(err.message);
       });
-    await userCredential.user.updateProfile({ displayName: name });
+    await userCredential.user.updateProfile({
+      displayName: name,
+    });
     await userCredential.user.sendEmailVerification();
 
     setError(t("Verify Email Sent!"));
@@ -61,6 +63,7 @@ export const AuthContextProvider = ({ children }) => {
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((currentUser) => {
       setUser(currentUser);
+      console.log(currentUser);
     });
     return () => {
       unsubscribe();

@@ -47,6 +47,7 @@ const resources = {
       Search: "Search",
       Reset: "Reset",
       "You don't have any Folders.": "You don't have any Folders.",
+      Delete: "Delete",
     },
   },
   de: {
@@ -93,6 +94,7 @@ const resources = {
       Search: "Suchen",
       Reset: "Zurücksetzen",
       "You don't have any Folders.": "Du hast noch keine Ordner",
+      Delete: "Löschen",
     },
   },
 };
