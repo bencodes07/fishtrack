@@ -29,6 +29,7 @@ function Navbar(props) {
       <ContextMenuItem onSelect={handlePasswordReset}>
         {t("Form Forgot Password")}
       </ContextMenuItem>
+      <ContextMenuItem onSelect={handlePasswordReset}>Premium</ContextMenuItem>
       <ContextMenuItem
         onSelect={handleLogout ? handleLogout : null}
         className=" text-red-500"
@@ -78,6 +79,14 @@ function Navbar(props) {
               }}
             >
               {t("Invite")}
+            </a>
+          </li>
+          <li className="text-[#7F7F7F]">
+            <a
+              className="max-sm:hidden hover:no-underline hover:text-black hover:font-medium transition-all uppercase"
+              href="/"
+            >
+              Premium
             </a>
           </li>
         </ul>

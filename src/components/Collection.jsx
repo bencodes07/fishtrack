@@ -76,7 +76,6 @@ function Collection() {
   };
 
   const handleDelete = () => {
-    console.log(imageSource);
     storage
       .refFromURL(imageSource)
       .delete()

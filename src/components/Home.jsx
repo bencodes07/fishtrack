@@ -9,10 +9,14 @@ import { AiFillFileImage } from "react-icons/ai";
 import { MdDelete, MdCloudUpload } from "react-icons/md";
 import Footer from "./Footer";
 import { useTranslation } from "react-i18next";
+import { getImg } from "../firebase/utils";
+import { auth } from "../firebase/config";
 
 const Home = () => {
   const { t } = useTranslation();
   const { user } = UserAuth();
+
+  const MAX_IMAGE_AMOUNT = 100;
 
   const collectionNameInput = useRef();
   const locationInput = useRef();
@@ -26,56 +30,75 @@ const Home = () => {
   const [preview, setPreview] = useState("");
   const [fileName, setFileName] = useState(t("No file selected"));
 
+  const [imageAmount, setImageAmount] = useState(0);
+
+  useEffect(() => {
+    auth.onAuthStateChanged((user) => {
+      if (!user) return;
+      const fetchImages = async () => {
+        const images = await getImg(user.uid);
+
+        setImageAmount(images.length);
+      };
+      fetchImages();
+    });
+  }, [imageAmount]);
+
   const handleUpload = (e) => {
-    e.preventDefault();
-    if (user != null) {
-      for (let i = 0; i < files.length; i++) {
-        const date = dateInput.current.value;
-        const dateArray = date.split("-");
-
-        const year = dateArray[0];
-        const month = dateArray[1];
-        const day = dateArray[2];
-
-        const regex = /^[A-Za-z0-9,./ ]+$/;
-
-        if (
-          !regex.test(collectionNameInput.current.value) ||
-          !regex.test(locationInput.current.value) ||
-          !regex.test(typeInput.current.value) ||
-          !regex.test(weightInput.current.value) ||
-          !regex.test(lengthInput.current.value)
-        )
-          return alert("No special characters please!");
-
-        storage
-          .ref(
-            `images/${files[i].name}_${
-              user.uid
-            }_${uuidv4()}_${day}-${month}-${year}_{${
-              locationInput.current.value
-            }}_[${typeInput.current.value}]_(${weightInput.current.value})_$${
-              lengthInput.current.value
-            }$_collection=${collectionNameInput.current.value}`
-          )
-          .put(files[i])
-          .on(
-            "state_changed",
-            (snapshot) => {
-              console.log(snapshot);
-              fileLoader.current.style.width =
-                (
-                  (snapshot.bytesTransferred / snapshot.totalBytes) *
-                  100
-                ).toString() + "%";
-            },
-            (error) => {
-              alert(error);
-            }
-          );
-      }
+    if (imageAmount >= MAX_IMAGE_AMOUNT && user.isAnonymous == false) {
+      console.log(imageAmount);
+      alert("Please subscribe first");
     } else {
-      alert("Please log in first!");
+      e.preventDefault();
+      if (user != null) {
+        for (let i = 0; i < files.length; i++) {
+          const date = dateInput.current.value;
+          const dateArray = date.split("-");
+
+          const year = dateArray[0];
+          const month = dateArray[1];
+          const day = dateArray[2];
+
+          const regex = /^[A-Za-z0-9,./ üöä]+$/;
+
+          if (
+            !regex.test(collectionNameInput.current.value) ||
+            !regex.test(locationInput.current.value) ||
+            !regex.test(typeInput.current.value) ||
+            !regex.test(weightInput.current.value) ||
+            !regex.test(lengthInput.current.value)
+          )
+            return alert("No special characters please!");
+
+          storage
+            .ref(
+              `images/${files[i].name}_${
+                user.uid
+              }_${uuidv4()}_${day}-${month}-${year}_{${
+                locationInput.current.value
+              }}_[${typeInput.current.value}]_(${weightInput.current.value})_$${
+                lengthInput.current.value
+              }$_collection=${collectionNameInput.current.value}`
+            )
+            .put(files[i])
+            .on(
+              "state_changed",
+              (snapshot) => {
+                console.log(snapshot);
+                fileLoader.current.style.width =
+                  (
+                    (snapshot.bytesTransferred / snapshot.totalBytes) *
+                    100
+                  ).toString() + "%";
+              },
+              (error) => {
+                alert(error);
+              }
+            );
+        }
+      } else {
+        alert("Please log in first!");
+      }
     }
   };
   useEffect(() => {
