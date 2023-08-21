@@ -29,7 +29,7 @@ function Navbar(props) {
       <ContextMenuItem onSelect={handlePasswordReset}>
         {t("Form Forgot Password")}
       </ContextMenuItem>
-      <ContextMenuItem onSelect={handlePasswordReset}>Premium</ContextMenuItem>
+      <ContextMenuItem onSelect={handleHome}>Premium</ContextMenuItem>
       <ContextMenuItem
         onSelect={handleLogout ? handleLogout : null}
         className=" text-red-500"
