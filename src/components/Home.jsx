@@ -116,7 +116,7 @@ const Home = () => {
   if (user) {
     return (
       <>
-        <Navbar loggedIn={true} email={user.email} />
+        <Navbar loggedIn={true} name={user.displayName} />
         <main className="flex justify-start items-center flex-col min-h-[calc(100vh-100px)]">
           <div className="flex justify-center items-center flex-col">
             <h2 className="text-[#003585] font-medium text-2xl mt-6 w-[80vw] flex justify-center items-center sm:flex-row max-sm:flex-col">

@@ -9,7 +9,6 @@ function Navbar(props) {
   const { t } = useTranslation();
   const { user, forgetPasswordHome } = UserAuth();
   const navigate = useNavigate();
-  const accountSymbol = props.email ? props.email[0] : "";
   const handleLogout = () => {
     window.location.href = "https://fishtrack.net/logout";
   };
@@ -18,6 +17,9 @@ function Navbar(props) {
   };
   const handlePasswordReset = () => {
     forgetPasswordHome(user.email);
+  };
+  const handlePremium = () => {
+    alert("This feature is not implemented");
   };
   const {
     contextMenu: contextMenu,
@@ -29,7 +31,7 @@ function Navbar(props) {
       <ContextMenuItem onSelect={handlePasswordReset}>
         {t("Form Forgot Password")}
       </ContextMenuItem>
-      <ContextMenuItem onSelect={handleHome}>Premium</ContextMenuItem>
+      <ContextMenuItem onSelect={handlePremium}>Premium</ContextMenuItem>
       <ContextMenuItem
         onSelect={handleLogout ? handleLogout : null}
         className=" text-red-500"
@@ -84,7 +86,8 @@ function Navbar(props) {
           <li className="text-[#7F7F7F]">
             <a
               className="max-sm:hidden hover:no-underline hover:text-black hover:font-medium transition-all uppercase"
-              href="/"
+              href=""
+              onClick={handlePremium}
             >
               Premium
             </a>
@@ -111,7 +114,7 @@ function Navbar(props) {
           >
             {contextMenu}
             <p className="text-white w-min h-min font-bold uppercase">
-              {accountSymbol}
+              {user.displayName ? user.displayName.charAt(0) : ""}
             </p>
           </button>
         )}
