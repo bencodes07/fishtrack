@@ -11,6 +11,8 @@ import Footer from "./Footer";
 import { useTranslation } from "react-i18next";
 import { getImg } from "../firebase/utils";
 import { auth } from "../firebase/config";
+import DatePicker from "react-datepicker";
+import "react-datepicker/src/stylesheets/datepicker.scss";
 
 const Home = () => {
   const { t } = useTranslation();
@@ -29,6 +31,7 @@ const Home = () => {
   const [files, setFiles] = useState();
   const [preview, setPreview] = useState("");
   const [fileName, setFileName] = useState(t("No file selected"));
+  const [date, setDate] = useState(null);
 
   const [imageAmount, setImageAmount] = useState(0);
 
@@ -197,26 +200,22 @@ const Home = () => {
                   </div>
                 </div>
                 <div className="flex justify-between items-center flex-col w-[400px] mt-3 md:ml-0 min-[850px]:ml-4 lg:ml-4 max-sm:ml-0 h-[370px]">
-                  {window.innerWidth <= 640 ? (
-                    <input
-                      type="date"
-                      name="dateInput"
-                      className="w-full max-sm:w-[200px] px-[10px] py-[10px] rounded-lg border-2 border[#003585] max-h-[46.5px]"
-                      ref={dateInput}
-                      required
-                    />
+                  {/* {window.innerWidth <= 640 ? (
+                      <DatePicker />
                   ) : (
-                    <input
-                      type="text"
-                      name="dateInput"
-                      placeholder={t("Catch Date")}
-                      onFocus={(e) => (e.target.type = "date")}
-                      onBlur={(e) => (e.target.type = "text")}
-                      className="w-full max-sm:w-[200px] px-[10px] py-[10px] rounded-lg border-2 max-h-[46.5px]"
+                    <DatePicker />
+                  )} */}
+                  <div className="w-full min-h-[45px] flex justify-center items-center">
+                    <DatePicker
                       ref={dateInput}
-                      required
+                      name="dateInput"
+                      autoComplete="off"
+                      selected={date}
+                      onChange={(selectedDate) => setDate(selectedDate)}
+                      placeholderText={t("Catch Date")}
+                      className="w-[400px] max-sm:w-[200px] h-[45px] border-2 rounded-lg relative z-20 mt-1 pl-2"
                     />
-                  )}
+                  </div>
 
                   <input
                     type="text"

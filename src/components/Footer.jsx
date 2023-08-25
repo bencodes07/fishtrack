@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 function Footer() {
-  const pageHeight = window.innerHeight;
+  const pageHeight = window.outerHeight;
 
   const { i18n } = useTranslation();
   const [language, setLanguage] = useState("id");
@@ -16,7 +16,7 @@ function Footer() {
     const lang = e.target.value;
     console.log(lang);
     setLanguage(lang);
-    i18n.changeLanguage(lang);
+    i18n.changeLanguage(language);
   };
   return (
     <div
