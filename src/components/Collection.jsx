@@ -34,7 +34,6 @@ function Collection() {
         setFilteredImages(images);
         setOriginalImages(images);
         setLoading(false);
-        console.log(images);
       };
       fetchImages();
     });
@@ -50,7 +49,6 @@ function Collection() {
     setFilterOpen(false);
     filterSection.current.style.height = "2.5rem";
     document.querySelector(".filterContent").style.display = "none";
-    console.log(imageSource.toString().match(/%24(.*?)%24/));
   };
   const handleClickClose = () => {
     modal.current.style.translate = "100%";
@@ -209,11 +207,7 @@ function Collection() {
                     {t("Catch Date")}:&nbsp;&nbsp;&nbsp;
                   </p>
 
-                  {imageSource
-                    ?.toString()
-                    .match(/(\d{2}-\d{2}-\d{4})\*(\d{2}%3A\d{2})/)[0]
-                    .replace(/%3A/g, ":")
-                    .replace("*", ", ")}
+                  {imageSource.toString().match(/(\d{2})-(\d{2})-(\d{4})/)[0]}
                 </div>
                 <div className="flex justify-start items-center">
                   <IoLocationSharp size={24} className="mr-1" />
@@ -221,7 +215,7 @@ function Collection() {
                     {t("Catch Location")}:&nbsp;&nbsp;&nbsp;
                   </p>
                   {imageSource
-                    ?.toString()
+                    .toString()
                     .match(/%7B(.*?)%7D/)[1]
                     .replace(/%20/g, " ")}
                 </div>
@@ -231,7 +225,7 @@ function Collection() {
                     {t("Fish Type")}:&nbsp;&nbsp;&nbsp;
                   </p>
                   {imageSource
-                    ?.toString()
+                    .toString()
                     .match(/%5B(.*?)%5D/)[1]
                     .replace(/%20/g, " ")}
                 </div>
@@ -240,19 +234,14 @@ function Collection() {
                   <p className=" font-bold">
                     {t("Fish Weight")}:&nbsp;&nbsp;&nbsp;
                   </p>
-                  {/* {imageSource?.toString().match(/\(([^)]+)\)/)[1]}kg */}
-                  {imageSource.toString().match(/\(([^)]+)\)/) != null
-                    ? imageSource.toString().match(/\(([^)]+)\)/)[1] + "kg"
-                    : "-"}
+                  {imageSource.toString().match(/\(([^)]+)\)/)[1]}kg
                 </div>
                 <div className="flex justify-start items-center">
                   <TbRulerMeasure size={24} className="mr-1" />
                   <p className=" font-bold">
                     {t("Fish Length")}:&nbsp;&nbsp;&nbsp;
                   </p>
-                  {imageSource.toString().match(/%24(.*?)%24/)[1] != ""
-                    ? imageSource.toString().match(/%24(.*?)%24/)[1] + "cm"
-                    : "-"}
+                  {imageSource.toString().match(/%24(.*?)%24/)[1]}cm
                 </div>
                 <button
                   onClick={handleDelete}
