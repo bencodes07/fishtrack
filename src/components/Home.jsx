@@ -13,6 +13,7 @@ import { getImg } from "../firebase/utils";
 import { auth } from "../firebase/config";
 import DatePicker from "react-datepicker";
 import "react-datepicker/src/stylesheets/datepicker.scss";
+import { Input, SelectPicker } from "rsuite";
 
 const Home = () => {
   const { t } = useTranslation();
@@ -20,20 +21,39 @@ const Home = () => {
 
   const MAX_IMAGE_AMOUNT = 100;
 
-  const collectionNameInput = useRef();
-  const locationInput = useRef();
   const dateInput = useRef();
+  const locationInput = useRef();
   const typeInput = useRef();
   const weightInput = useRef();
   const lengthInput = useRef();
+  const tempInput = useRef();
+  const baitInput = useRef();
+  const weatherInput = useRef();
+  const waterInput = useRef();
+  const textInput = useRef();
+  const collectionNameInput = useRef();
 
   const fileLoader = useRef();
   const [files, setFiles] = useState();
   const [preview, setPreview] = useState("");
   const [fileName, setFileName] = useState(t("No file selected"));
   const [date, setDate] = useState(null);
+  const [weatherVal, setWeatherVal] = useState(null);
+  const [waterVal, setWaterVal] = useState(null);
 
   const [imageAmount, setImageAmount] = useState(0);
+
+  const weatherData = ["Sunny", "Cloudy", "Rainy", "Foggy", "Snowy"].map(
+    (item) => ({
+      label: item,
+      value: item,
+    })
+  );
+
+  const waterData = ["High", "Medium", "Low"].map((item) => ({
+    label: item,
+    value: item,
+  }));
 
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
@@ -55,21 +75,39 @@ const Home = () => {
       e.preventDefault();
       if (user != null) {
         for (let i = 0; i < files.length; i++) {
-          const date = dateInput.current.value;
-          const dateArray = date.split("-");
+          /* console.log(date);
+          const dateArr = date.split("/");
 
-          const year = dateArray[0];
-          const month = dateArray[1];
-          const day = dateArray[2];
+          const year = dateArr[0].split("-")[0];
+          const month = dateArr[0].split("-")[1];
+          const day = dateArr[0].split("-")[2];
 
-          const regex = /^[A-Za-z0-9,./ üöä]+$/;
+          console.log(dateArr); */
+
+          const dateObject = new Date(date);
+
+          // Format the date
+          const day = String(dateObject.getDate()).padStart(2, "0");
+          const month = String(dateObject.getMonth() + 1).padStart(2, "0"); // Months are 0-based
+          const year = dateObject.getFullYear();
+          const formattedDate = `${day}-${month}-${year}`;
+
+          // Format the time
+          const hours = String(dateObject.getHours()).padStart(2, "0");
+          const minutes = String(dateObject.getMinutes()).padStart(2, "0");
+          const formattedTime = `${hours}:${minutes}`;
+
+          const regex = /^[A-Za-z0-9,.: üöä]*$/;
 
           if (
             !regex.test(collectionNameInput.current.value) ||
             !regex.test(locationInput.current.value) ||
             !regex.test(typeInput.current.value) ||
             !regex.test(weightInput.current.value) ||
-            !regex.test(lengthInput.current.value)
+            !regex.test(lengthInput.current.value) ||
+            !regex.test(baitInput.current.value) ||
+            !regex.test(tempInput.current.value) ||
+            !regex.test(textInput.current.value)
           )
             return alert("No special characters please!");
 
@@ -77,11 +115,15 @@ const Home = () => {
             .ref(
               `images/${files[i].name}_${
                 user.uid
-              }_${uuidv4()}_${day}-${month}-${year}_{${
+              }_${uuidv4()}_${formattedDate}*${formattedTime}_{${
                 locationInput.current.value
               }}_[${typeInput.current.value}]_(${weightInput.current.value})_$${
                 lengthInput.current.value
-              }$_collection=${collectionNameInput.current.value}`
+              }$_!${baitInput.current.value}!_§${weatherVal}§_*${waterVal}*_@${
+                tempInput.current.value
+              }@_<${textInput.current.value}<_collection=${
+                collectionNameInput.current.value
+              }`
             )
             .put(files[i])
             .on(
@@ -104,17 +146,6 @@ const Home = () => {
       }
     }
   };
-  useEffect(() => {
-    if (window.innerWidth <= 640) {
-      const now = new Date();
-      let month = now.getMonth() + 1;
-      let day = now.getDate();
-      if (month < 10) month = "0" + month;
-      if (day < 10) day = "0" + day;
-      const today = now.getFullYear() + "-" + month + "-" + day;
-      dateInput.current.value = today;
-    }
-  }, []);
 
   if (user) {
     return (
@@ -143,7 +174,7 @@ const Home = () => {
                     onClick={() =>
                       document.querySelector(".input-field").click()
                     }
-                    className="flex justify-center items-center flex-col border-[#003585] border-dashed border-[3px] w-[400px] h-[320px] max-sm:w-[80vw] mt-3 rounded-lg cursor-pointer"
+                    className="flex justify-center items-center flex-col border-[#003585] border-dashed border-[3px] w-[400px] h-[480px] max-sm:w-[80vw] mt-3 rounded-lg cursor-pointer"
                   >
                     <input
                       type="file"
@@ -168,7 +199,7 @@ const Home = () => {
                         width={150}
                         height={150}
                         alt={fileName}
-                        className="object-cover w-[calc(100%-20px)] h-[calc(100%-20px)]"
+                        className="object-contain w-[calc(100%-20px)] h-[calc(100%-20px)]"
                       />
                     )}
 
@@ -199,74 +230,124 @@ const Home = () => {
                     </span>
                   </div>
                 </div>
-                <div className="flex justify-between items-center flex-col w-[400px] mt-3 md:ml-0 min-[850px]:ml-4 lg:ml-4 max-sm:ml-0 h-[370px]">
+                <div className="flex justify-between items-center flex-col w-[400px] mt-3 md:ml-0 min-[850px]:ml-4 lg:ml-4 max-sm:ml-0 gap-2">
                   {/* {window.innerWidth <= 640 ? (
                       <DatePicker />
                   ) : (
                     <DatePicker />
                   )} */}
-                  <div className="w-full min-h-[45px] flex justify-center items-center">
+                  <div className="w-full z-20 flex justify-center items-center h-[36px]">
                     <DatePicker
                       ref={dateInput}
-                      name="dateInput"
+                      showTimeSelect
+                      dateFormat={"dd-MM-yyyy"}
                       autoComplete="off"
                       selected={date}
                       onChange={(selectedDate) => setDate(selectedDate)}
                       placeholderText={t("Catch Date")}
-                      className="w-[400px] max-sm:w-[200px] h-[45px] border-2 rounded-lg relative z-20 mt-1 pl-2"
+                      className="w-[400px] max-sm:w-[200px] border h-[36px] rounded-lg pl-2 mt-1"
                     />
                   </div>
 
-                  <input
+                  <Input
                     type="text"
                     name="locationInput"
                     placeholder={t("Catch Location")}
-                    className="w-full max-sm:w-[200px] p-[10px] rounded-lg mt-2 border-2"
+                    className="w-full max-sm:w-[200px] rounded-lg"
                     ref={locationInput}
-                    required
                   />
-                  <input
+                  <Input
                     type="text"
                     name="typeInput"
                     placeholder={t("Fish Type")}
-                    className="w-full max-sm:w-[200px] p-[10px] rounded-lg mt-2 border-2"
+                    className="w-full max-sm:w-[200px] rounded-lg"
                     ref={typeInput}
                     required
                   />
                   <div className="flex justify-center items-center w-full h-full">
-                    <input
+                    <Input
                       type="number"
                       name="weightInput"
                       placeholder={t("Fish Weight")}
-                      className="w-full max-sm:w-[200px] p-[10px] rounded-lg mt-2 border-2"
+                      className="w-full max-sm:w-[200px] rounded-lg"
                       ref={weightInput}
-                      required
                     />
-                    <span className=" max-sm:ml-[150px] bg-transparent ml-[350px] absolute mt-2 text-[#7F7F7F]">
+                    <span className=" max-sm:ml-[150px] bg-transparent ml-[350px] absolute text-[#7F7F7F]">
                       kg
                     </span>
                   </div>
+
                   <div className="flex justify-center items-center w-full h-full">
-                    <input
+                    <Input
                       type="number"
                       name="lengthInput"
                       placeholder={t("Fish Length")}
-                      className="w-full max-sm:w-[200px] p-[10px] rounded-lg mt-2 border-2"
+                      className="w-full max-sm:w-[200px] rounded-lg"
                       ref={lengthInput}
-                      required
                     />
-                    <span className=" max-sm:ml-[150px] bg-transparent ml-[350px] absolute mt-2 text-[#7F7F7F]">
+                    <span className=" max-sm:ml-[150px] bg-transparent ml-[350px] absolute text-[#7F7F7F]">
                       cm
                     </span>
                   </div>
 
-                  <input
+                  <div className="flex justify-center items-center w-full h-full">
+                    <Input
+                      placeholder={"Temperature"}
+                      type="number"
+                      ref={tempInput}
+                      className="w-full max-sm:w-[200px] rounded-lg"
+                    />
+                    <span className=" max-sm:ml-[150px] bg-transparent ml-[350px] absolute text-[#7F7F7F]">
+                      °C
+                    </span>
+                  </div>
+
+                  <Input
                     type="text"
-                    name="collectionInput"
+                    ref={baitInput}
+                    placeholder="Bait"
+                    className="w-full max-sm:w-[200px] rounded-lg"
+                  />
+
+                  <div className="w-full">
+                    <SelectPicker
+                      ref={weatherInput}
+                      data={weatherData}
+                      className="w-full max-sm:w-[200px] rounded-lg"
+                      placeholder="Weather"
+                      searchable={false}
+                      block
+                      value={weatherVal}
+                      onChange={setWeatherVal}
+                    />
+                  </div>
+
+                  <div className="w-full">
+                    <SelectPicker
+                      data={waterData}
+                      ref={waterInput}
+                      className="w-full max-sm:w-[200px] rounded-lg"
+                      placeholder="Water Level"
+                      searchable={false}
+                      block
+                      value={waterVal}
+                      onChange={setWaterVal}
+                    />
+                  </div>
+
+                  <Input
+                    type="text"
+                    ref={textInput}
+                    placeholder="Free Text"
+                    className="w-full max-sm:w-[200px] rounded-lg"
+                  />
+
+                  <Input
+                    type="text"
                     ref={collectionNameInput}
                     placeholder={t("Folder")}
                     required
-                    className="w-full max-sm:w-[200px] p-[10px] rounded-lg mt-2 border-2"
+                    className="w-full max-sm:w-[200px] rounded-lg"
                   />
                   <button
                     className="w-full max-sm:w-[200px] mt-2 p-[10px] rounded-lg bg-[#003585] text-white border-0"
@@ -278,7 +359,7 @@ const Home = () => {
               </form>
               <div
                 ref={fileLoader}
-                className="fileLoadBar w-0 bg-[#003585] h-2 mt-3 rounded-lg transition-all"
+                className="fileLoadBar w-0 bg-green-400 h-2 mt-3 rounded-lg transition-all"
               ></div>
             </div>
 
