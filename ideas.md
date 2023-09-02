@@ -11,4 +11,4 @@
 All Attribute upload: Check
 All Attribute download: Check
 
-Bug when rotating mobile device in Collection List
+Bug when rotating mobile device in Collection List: Check

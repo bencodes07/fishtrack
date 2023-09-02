@@ -316,7 +316,7 @@ const Home = () => {
                     className="w-full max-sm:w-[200px] rounded-lg"
                   />
 
-                  <div className="w-full">
+                  <div className="w-full max-sm:translate-x-1/4">
                     <SelectPicker
                       ref={weatherInput}
                       data={weatherData}
@@ -329,7 +329,7 @@ const Home = () => {
                     />
                   </div>
 
-                  <div className="w-full">
+                  <div className="w-full max-sm:translate-x-1/4">
                     <SelectPicker
                       data={waterData}
                       ref={waterInput}
