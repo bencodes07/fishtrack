@@ -43,14 +43,18 @@ const Home = () => {
 
   const [imageAmount, setImageAmount] = useState(0);
 
-  const weatherData = ["Sunny", "Cloudy", "Rainy", "Foggy", "Snowy"].map(
-    (item) => ({
-      label: item,
-      value: item,
-    })
-  );
+  const weatherData = [
+    t("Sunny"),
+    t("Cloudy"),
+    t("Rainy"),
+    t("Foggy"),
+    t("Snowy"),
+  ].map((item) => ({
+    label: item,
+    value: item,
+  }));
 
-  const waterData = ["High", "Medium", "Low"].map((item) => ({
+  const waterData = [t("High"), t("Medium"), t("Low")].map((item) => ({
     label: item,
     value: item,
   }));
@@ -97,7 +101,7 @@ const Home = () => {
           const minutes = String(dateObject.getMinutes()).padStart(2, "0");
           const formattedTime = `${hours}:${minutes}`;
 
-          const regex = /^[A-Za-z0-9,.: üöä]*$/;
+          const regex = /^[A-Za-z0-9,.: ]*$/;
 
           if (
             !regex.test(collectionNameInput.current.value) ||
@@ -109,7 +113,7 @@ const Home = () => {
             !regex.test(tempInput.current.value) ||
             !regex.test(textInput.current.value)
           )
-            return alert("No special characters please!");
+            return alert(t("No special characters please!"));
 
           storage
             .ref(
@@ -119,7 +123,7 @@ const Home = () => {
                 locationInput.current.value
               }}_[${typeInput.current.value}]_(${weightInput.current.value})_$${
                 lengthInput.current.value
-              }$_!${baitInput.current.value}!_§${weatherVal}§_*${waterVal}*_@${
+              }$_!${baitInput.current.value}!_§${weatherVal}§_>${waterVal}>_@${
                 tempInput.current.value
               }@_<${textInput.current.value}<_collection=${
                 collectionNameInput.current.value
@@ -236,7 +240,7 @@ const Home = () => {
                   ) : (
                     <DatePicker />
                   )} */}
-                  <div className="w-full z-20 flex justify-center items-center h-[36px]">
+                  <div className="w-full z-20 flex justify-center items-center h-[36px] overflow-hidden">
                     <DatePicker
                       ref={dateInput}
                       showTimeSelect
@@ -266,7 +270,8 @@ const Home = () => {
                   />
                   <div className="flex justify-center items-center w-full h-full">
                     <Input
-                      type="number"
+                      type="text"
+                      pattern="([0-9]+.{0,1}[0-9]*,{0,1})*[0-9]"
                       name="weightInput"
                       placeholder={t("Fish Weight")}
                       className="w-full max-sm:w-[200px] rounded-lg"
@@ -279,7 +284,8 @@ const Home = () => {
 
                   <div className="flex justify-center items-center w-full h-full">
                     <Input
-                      type="number"
+                      type="text"
+                      pattern="([0-9]+.{0,1}[0-9]*,{0,1})*[0-9]"
                       name="lengthInput"
                       placeholder={t("Fish Length")}
                       className="w-full max-sm:w-[200px] rounded-lg"
@@ -293,7 +299,8 @@ const Home = () => {
                   <div className="flex justify-center items-center w-full h-full">
                     <Input
                       placeholder={"Temperature"}
-                      type="number"
+                      type="text"
+                      pattern="([0-9]+.{0,1}[0-9]*,{0,1})*[0-9]"
                       ref={tempInput}
                       className="w-full max-sm:w-[200px] rounded-lg"
                     />

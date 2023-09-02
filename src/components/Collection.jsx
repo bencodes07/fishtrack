@@ -4,10 +4,18 @@ import { getImgWithCollection } from "../firebase/utils";
 import { auth, storage } from "../firebase/config";
 import { GrClose } from "react-icons/gr";
 import { IoLocationSharp } from "react-icons/io5";
-import { GiFishing, GiWeight } from "react-icons/gi";
-import { FaFishFins, FaChevronDown, FaChevronUp } from "react-icons/fa6";
+import { GiFishing, GiWeight, GiFishingHook } from "react-icons/gi";
+import {
+  FaFishFins,
+  FaChevronDown,
+  FaChevronUp,
+  FaTemperatureHalf,
+  FaCloudSun,
+  FaArrowUpFromWaterPump,
+} from "react-icons/fa6";
 import { TbRulerMeasure } from "react-icons/tb";
 import { BsFillTrash3Fill } from "react-icons/bs";
+import { BiText } from "react-icons/bi";
 import Loader from "./Loader";
 import Slider from "@mui/material/Slider";
 import "rsuite/dist/rsuite.min.css";
@@ -39,8 +47,7 @@ function Collection() {
       fetchImages();
     });
     document.body.style.overflowX = "hidden";
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [name]);
   const handleClickOpen = (imageLink) => {
     setImageSource(imageLink);
     window.scrollTo(0, 0);
@@ -50,10 +57,13 @@ function Collection() {
     setFilterOpen(false);
     filterSection.current.style.height = "2.5rem";
     document.querySelector(".filterContent").style.display = "none";
-    console.log(imageSource.toString().match(/%24(.*?)%24/));
+    document.querySelector("header").style.display = "none";
+    modal.current.style.minHeight = "100svh";
+    main.current.style.minHeight = "100svh";
   };
   const handleClickClose = () => {
     modal.current.style.translate = "100%";
+    document.querySelector("header").style.display = "flex";
     document.body.style.overflow = "visible";
     document.body.style.maxHeight = "unset";
   };
@@ -202,12 +212,10 @@ function Collection() {
           </button>
           {imageSource && (
             <>
-              <div className="flex justify-center flex-col items-left w-[40vw] text-xl max-sm:w-[75vw] max-sm:items-center ">
+              <div className="flex justify-center flex-col items-left w-[40vw] text-xl max-sm:w-[75vw] ">
                 <div className="flex justify-start items-center">
                   <GiFishing size={24} className="mr-1" />
-                  <p className=" font-bold">
-                    {t("Catch Date")}:&nbsp;&nbsp;&nbsp;
-                  </p>
+                  <p className=" font-bold mr-1">{t("Catch Date")}:</p>
 
                   {imageSource
                     ?.toString()
@@ -217,8 +225,8 @@ function Collection() {
                 </div>
                 <div className="flex justify-start items-center">
                   <IoLocationSharp size={24} className="mr-1" />
-                  <p className=" font-bold">
-                    {t("Catch Location")}:&nbsp;&nbsp;&nbsp;
+                  <p className=" font-bold mr-1 min-w-fit">
+                    {t("Catch Location")}:
                   </p>
                   {imageSource
                     ?.toString()
@@ -227,9 +235,7 @@ function Collection() {
                 </div>
                 <div className="flex justify-start items-center">
                   <FaFishFins size={24} className="mr-1" />
-                  <p className=" font-bold">
-                    {t("Fish Type")}:&nbsp;&nbsp;&nbsp;
-                  </p>
+                  <p className="mr-1 font-bold">{t("Fish Type")}:</p>
                   {imageSource
                     ?.toString()
                     .match(/%5B(.*?)%5D/)[1]
@@ -237,22 +243,56 @@ function Collection() {
                 </div>
                 <div className="flex justify-start items-center">
                   <GiWeight size={24} className="mr-1" />
-                  <p className=" font-bold">
-                    {t("Fish Weight")}:&nbsp;&nbsp;&nbsp;
-                  </p>
-                  {/* {imageSource?.toString().match(/\(([^)]+)\)/)[1]}kg */}
+                  <p className="mr-1 font-bold">{t("Fish Weight")}:</p>
                   {imageSource.toString().match(/\(([^)]+)\)/) != null
                     ? imageSource.toString().match(/\(([^)]+)\)/)[1] + "kg"
                     : "-"}
                 </div>
                 <div className="flex justify-start items-center">
                   <TbRulerMeasure size={24} className="mr-1" />
-                  <p className=" font-bold">
-                    {t("Fish Length")}:&nbsp;&nbsp;&nbsp;
-                  </p>
+                  <p className="mr-1 font-bold">{t("Fish Length")}:</p>
                   {imageSource.toString().match(/%24(.*?)%24/)[1] != ""
                     ? imageSource.toString().match(/%24(.*?)%24/)[1] + "cm"
                     : "-"}
+                </div>
+                <div className="flex justify-start items-center">
+                  <FaTemperatureHalf size={24} className="mr-1" />
+                  <p className="mr-1 font-bold">{t("Temperature")}:</p>
+                  {imageSource.toString().match(/%40(.*?)%40/)[1] != ""
+                    ? imageSource.toString().match(/%40(.*?)%40/)[1] + "°C"
+                    : "-"}
+                </div>
+                <div className="flex justify-start items-center">
+                  <GiFishingHook size={24} className="mr-1" />
+                  <p className="mr-1 font-bold">{t("Bait")}:</p>
+                  {imageSource.toString().match(/!([^!]+)!/)[1] != ""
+                    ? imageSource
+                        .toString()
+                        .match(/!([^!]+)!/)[1]
+                        .replace(/%20/g, " ")
+                    : "-"}
+                </div>
+                <div className="flex justify-start items-center">
+                  <FaCloudSun size={24} className="mr-1" />
+                  <p className="mr-1 font-bold">{t("Weather")}:</p>
+                  {imageSource.toString().match(/%C2%A7(.*?)%C2%A7/)[1] != ""
+                    ? imageSource.toString().match(/%C2%A7(.*?)%C2%A7/)[1]
+                    : "-"}
+                </div>
+                <div className="flex justify-start items-center">
+                  <FaArrowUpFromWaterPump size={24} className="mr-1" />
+                  <p className="mr-1 font-bold">{t("Water Level")}:</p>
+                  {imageSource.toString().match(/%3E(.*?)%3E/)[1] != ""
+                    ? imageSource.toString().match(/%3E(.*?)%3E/)[1]
+                    : "-"}
+                </div>
+                <div className="flex justify-start items-center">
+                  <BiText size={42} className="mr-1" />
+                  <p className="mr-1 font-bold min-w-fit">{t("Free Text")}:</p>
+                  {imageSource
+                    ?.toString()
+                    .match(/%3C(.*?)%3C/)[1]
+                    .replace(/%20/g, " ")}
                 </div>
                 <button
                   onClick={handleDelete}
@@ -264,9 +304,8 @@ function Collection() {
               </div>
               <img
                 src={imageSource}
-                width={300}
                 loading="lazy"
-                className="rounded-md w-[40vw] max-sm:mb-5 max-sm:w-[75vw]"
+                className="rounded-md max-w-[40vw] max-sm:mb-5 max-sm:w-[75vw] max-h-[70vh]"
               />
             </>
           )}
