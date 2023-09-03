@@ -245,21 +245,30 @@ function Collection() {
                   <GiWeight size={24} className="mr-1" />
                   <p className="mr-1 font-bold">{t("Fish Weight")}:</p>
                   {imageSource.toString().match(/\(([^)]+)\)/) != null
-                    ? imageSource.toString().match(/\(([^)]+)\)/)[1] + "kg"
+                    ? imageSource
+                        .toString()
+                        .match(/\(([^)]+)\)/)[1]
+                        .replace(/%2C/g, ",") + "kg"
                     : "-"}
                 </div>
                 <div className="flex justify-start items-center">
                   <TbRulerMeasure size={24} className="mr-1" />
                   <p className="mr-1 font-bold">{t("Fish Length")}:</p>
                   {imageSource.toString().match(/%24(.*?)%24/)[1] != ""
-                    ? imageSource.toString().match(/%24(.*?)%24/)[1] + "cm"
+                    ? imageSource
+                        .toString()
+                        .match(/%24(.*?)%24/)[1]
+                        .replace(/%2C/g, ",") + "cm"
                     : "-"}
                 </div>
                 <div className="flex justify-start items-center">
                   <FaTemperatureHalf size={24} className="mr-1" />
                   <p className="mr-1 font-bold">{t("Temperature")}:</p>
                   {imageSource.toString().match(/%40(.*?)%40/)[1] != ""
-                    ? imageSource.toString().match(/%40(.*?)%40/)[1] + "°C"
+                    ? imageSource
+                        .toString()
+                        .match(/%40(.*?)%40/)[1]
+                        .replace(/%2C/g, ",") + "°C"
                     : "-"}
                 </div>
                 <div className="flex justify-start items-center">
