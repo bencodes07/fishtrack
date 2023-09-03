@@ -102,6 +102,7 @@ const Home = () => {
           const formattedTime = `${hours}:${minutes}`;
 
           const regex = /^[A-Za-z0-9,.: ]*$/;
+          const collectionRegex = /^[a-zA-Z]+(?: [a-zA-Z]+)*$/;
 
           if (
             !regex.test(collectionNameInput.current.value) ||
@@ -114,6 +115,11 @@ const Home = () => {
             !regex.test(textInput.current.value)
           )
             return alert(t("No special characters please!"));
+
+          if (!collectionRegex.test(collectionNameInput.current.value))
+            return alert(
+              t("No spaces at the start or end of the folder please!")
+            );
 
           storage
             .ref(

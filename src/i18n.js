@@ -62,6 +62,8 @@ const resources = {
       Medium: "Medium",
       Low: "Low",
       "No special characters please!": "No special characters please!",
+      "No spaces at the start or end of the folder please!":
+        "No spaces at the start or end of the folder please!",
     },
   },
   de: {
@@ -123,6 +125,8 @@ const resources = {
       Medium: "Mittel",
       Low: "Tief",
       "No special characters please!": "Keine Zeichen oder Umlaute bitte",
+      "No spaces at the start or end of the folder please!":
+        "Keine Leerzeichen an den Start oder das Ende des Ordners!",
     },
   },
 };
