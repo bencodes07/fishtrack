@@ -1,11 +1,9 @@
 # fishtrack
-
 ![Vercel](https://vercelbadge.vercel.app/api/bencodes07/fishtrack)
 
 FishTrack is a web application designed for fishing enthusiasts to track and manage their fishing catches. Whether you're an experienced angler or just getting started, FishTrack makes it easy to record your fishing adventures, log your catches, and keep a digital fishing diary. With the ability to upload pictures and add detailed information about each catch, you can use FishTrack to maintain a comprehensive record of your fishing experiences.
 
 ## Features
-
 - **User Authentication:** Secure user registration and login system to keep your fishing data private.
 - **Catch Logging:** Record details of your fishing catches, including species, weight, length, location, date, and more.
 - **Photo Upload:** Upload photos of your catches to create a visual diary of your fishing achievements.
@@ -15,7 +13,6 @@ FishTrack is a web application designed for fishing enthusiasts to track and man
 - **Mobile Responsive:** Access FishTrack on the go with a mobile-friendly design.
 
 ## Usage
-
 1. Register for a new account or log in with your existing credentials.
 2. Start logging your catches by uploading your file
 3. Fill in the details of your catch, including species, weight, length, location, and any additional notes.
@@ -23,7 +20,6 @@ FishTrack is a web application designed for fishing enthusiasts to track and man
 5. Explore your catches, view statistics, and use the search and filter options to organize your data.
 
 ## Contributing
-
 If you'd like to contribute to FishTrack, please follow these guidelines:
 
 1. Fork the repository.
@@ -34,5 +30,4 @@ If you'd like to contribute to FishTrack, please follow these guidelines:
 6. Merging Time 😎
 
 ## License
-
 This project is licensed under the MIT License - see the LICENSE file for details.
