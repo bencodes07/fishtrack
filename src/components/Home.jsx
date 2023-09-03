@@ -102,9 +102,8 @@ const Home = () => {
           const formattedTime = `${hours}:${minutes}`;
 
           const regex = /^[A-Za-z0-9,.: ]*$/;
-
+          const collectionRegex = /^[a-zA-Z]+(?: [a-zA-Z]+)*$/;
           if (
-            !regex.test(collectionNameInput.current.value) ||
             !regex.test(locationInput.current.value) ||
             !regex.test(typeInput.current.value) ||
             !regex.test(weightInput.current.value) ||
@@ -114,7 +113,10 @@ const Home = () => {
             !regex.test(textInput.current.value)
           )
             return alert(t("No special characters please!"));
-
+          if (!collectionRegex.test(collectionNameInput.current.value))
+            return alert(
+              t("No spaces at the starts or end of a string please!")
+            );
           storage
             .ref(
               `images/${files[i].name}_${
@@ -271,7 +273,7 @@ const Home = () => {
                   <div className="flex justify-center items-center w-full h-full">
                     <Input
                       type="text"
-                      pattern="([0-9]+.{0,1}[0-9]*,{0,1})*[0-9]"
+                      pattern="^[0-9,\.]*$"
                       name="weightInput"
                       placeholder={t("Fish Weight")}
                       className="w-full max-sm:w-[200px] rounded-lg"
