@@ -12,3 +12,5 @@ All Attribute upload: Check
 All Attribute download: Check
 
 Bug when rotating mobile device in Collection List: Check
+
+TODO: Rework the entire filter section

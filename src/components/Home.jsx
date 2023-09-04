@@ -246,7 +246,8 @@ const Home = () => {
                     <DatePicker
                       ref={dateInput}
                       showTimeSelect
-                      dateFormat={"dd-MM-yyyy"}
+                      dateFormat={"dd-MM-yyyy/HH:mm"}
+                      timeFormat="HH:mm"
                       autoComplete="off"
                       selected={date}
                       onChange={(selectedDate) => setDate(selectedDate)}
@@ -272,8 +273,7 @@ const Home = () => {
                   />
                   <div className="flex justify-center items-center w-full h-full">
                     <Input
-                      type="text"
-                      pattern="^[0-9,\.]*$"
+                      type="number"
                       name="weightInput"
                       placeholder={t("Fish Weight")}
                       className="w-full max-sm:w-[200px] rounded-lg"
@@ -286,8 +286,7 @@ const Home = () => {
 
                   <div className="flex justify-center items-center w-full h-full">
                     <Input
-                      type="text"
-                      pattern="([0-9]+.{0,1}[0-9]*,{0,1})*[0-9]"
+                      type="number"
                       name="lengthInput"
                       placeholder={t("Fish Length")}
                       className="w-full max-sm:w-[200px] rounded-lg"
@@ -300,9 +299,8 @@ const Home = () => {
 
                   <div className="flex justify-center items-center w-full h-full">
                     <Input
-                      placeholder={"Temperature"}
-                      type="text"
-                      pattern="([0-9]+.{0,1}[0-9]*,{0,1})*[0-9]"
+                      placeholder={t("Temperature")}
+                      type="number"
                       ref={tempInput}
                       className="w-full max-sm:w-[200px] rounded-lg"
                     />
@@ -314,7 +312,7 @@ const Home = () => {
                   <Input
                     type="text"
                     ref={baitInput}
-                    placeholder="Bait"
+                    placeholder={t("Bait")}
                     className="w-full max-sm:w-[200px] rounded-lg"
                   />
 
@@ -323,7 +321,7 @@ const Home = () => {
                       ref={weatherInput}
                       data={weatherData}
                       className="w-full max-sm:w-[200px] rounded-lg"
-                      placeholder="Weather"
+                      placeholder={t("Weather")}
                       searchable={false}
                       block
                       value={weatherVal}
@@ -336,7 +334,7 @@ const Home = () => {
                       data={waterData}
                       ref={waterInput}
                       className="w-full max-sm:w-[200px] rounded-lg"
-                      placeholder="Water Level"
+                      placeholder={t("Water Level")}
                       searchable={false}
                       block
                       value={waterVal}
@@ -347,7 +345,7 @@ const Home = () => {
                   <Input
                     type="text"
                     ref={textInput}
-                    placeholder="Free Text"
+                    placeholder={t("Free Text")}
                     className="w-full max-sm:w-[200px] rounded-lg"
                   />
 
