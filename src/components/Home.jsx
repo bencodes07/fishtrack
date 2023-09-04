@@ -276,6 +276,7 @@ const Home = () => {
                       type="number"
                       name="weightInput"
                       placeholder={t("Fish Weight")}
+                      step={"any"}
                       className="w-full max-sm:w-[200px] rounded-lg"
                       ref={weightInput}
                     />
@@ -288,6 +289,7 @@ const Home = () => {
                     <Input
                       type="number"
                       name="lengthInput"
+                      step="any"
                       placeholder={t("Fish Length")}
                       className="w-full max-sm:w-[200px] rounded-lg"
                       ref={lengthInput}
@@ -302,6 +304,7 @@ const Home = () => {
                       placeholder={t("Temperature")}
                       type="number"
                       ref={tempInput}
+                      step="any"
                       className="w-full max-sm:w-[200px] rounded-lg"
                     />
                     <span className=" max-sm:ml-[150px] bg-transparent ml-[350px] absolute text-[#7F7F7F]">

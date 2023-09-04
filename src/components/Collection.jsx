@@ -93,6 +93,7 @@ function Collection() {
       .delete()
       .then(() => {
         alert(t("Successful!"));
+        window.location.reload(false);
       })
       .catch((error) => {
         console.error(error);
@@ -296,7 +297,7 @@ function Collection() {
                     : "-"}
                 </div>
                 <div className="flex justify-start items-center">
-                  <BiText size={42} className="mr-1" />
+                  <BiText size={24} className="mr-1" />
                   <p className="mr-1 font-bold min-w-fit">{t("Free Text")}:</p>
                   {imageSource
                     ?.toString()
