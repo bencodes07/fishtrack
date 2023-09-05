@@ -64,6 +64,7 @@ const resources = {
       "No special characters please!": "No special characters please!",
       "No spaces at the starts or end of a string please!":
         "No spaces at the starts or end of a string please!",
+      Cancel: "Cancel",
     },
   },
   de: {
@@ -127,6 +128,7 @@ const resources = {
       "No special characters please!": "Keine Zeichen oder Umlaute bitte",
       "No spaces at the starts or end of a string please!":
         "Keine Leerzeichen an den Start oder Ende des Ordners bitte!",
+      Cancel: "Zurück",
     },
   },
 };

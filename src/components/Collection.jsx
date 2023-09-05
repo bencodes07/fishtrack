@@ -20,6 +20,8 @@ import Loader from "./Loader";
 import Slider from "@mui/material/Slider";
 import "rsuite/dist/rsuite.min.css";
 import { useTranslation } from "react-i18next";
+import { useContextMenu, ContextMenuItem } from "use-context-menu";
+import "use-context-menu/styles.css";
 
 function Collection() {
   const { name } = useParams();
@@ -97,8 +99,22 @@ function Collection() {
       })
       .catch((error) => {
         console.error(error);
+        alert(error);
       });
   };
+
+  const {
+    contextMenu: contextMenu,
+    onContextMenu: onClick,
+    onKeyDown,
+  } = useContextMenu(
+    <>
+      <ContextMenuItem onSelect={handleDelete} className="text-red-500">
+        {t("Delete")}
+      </ContextMenuItem>
+      <ContextMenuItem>{t("Cancel")}</ContextMenuItem>
+    </>
+  );
 
   const handleSearch = () => {
     const filteredData = originalImages.filter(() => {
@@ -179,7 +195,7 @@ function Collection() {
       </section>
       {loading && <Loader />}
       <main
-        className="relative left-[50%] translate-x-[-50%] min-h-[calc(100vh-215px)] w-[100svw] grid grid-cols-4 md:grid-cols-3 sm:grid-cols-2 max-sm:grid-cols-1 gap-6 pt-2 justify-items-center px-4 grid-flow-row gap-y-6 max-sm:w-[calc(100vw-50px)] overflow-visible"
+        className="relative left-[50%] translate-x-[-50%] grid-flow-row grid grid-cols-4 md:grid-cols-3 sm:grid-cols-2 max-sm:grid-cols-1 pt-2 justify-items-center max-sm:w-[calc(100vw-50px)] gap-6 overflow-hidden"
         style={{ maxWidth: "64rem" }}
         ref={main}
       >
@@ -197,130 +213,128 @@ function Collection() {
             />
           </a>
         ))}
-        <div className="w-full flex justify-center">
-          <img src="" alt="" />
-        </div>
-        <div
-          ref={modal}
-          style={{ translate: "100% 0%" }}
-          className="absolute flex max-sm:flex-col-reverse justify-center items-center w-screen h-[calc(100vh-215px)] bg-white z-20 transition-all mt-[-2.5rem]"
-        >
-          <button
-            className="absolute top-10 right-10"
-            onClick={handleClickClose}
-          >
-            <GrClose size={40} />
-          </button>
-          {imageSource && (
-            <>
-              <div className="flex justify-center flex-col items-left w-[40vw] text-xl max-sm:w-[75vw] ">
-                <div className="flex justify-start items-center">
-                  <GiFishing size={24} className="mr-1" />
-                  <p className=" font-bold mr-1">{t("Catch Date")}:</p>
-
-                  {imageSource
-                    ?.toString()
-                    .match(/(\d{2}-\d{2}-\d{4})\*(\d{2}%3A\d{2})/)[0]
-                    .replace(/%3A/g, ":")
-                    .replace("*", ", ")}
-                </div>
-                <div className="flex justify-start items-center">
-                  <IoLocationSharp size={24} className="mr-1" />
-                  <p className=" font-bold mr-1 min-w-fit">
-                    {t("Catch Location")}:
-                  </p>
-                  {imageSource
-                    ?.toString()
-                    .match(/%7B(.*?)%7D/)[1]
-                    .replace(/%20/g, " ")}
-                </div>
-                <div className="flex justify-start items-center">
-                  <FaFishFins size={24} className="mr-1" />
-                  <p className="mr-1 font-bold">{t("Fish Type")}:</p>
-                  {imageSource
-                    ?.toString()
-                    .match(/%5B(.*?)%5D/)[1]
-                    .replace(/%20/g, " ")}
-                </div>
-                <div className="flex justify-start items-center">
-                  <GiWeight size={24} className="mr-1" />
-                  <p className="mr-1 font-bold">{t("Fish Weight")}:</p>
-                  {imageSource.toString().match(/\(([^)]+)\)/) != null
-                    ? imageSource
-                        .toString()
-                        .match(/\(([^)]+)\)/)[1]
-                        .replace(/%2C/g, ",") + "kg"
-                    : "-"}
-                </div>
-                <div className="flex justify-start items-center">
-                  <TbRulerMeasure size={24} className="mr-1" />
-                  <p className="mr-1 font-bold">{t("Fish Length")}:</p>
-                  {imageSource.toString().match(/%24(.*?)%24/)[1] != ""
-                    ? imageSource
-                        .toString()
-                        .match(/%24(.*?)%24/)[1]
-                        .replace(/%2C/g, ",") + "cm"
-                    : "-"}
-                </div>
-                <div className="flex justify-start items-center">
-                  <FaTemperatureHalf size={24} className="mr-1" />
-                  <p className="mr-1 font-bold">{t("Temperature")}:</p>
-                  {imageSource.toString().match(/%40(.*?)%40/)[1] != ""
-                    ? imageSource
-                        .toString()
-                        .match(/%40(.*?)%40/)[1]
-                        .replace(/%2C/g, ",") + "°C"
-                    : "-"}
-                </div>
-                <div className="flex justify-start items-center">
-                  <GiFishingHook size={24} className="mr-1" />
-                  <p className="mr-1 font-bold">{t("Bait")}:</p>
-                  {imageSource.toString().match(/!([^!]+)!/)[1] != ""
-                    ? imageSource
-                        .toString()
-                        .match(/!([^!]+)!/)[1]
-                        .replace(/%20/g, " ")
-                    : "-"}
-                </div>
-                <div className="flex justify-start items-center">
-                  <FaCloudSun size={24} className="mr-1" />
-                  <p className="mr-1 font-bold">{t("Weather")}:</p>
-                  {imageSource.toString().match(/%C2%A7(.*?)%C2%A7/)[1] != ""
-                    ? imageSource.toString().match(/%C2%A7(.*?)%C2%A7/)[1]
-                    : "-"}
-                </div>
-                <div className="flex justify-start items-center">
-                  <FaArrowUpFromWaterPump size={24} className="mr-1" />
-                  <p className="mr-1 font-bold">{t("Water Level")}:</p>
-                  {imageSource.toString().match(/%3E(.*?)%3E/)[1] != ""
-                    ? imageSource.toString().match(/%3E(.*?)%3E/)[1]
-                    : "-"}
-                </div>
-                <div className="flex justify-start items-center">
-                  <BiText size={24} className="mr-1" />
-                  <p className="mr-1 font-bold min-w-fit">{t("Free Text")}:</p>
-                  {imageSource
-                    ?.toString()
-                    .match(/%3C(.*?)%3C/)[1]
-                    .replace(/%20/g, " ")}
-                </div>
-                <button
-                  onClick={handleDelete}
-                  className=" text-red-500 w-[50%] mt-2 flex justify-center items-center"
-                >
-                  <BsFillTrash3Fill className="mr-2" />
-                  {t("Delete")}
-                </button>
-              </div>
-              <img
-                src={imageSource}
-                loading="lazy"
-                className="rounded-md max-w-[40vw] max-sm:mb-5 max-sm:w-[75vw] max-h-[70vh]"
-              />
-            </>
-          )}
-        </div>
       </main>
+      <div
+        ref={modal}
+        style={{ translate: "100% 0%" }}
+        className="fixed top-0 ml-0 flex max-sm:flex-col-reverse w-screen justify-center items-center bg-white transition-all"
+      >
+        <button className="absolute top-10 right-10" onClick={handleClickClose}>
+          <GrClose size={40} />
+        </button>
+        {imageSource && (
+          <>
+            <div className="flex justify-center flex-col items-left w-[40vw] text-xl max-sm:w-[75vw] ">
+              <div className="flex justify-start items-center">
+                <GiFishing size={24} className="mr-1" />
+                <p className=" font-bold mr-1">{t("Catch Date")}:</p>
+
+                {imageSource
+                  ?.toString()
+                  .match(/(\d{2}-\d{2}-\d{4})\*(\d{2}%3A\d{2})/)[0]
+                  .replace(/%3A/g, ":")
+                  .replace("*", ", ")}
+              </div>
+              <div className="flex justify-start items-center">
+                <IoLocationSharp size={24} className="mr-1" />
+                <p className=" font-bold mr-1 min-w-fit">
+                  {t("Catch Location")}:
+                </p>
+                {imageSource
+                  ?.toString()
+                  .match(/%7B(.*?)%7D/)[1]
+                  .replace(/%20/g, " ")}
+              </div>
+              <div className="flex justify-start items-center">
+                <FaFishFins size={24} className="mr-1" />
+                <p className="mr-1 font-bold">{t("Fish Type")}:</p>
+                {imageSource
+                  ?.toString()
+                  .match(/%5B(.*?)%5D/)[1]
+                  .replace(/%20/g, " ")}
+              </div>
+              <div className="flex justify-start items-center">
+                <GiWeight size={24} className="mr-1" />
+                <p className="mr-1 font-bold">{t("Fish Weight")}:</p>
+                {imageSource.toString().match(/\(([^)]+)\)/) != null
+                  ? imageSource
+                      .toString()
+                      .match(/\(([^)]+)\)/)[1]
+                      .replace(/%2C/g, ",") + "kg"
+                  : "-"}
+              </div>
+              <div className="flex justify-start items-center">
+                <TbRulerMeasure size={24} className="mr-1" />
+                <p className="mr-1 font-bold">{t("Fish Length")}:</p>
+                {imageSource.toString().match(/%24(.*?)%24/)[1] != ""
+                  ? imageSource
+                      .toString()
+                      .match(/%24(.*?)%24/)[1]
+                      .replace(/%2C/g, ",") + "cm"
+                  : "-"}
+              </div>
+              <div className="flex justify-start items-center">
+                <FaTemperatureHalf size={24} className="mr-1" />
+                <p className="mr-1 font-bold">{t("Temperature")}:</p>
+                {imageSource.toString().match(/%40(.*?)%40/)[1] != ""
+                  ? imageSource
+                      .toString()
+                      .match(/%40(.*?)%40/)[1]
+                      .replace(/%2C/g, ",") + "°C"
+                  : "-"}
+              </div>
+              <div className="flex justify-start items-center">
+                <GiFishingHook size={24} className="mr-1" />
+                <p className="mr-1 font-bold">{t("Bait")}:</p>
+                {imageSource.toString().match(/!([^!]+)!/)[1] != ""
+                  ? imageSource
+                      .toString()
+                      .match(/!([^!]+)!/)[1]
+                      .replace(/%20/g, " ")
+                  : "-"}
+              </div>
+              <div className="flex justify-start items-center">
+                <FaCloudSun size={24} className="mr-1" />
+                <p className="mr-1 font-bold">{t("Weather")}:</p>
+                {imageSource.toString().match(/%C2%A7(.*?)%C2%A7/)[1] != ""
+                  ? imageSource.toString().match(/%C2%A7(.*?)%C2%A7/)[1]
+                  : "-"}
+              </div>
+              <div className="flex justify-start items-center">
+                <FaArrowUpFromWaterPump size={24} className="mr-1" />
+                <p className="mr-1 font-bold">{t("Water Level")}:</p>
+                {imageSource.toString().match(/%3E(.*?)%3E/)[1] != ""
+                  ? imageSource.toString().match(/%3E(.*?)%3E/)[1]
+                  : "-"}
+              </div>
+              <div className="flex justify-start items-center">
+                <BiText size={24} className="mr-1" />
+                <p className="mr-1 font-bold min-w-fit">{t("Free Text")}:</p>
+                {imageSource
+                  ?.toString()
+                  .match(/%3C(.*?)%3C/)[1]
+                  .replace(/%20/g, " ")
+                  .replace(/%2C/g, ",")}
+              </div>
+              <button
+                onContextMenu={onClick}
+                onKeyDown={onKeyDown}
+                onClick={onClick}
+                className=" text-red-500 w-[50%] mt-2 flex justify-center items-center"
+              >
+                <BsFillTrash3Fill className="mr-2" />
+                {t("Delete")}
+                {contextMenu}
+              </button>
+            </div>
+            <img
+              src={imageSource}
+              loading="lazy"
+              className="rounded-md max-w-[40vw] max-sm:mb-5 max-sm:w-[75vw] max-h-[70vh]"
+            />
+          </>
+        )}
+      </div>
     </>
   );
 }
