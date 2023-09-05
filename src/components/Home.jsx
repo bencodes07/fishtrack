@@ -102,7 +102,7 @@ const Home = () => {
           const formattedTime = `${hours}:${minutes}`;
 
           const regex = /^[A-Za-z0-9,.: ]*$/;
-          const collectionRegex = /^[a-zA-Z]+(?: [a-zA-Z]+)*$/;
+          const collectionRegex = /^[a-zA-Z0-9]+(?: [a-zA-Z0-9]+)*$/;
           if (
             !regex.test(locationInput.current.value) ||
             !regex.test(typeInput.current.value) ||
