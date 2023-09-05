@@ -41,6 +41,8 @@ const Home = () => {
   const [weatherVal, setWeatherVal] = useState(null);
   const [waterVal, setWaterVal] = useState(null);
 
+  const [inputsInvalid, setInputsInvalid] = useState(false);
+
   const [imageAmount, setImageAmount] = useState(0);
 
   const weatherData = [
@@ -103,20 +105,27 @@ const Home = () => {
 
           const regex = /^[A-Za-z0-9,.: ]*$/;
           const collectionRegex = /^[a-zA-Z0-9]+(?: [a-zA-Z0-9]+)*$/;
-          if (
-            !regex.test(locationInput.current.value) ||
-            !regex.test(typeInput.current.value) ||
-            !regex.test(weightInput.current.value) ||
-            !regex.test(lengthInput.current.value) ||
-            !regex.test(baitInput.current.value) ||
-            !regex.test(tempInput.current.value) ||
-            !regex.test(textInput.current.value)
-          )
-            return alert(t("No special characters please!"));
+
+          const inputs = [
+            locationInput,
+            typeInput,
+            baitInput,
+            tempInput,
+            textInput,
+          ];
+
+          for (let i = 0; i < inputs.length; i++) {
+            if (!regex.test(inputs[i].current.value)) {
+              inputs[i].current.classList.add("border-red-500");
+              setInputsInvalid(true);
+            }
+          }
+
           if (!collectionRegex.test(collectionNameInput.current.value))
             return alert(
               t("No spaces at the starts or end of a string please!")
             );
+          if (inputsInvalid) return alert(t("No special characters please!"));
           storage
             .ref(
               `images/${files[i].name}_${
@@ -205,7 +214,7 @@ const Home = () => {
                         width={150}
                         height={150}
                         alt={fileName}
-                        className="object-contain w-[calc(100%-20px)] h-[calc(100%-20px)]"
+                        className="object-contain w-[calc(100%-20px)] h-[calc(100%-20px)] "
                       />
                     )}
 
