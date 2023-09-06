@@ -2,6 +2,8 @@
 
 ![Vercel](https://vercelbadge.vercel.app/api/bencodes07/fishtrack)
 
+[!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/gbraad)
+
 FishTrack is a web application designed for fishing enthusiasts to track and manage their fishing catches. Whether you're an experienced angler or just getting started, FishTrack makes it easy to record your fishing adventures, log your catches, and keep a digital fishing diary. With the ability to upload pictures and add detailed information about each catch, you can use FishTrack to maintain a comprehensive record of your fishing experiences.
 
 ## Features
