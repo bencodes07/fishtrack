@@ -121,6 +121,8 @@ const Home = () => {
             }
           }
 
+          if (!files) return alert(t("Please upload a file first!"));
+
           if (!collectionRegex.test(collectionNameInput.current.value))
             return alert(
               t("No spaces at the starts or end of a string please!")

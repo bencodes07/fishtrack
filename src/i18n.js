@@ -65,6 +65,7 @@ const resources = {
       "No spaces at the starts or end of a string please!":
         "No spaces at the starts or end of a string please!",
       Cancel: "Cancel",
+      "Please upload a file first!": "Please upload a file first!",
     },
   },
   de: {
@@ -129,6 +130,7 @@ const resources = {
       "No spaces at the starts or end of a string please!":
         "Keine Leerzeichen an den Start oder Ende des Ordners bitte!",
       Cancel: "Zurück",
+      "Please upload a file first!": "Bitte lade erst eine Datei hoch!",
     },
   },
 };
