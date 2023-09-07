@@ -35,6 +35,12 @@ If you'd like to contribute to FishTrack, please follow these guidelines:
 5. Submit a pull request to the main branch of the original repository.
 6. Merging Time 😎
 
+## Techstack 
+
+![Firebase](https://img.shields.io/badge/Firebase-039BE5?style=for-the-badge&logo=Firebase&logoColor=white)
+![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
+![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)
+
 ## License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
