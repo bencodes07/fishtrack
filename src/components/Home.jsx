@@ -273,6 +273,7 @@ const Home = () => {
                     placeholder={t("Catch Location")}
                     className="w-full max-sm:w-[200px] rounded-lg"
                     ref={locationInput}
+                    maxLength={40}
                   />
                   <Input
                     type="text"
@@ -281,6 +282,7 @@ const Home = () => {
                     className="w-full max-sm:w-[200px] rounded-lg"
                     ref={typeInput}
                     required
+                    maxLength={30}
                   />
                   <div className="flex justify-center items-center w-full h-full">
                     <Input
@@ -328,6 +330,7 @@ const Home = () => {
                     ref={baitInput}
                     placeholder={t("Bait")}
                     className="w-full max-sm:w-[200px] rounded-lg"
+                    maxLength={30}
                   />
 
                   <div className="w-full max-sm:translate-x-1/4">
@@ -361,6 +364,7 @@ const Home = () => {
                     ref={textInput}
                     placeholder={t("Free Text")}
                     className="w-full max-sm:w-[200px] rounded-lg"
+                    maxLength={40}
                   />
 
                   <Input
@@ -369,6 +373,7 @@ const Home = () => {
                     placeholder={t("Folder")}
                     required
                     className="w-full max-sm:w-[200px] rounded-lg"
+                    maxLength={20}
                   />
                   <button
                     className="w-full max-sm:w-[200px] mt-2 p-[10px] rounded-lg bg-[#003585] text-white border-0"

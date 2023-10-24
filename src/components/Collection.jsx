@@ -132,7 +132,7 @@ function Collection() {
   };
   return (
     <>
-      <header className="h-[215px] select-none collectionBg drop-shadow-2xl text-white text-center bg-[#003585] flex justify-center items-start w-[screen] overflow-hidden">
+      <header className="h-[215px] select-none collectionBg drop-shadow-2xl text-white text-center bg-[#003585] flex justify-center items-start min-w-[100lvw] overflow-hidden">
         <h1 className="relative flex justify-center items-center flex-col top-5 uppercase text-6xl font-semibold tracking-[8px] px-[30px] whitespace-break-spaces">
           {name} <br></br>
           <span className="tracking-[7px] font-normal text-2xl relative mt-10 h-fit">
@@ -217,14 +217,14 @@ function Collection() {
       <div
         ref={modal}
         style={{ translate: "100% 0%" }}
-        className="fixed top-0 ml-0 flex max-sm:flex-col-reverse w-screen justify-center items-center bg-white transition-all"
+        className="fixed top-0 ml-0 z-50 flex max-sm:flex-col-reverse w-screen justify-center items-center bg-white transition-all"
       >
         <button className="absolute top-10 right-10" onClick={handleClickClose}>
           <GrClose size={40} />
         </button>
         {imageSource && (
           <>
-            <div className="flex justify-center flex-col items-left w-[40vw] text-xl max-sm:w-[75vw] ">
+            <div className="flex justify-center flex-col items-left w-[40vw] text-[16px] max-sm:w-[75vw] ">
               <div className="flex justify-start items-center">
                 <GiFishing size={24} className="mr-1" />
                 <p className=" font-bold mr-1">{t("Catch Date")}:</p>
@@ -237,9 +237,7 @@ function Collection() {
               </div>
               <div className="flex justify-start items-center">
                 <IoLocationSharp size={24} className="mr-1" />
-                <p className=" font-bold mr-1 min-w-fit">
-                  {t("Catch Location")}:
-                </p>
+                <p className=" font-bold mr-1">{t("Catch Location")}:</p>
                 {imageSource
                   ?.toString()
                   .match(/%7B(.*?)%7D/)[1]
@@ -307,14 +305,16 @@ function Collection() {
                   ? imageSource.toString().match(/%3E(.*?)%3E/)[1]
                   : "-"}
               </div>
-              <div className="flex justify-start items-center">
+              <div className="flex justify-start items-center text-[16px]">
                 <BiText size={24} className="mr-1" />
                 <p className="mr-1 font-bold min-w-fit">{t("Free Text")}:</p>
-                {imageSource
-                  ?.toString()
-                  .match(/%3C(.*?)%3C/)[1]
-                  .replace(/%20/g, " ")
-                  .replace(/%2C/g, ",")}
+                <p className=" whitespace-pre-wrap max-w-[70%] mt-0">
+                  {imageSource
+                    ?.toString()
+                    .match(/%3C(.*?)%3C/)[1]
+                    .replace(/%20/g, " ")
+                    .replace(/%2C/g, ",")}
+                </p>
               </div>
               <button
                 onContextMenu={onClick}
@@ -330,7 +330,7 @@ function Collection() {
             <img
               src={imageSource}
               loading="lazy"
-              className="rounded-md max-w-[40vw] max-sm:mb-5 max-sm:w-[75vw] max-h-[70vh]"
+              className="rounded-md max-w-[40vw] max-sm:mb-5 max-sm:max-w-[55vw] max-h-[75vh]"
             />
           </>
         )}
